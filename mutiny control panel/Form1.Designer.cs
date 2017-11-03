@@ -95,6 +95,7 @@
             this.onlineButton.TabStop = true;
             this.onlineButton.Text = "Online";
             this.onlineButton.UseVisualStyleBackColor = true;
+            this.onlineButton.CheckedChanged += new System.EventHandler(this.onlineButton_CheckedChanged);
             // 
             // offlineButton
             // 
@@ -106,6 +107,7 @@
             this.offlineButton.TabStop = true;
             this.offlineButton.Text = "Offline";
             this.offlineButton.UseVisualStyleBackColor = true;
+            this.offlineButton.CheckedChanged += new System.EventHandler(this.offlineButton_CheckedChanged);
             // 
             // parrotEnabledCheckbox
             // 
@@ -151,6 +153,7 @@
             this.pushButton.TabIndex = 1;
             this.pushButton.Text = "Push changes";
             this.pushButton.UseVisualStyleBackColor = true;
+            this.pushButton.Click += new System.EventHandler(this.pushButton_Click);
             // 
             // editButton
             // 
@@ -160,6 +163,7 @@
             this.editButton.TabIndex = 2;
             this.editButton.Text = "Edit script";
             this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // fileToolStripMenuItem
             // 
@@ -189,6 +193,7 @@
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
             this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.preferencesToolStripMenuItem.Text = "Preferences";
+            this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -201,6 +206,7 @@
             this.goToGitHubToolStripMenuItem.Name = "goToGitHubToolStripMenuItem";
             this.goToGitHubToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.goToGitHubToolStripMenuItem.Text = "GitHub";
+            this.goToGitHubToolStripMenuItem.Click += new System.EventHandler(this.goToGitHubToolStripMenuItem_Click);
             // 
             // mainWindow
             // 

@@ -13,5 +13,9 @@ namespace mutiny_control_panel {
         public preferencesForm() {
             InitializeComponent();
         }
+
+        private void saveButton_Click(object sender, EventArgs e) {
+
+        }
     }
 }
