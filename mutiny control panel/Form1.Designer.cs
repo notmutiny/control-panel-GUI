@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.scriptGroupBox = new System.Windows.Forms.GroupBox();
@@ -30,7 +31,7 @@
             this.offlineButton = new System.Windows.Forms.RadioButton();
             this.parrotEnabledCheckbox = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.botStatusLabel = new System.Windows.Forms.Label();
+            this.onlineStatusLabel = new System.Windows.Forms.Label();
             this.pushButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,6 +40,7 @@
             this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToGitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.scriptGroupBox.SuspendLayout();
@@ -123,7 +125,7 @@
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.botStatusLabel, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.onlineStatusLabel, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.pushButton, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.editButton, 0, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -136,14 +138,14 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(157, 72);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
-            // botStatusLabel
+            // onlineStatusLabel
             // 
-            this.botStatusLabel.AutoSize = true;
-            this.botStatusLabel.Location = new System.Drawing.Point(3, 0);
-            this.botStatusLabel.Name = "botStatusLabel";
-            this.botStatusLabel.Size = new System.Drawing.Size(142, 13);
-            this.botStatusLabel.TabIndex = 0;
-            this.botStatusLabel.Text = "mutiny bot is currently ??line!";
+            this.onlineStatusLabel.AutoSize = true;
+            this.onlineStatusLabel.Location = new System.Drawing.Point(3, 0);
+            this.onlineStatusLabel.Name = "onlineStatusLabel";
+            this.onlineStatusLabel.Size = new System.Drawing.Size(149, 13);
+            this.onlineStatusLabel.TabIndex = 0;
+            this.onlineStatusLabel.Text = "mutiny bot is currently unknwn";
             // 
             // pushButton
             // 
@@ -208,6 +210,11 @@
             this.goToGitHubToolStripMenuItem.Text = "GitHub";
             this.goToGitHubToolStripMenuItem.Click += new System.EventHandler(this.goToGitHubToolStripMenuItem_Click);
             // 
+            // statusTimer
+            // 
+            this.statusTimer.Enabled = true;
+            this.statusTimer.Tick += new System.EventHandler(this.statusTimer_Tick);
+            // 
             // mainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -239,7 +246,7 @@
         private System.Windows.Forms.RadioButton offlineButton;
         private System.Windows.Forms.RadioButton onlineButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Label botStatusLabel;
+        private System.Windows.Forms.Label onlineStatusLabel;
         private System.Windows.Forms.Button pushButton;
         private System.Windows.Forms.Button editButton;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -248,6 +255,7 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem goToGitHubToolStripMenuItem;
+        private System.Windows.Forms.Timer statusTimer;
     }
 }
 

@@ -11,16 +11,20 @@ using System.Windows.Forms;
 
 namespace mutiny_control_panel {
     public partial class mainWindow : Form {
+
+        // visual studio data
+        private bool onlineEnabled;
+
         public mainWindow() {
             InitializeComponent();
         }
 
         private void onlineButton_CheckedChanged(object sender, EventArgs e) {
-
+            onlineEnabled = true;
         }
 
         private void offlineButton_CheckedChanged(object sender, EventArgs e) {
-
+            onlineEnabled = false;
         }
 
         private void pushButton_Click(object sender, EventArgs e) {
@@ -38,6 +42,26 @@ namespace mutiny_control_panel {
 
         private void goToGitHubToolStripMenuItem_Click(object sender, EventArgs e) {
             Process.Start("https://github.com/notmutiny/control-panel-GUI");
+        }
+
+        private void statusTimer_Tick(object sender, EventArgs e) {
+            updateServerStatus();
+        }
+
+        // custom functions
+        private void updateServerStatus() {
+            onlineStatusLabel.Text = "mutiny bot is currently " + checkServer() + "!";
+        }
+
+        private string checkServer() {
+            Process[] node = Process.GetProcessesByName("node");
+            string onlineStatus;
+            if (node.Length > 0) {
+                onlineStatus = "online";
+            } else {
+                onlineStatus = "offline";
+            }
+            return onlineStatus;
         }
     }
 }
