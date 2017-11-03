@@ -17,5 +17,22 @@ namespace mutiny_control_panel {
         private void saveButton_Click(object sender, EventArgs e) {
 
         }
+
+        private void findScriptButton_Click(object sender, EventArgs e) {
+            OpenFileDialog script = new OpenFileDialog();
+            script.InitialDirectory = "c:\\";
+            script.Filter = "Javascript files (*.js)|*.js";
+            if (script.ShowDialog() == DialogResult.OK) {
+                scriptPathText.Text = script.FileName;
+            }
+        }
+
+        private void customScriptEditorButton_CheckedChanged(object sender, EventArgs e) {
+            if (customScriptEditorButton.Checked == true) {
+                customEditorPathText.ReadOnly = false;
+            } else {
+                customEditorPathText.ReadOnly = true;
+            }
+        }
     }
 }

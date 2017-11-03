@@ -94,11 +94,13 @@
             this.customScriptEditorButton.TabIndex = 1;
             this.customScriptEditorButton.TabStop = true;
             this.customScriptEditorButton.UseVisualStyleBackColor = true;
+            this.customScriptEditorButton.CheckedChanged += new System.EventHandler(this.customScriptEditorButton_CheckedChanged);
             // 
             // customEditorPathText
             // 
             this.customEditorPathText.Location = new System.Drawing.Point(30, 40);
             this.customEditorPathText.Name = "customEditorPathText";
+            this.customEditorPathText.ReadOnly = true;
             this.customEditorPathText.Size = new System.Drawing.Size(227, 20);
             this.customEditorPathText.TabIndex = 2;
             // 
@@ -124,6 +126,7 @@
             // 
             this.scriptPathText.Location = new System.Drawing.Point(12, 91);
             this.scriptPathText.Name = "scriptPathText";
+            this.scriptPathText.ReadOnly = true;
             this.scriptPathText.Size = new System.Drawing.Size(245, 20);
             this.scriptPathText.TabIndex = 5;
             // 
@@ -135,6 +138,7 @@
             this.findScriptButton.TabIndex = 6;
             this.findScriptButton.Text = "...";
             this.findScriptButton.UseVisualStyleBackColor = true;
+            this.findScriptButton.Click += new System.EventHandler(this.findScriptButton_Click);
             // 
             // tableLayoutPanel2
             // 
