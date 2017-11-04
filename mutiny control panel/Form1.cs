@@ -27,32 +27,6 @@ namespace mutiny_control_panel {
             onlineEnabled = false;
         }
 
-        //private void pushButton_Click(object sender, EventArgs e) {
-        //    Process[] node = Process.GetProcessesByName("node");
-        //    if (onlineEnabled == true) {
-        //        if (checkServer() == "online") {
-        //            node[0].Kill();
-        //            try {
-        //                Process.Start(Properties.Settings.Default.nodePath, Properties.Settings.Default.scriptPath);
-        //            } catch {
-        //                MessageBox.Show("Script cannot be hosted. Is your path to node.exe correct?", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //            }
-        //        } else {
-        //            try {
-        //                Process.Start(Properties.Settings.Default.nodePath, Properties.Settings.Default.scriptPath);
-        //            } catch {
-        //                MessageBox.Show("Script cannot be hosted. Is your path to node.exe correct?", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //            }
-        //        }
-        //    } else {
-        //        if (checkServer() == "offline") {
-        //            return;
-        //        } else {
-        //            node[0].Kill();
-        //        }
-        //    }
-        //}
-
         private void pushButton_Click(object sender, EventArgs e) {
             Process[] node = Process.GetProcessesByName("node");
             if (onlineEnabled == true) {
@@ -64,7 +38,7 @@ namespace mutiny_control_panel {
                         Process.Start(Properties.Settings.Default.nodePath, Properties.Settings.Default.scriptPath);
                     }
                 } catch {
-                    MessageBox.Show("Script cannot be hosted with node. Is your path to node.exe correct?", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error); //error
+                    MessageBox.Show("Cannot connect with with node. Is your path to node.exe correct?", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             } else {
                 if (checkServer() == "offline") {
@@ -83,7 +57,7 @@ namespace mutiny_control_panel {
                     Process.Start(Properties.Settings.Default.editorCustomPath, Properties.Settings.Default.scriptPath);
                 }
             } catch {
-                MessageBox.Show("Script can not be opened for editing. Is your text editor set up correctly?", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Script cannot be opened for editing. Is your text editor set up correctly?", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

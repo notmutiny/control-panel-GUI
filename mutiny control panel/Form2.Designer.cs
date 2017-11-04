@@ -25,22 +25,22 @@
         private void InitializeComponent() {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.scriptSettingsGroupBox = new System.Windows.Forms.GroupBox();
-            this.defaultScriptEditorButton = new System.Windows.Forms.RadioButton();
-            this.customScriptEditorButton = new System.Windows.Forms.RadioButton();
-            this.customEditorPathText = new System.Windows.Forms.TextBox();
-            this.findScriptEditorButton = new System.Windows.Forms.Button();
-            this.scriptLocationLabel = new System.Windows.Forms.Label();
-            this.scriptPathText = new System.Windows.Forms.TextBox();
             this.findScriptButton = new System.Windows.Forms.Button();
+            this.scriptPathText = new System.Windows.Forms.TextBox();
+            this.scriptLocationLabel = new System.Windows.Forms.Label();
+            this.findScriptEditorButton = new System.Windows.Forms.Button();
+            this.customEditorPathText = new System.Windows.Forms.TextBox();
+            this.customScriptEditorButton = new System.Windows.Forms.RadioButton();
+            this.defaultScriptEditorButton = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.saveButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.nodeGroupBox = new System.Windows.Forms.GroupBox();
-            this.nodeLocationLabel = new System.Windows.Forms.Label();
-            this.nodePathText = new System.Windows.Forms.TextBox();
-            this.findNodeButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.nodeGroupBox = new System.Windows.Forms.GroupBox();
+            this.findNodeButton = new System.Windows.Forms.Button();
+            this.nodePathText = new System.Windows.Forms.TextBox();
+            this.nodeLocationLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.scriptSettingsGroupBox.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -82,17 +82,49 @@
             this.scriptSettingsGroupBox.TabStop = false;
             this.scriptSettingsGroupBox.Text = "Script settings";
             // 
-            // defaultScriptEditorButton
+            // findScriptButton
             // 
-            this.defaultScriptEditorButton.AutoSize = true;
-            this.defaultScriptEditorButton.Location = new System.Drawing.Point(10, 20);
-            this.defaultScriptEditorButton.Name = "defaultScriptEditorButton";
-            this.defaultScriptEditorButton.Size = new System.Drawing.Size(152, 17);
-            this.defaultScriptEditorButton.TabIndex = 0;
-            this.defaultScriptEditorButton.TabStop = true;
-            this.defaultScriptEditorButton.Text = "Use my default script editor";
-            this.defaultScriptEditorButton.UseVisualStyleBackColor = true;
-            this.defaultScriptEditorButton.CheckedChanged += new System.EventHandler(this.defaultScriptEditorButton_CheckedChanged);
+            this.findScriptButton.Location = new System.Drawing.Point(264, 89);
+            this.findScriptButton.Name = "findScriptButton";
+            this.findScriptButton.Size = new System.Drawing.Size(29, 20);
+            this.findScriptButton.TabIndex = 6;
+            this.findScriptButton.Text = "...";
+            this.findScriptButton.UseVisualStyleBackColor = true;
+            this.findScriptButton.Click += new System.EventHandler(this.findScriptButton_Click);
+            // 
+            // scriptPathText
+            // 
+            this.scriptPathText.Location = new System.Drawing.Point(12, 89);
+            this.scriptPathText.Name = "scriptPathText";
+            this.scriptPathText.Size = new System.Drawing.Size(245, 20);
+            this.scriptPathText.TabIndex = 5;
+            // 
+            // scriptLocationLabel
+            // 
+            this.scriptLocationLabel.AutoSize = true;
+            this.scriptLocationLabel.Location = new System.Drawing.Point(7, 71);
+            this.scriptLocationLabel.Name = "scriptLocationLabel";
+            this.scriptLocationLabel.Size = new System.Drawing.Size(74, 13);
+            this.scriptLocationLabel.TabIndex = 4;
+            this.scriptLocationLabel.Text = "Script location";
+            // 
+            // findScriptEditorButton
+            // 
+            this.findScriptEditorButton.Location = new System.Drawing.Point(264, 40);
+            this.findScriptEditorButton.Name = "findScriptEditorButton";
+            this.findScriptEditorButton.Size = new System.Drawing.Size(29, 20);
+            this.findScriptEditorButton.TabIndex = 3;
+            this.findScriptEditorButton.Text = "...";
+            this.findScriptEditorButton.UseVisualStyleBackColor = true;
+            this.findScriptEditorButton.Click += new System.EventHandler(this.findScriptEditorButton_Click);
+            // 
+            // customEditorPathText
+            // 
+            this.customEditorPathText.Location = new System.Drawing.Point(30, 40);
+            this.customEditorPathText.Name = "customEditorPathText";
+            this.customEditorPathText.ReadOnly = true;
+            this.customEditorPathText.Size = new System.Drawing.Size(227, 20);
+            this.customEditorPathText.TabIndex = 2;
             // 
             // customScriptEditorButton
             // 
@@ -105,49 +137,17 @@
             this.customScriptEditorButton.UseVisualStyleBackColor = true;
             this.customScriptEditorButton.CheckedChanged += new System.EventHandler(this.customScriptEditorButton_CheckedChanged);
             // 
-            // customEditorPathText
+            // defaultScriptEditorButton
             // 
-            this.customEditorPathText.Location = new System.Drawing.Point(30, 40);
-            this.customEditorPathText.Name = "customEditorPathText";
-            this.customEditorPathText.ReadOnly = true;
-            this.customEditorPathText.Size = new System.Drawing.Size(227, 20);
-            this.customEditorPathText.TabIndex = 2;
-            // 
-            // findScriptEditorButton
-            // 
-            this.findScriptEditorButton.Location = new System.Drawing.Point(264, 40);
-            this.findScriptEditorButton.Name = "findScriptEditorButton";
-            this.findScriptEditorButton.Size = new System.Drawing.Size(29, 20);
-            this.findScriptEditorButton.TabIndex = 3;
-            this.findScriptEditorButton.Text = "...";
-            this.findScriptEditorButton.UseVisualStyleBackColor = true;
-            this.findScriptEditorButton.Click += new System.EventHandler(this.findScriptEditorButton_Click);
-            // 
-            // scriptLocationLabel
-            // 
-            this.scriptLocationLabel.AutoSize = true;
-            this.scriptLocationLabel.Location = new System.Drawing.Point(7, 71);
-            this.scriptLocationLabel.Name = "scriptLocationLabel";
-            this.scriptLocationLabel.Size = new System.Drawing.Size(74, 13);
-            this.scriptLocationLabel.TabIndex = 4;
-            this.scriptLocationLabel.Text = "Script location";
-            // 
-            // scriptPathText
-            // 
-            this.scriptPathText.Location = new System.Drawing.Point(12, 89);
-            this.scriptPathText.Name = "scriptPathText";
-            this.scriptPathText.Size = new System.Drawing.Size(245, 20);
-            this.scriptPathText.TabIndex = 5;
-            // 
-            // findScriptButton
-            // 
-            this.findScriptButton.Location = new System.Drawing.Point(264, 89);
-            this.findScriptButton.Name = "findScriptButton";
-            this.findScriptButton.Size = new System.Drawing.Size(29, 20);
-            this.findScriptButton.TabIndex = 6;
-            this.findScriptButton.Text = "...";
-            this.findScriptButton.UseVisualStyleBackColor = true;
-            this.findScriptButton.Click += new System.EventHandler(this.findScriptButton_Click);
+            this.defaultScriptEditorButton.AutoSize = true;
+            this.defaultScriptEditorButton.Location = new System.Drawing.Point(10, 20);
+            this.defaultScriptEditorButton.Name = "defaultScriptEditorButton";
+            this.defaultScriptEditorButton.Size = new System.Drawing.Size(152, 17);
+            this.defaultScriptEditorButton.TabIndex = 0;
+            this.defaultScriptEditorButton.TabStop = true;
+            this.defaultScriptEditorButton.Text = "Use my default script editor";
+            this.defaultScriptEditorButton.UseVisualStyleBackColor = true;
+            this.defaultScriptEditorButton.CheckedChanged += new System.EventHandler(this.defaultScriptEditorButton_CheckedChanged);
             // 
             // tableLayoutPanel2
             // 
@@ -193,6 +193,16 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label1.Location = new System.Drawing.Point(3, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(127, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "0.2 release build";
+            // 
             // nodeGroupBox
             // 
             this.nodeGroupBox.Controls.Add(this.findNodeButton);
@@ -206,22 +216,6 @@
             this.nodeGroupBox.TabStop = false;
             this.nodeGroupBox.Text = "Node settings";
             // 
-            // nodeLocationLabel
-            // 
-            this.nodeLocationLabel.AutoSize = true;
-            this.nodeLocationLabel.Location = new System.Drawing.Point(7, 22);
-            this.nodeLocationLabel.Name = "nodeLocationLabel";
-            this.nodeLocationLabel.Size = new System.Drawing.Size(73, 13);
-            this.nodeLocationLabel.TabIndex = 7;
-            this.nodeLocationLabel.Text = "Node location";
-            // 
-            // nodePathText
-            // 
-            this.nodePathText.Location = new System.Drawing.Point(12, 41);
-            this.nodePathText.Name = "nodePathText";
-            this.nodePathText.Size = new System.Drawing.Size(245, 20);
-            this.nodePathText.TabIndex = 7;
-            // 
             // findNodeButton
             // 
             this.findNodeButton.Location = new System.Drawing.Point(264, 41);
@@ -232,15 +226,21 @@
             this.findNodeButton.UseVisualStyleBackColor = true;
             this.findNodeButton.Click += new System.EventHandler(this.findNodeButton_Click);
             // 
-            // label1
+            // nodePathText
             // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label1.Location = new System.Drawing.Point(3, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "0.2 preview build";
+            this.nodePathText.Location = new System.Drawing.Point(12, 41);
+            this.nodePathText.Name = "nodePathText";
+            this.nodePathText.Size = new System.Drawing.Size(245, 20);
+            this.nodePathText.TabIndex = 7;
+            // 
+            // nodeLocationLabel
+            // 
+            this.nodeLocationLabel.AutoSize = true;
+            this.nodeLocationLabel.Location = new System.Drawing.Point(7, 22);
+            this.nodeLocationLabel.Name = "nodeLocationLabel";
+            this.nodeLocationLabel.Size = new System.Drawing.Size(73, 13);
+            this.nodeLocationLabel.TabIndex = 7;
+            this.nodeLocationLabel.Text = "Node location";
             // 
             // preferencesForm
             // 
