@@ -18,6 +18,10 @@ namespace mutiny_control_panel {
 
         }
 
+        private void cancelButton_Click(object sender, EventArgs e) {
+            this.Hide();
+        }
+
         private void findScriptButton_Click(object sender, EventArgs e) {
             OpenFileDialog script = new OpenFileDialog();
             script.InitialDirectory = "c:\\";

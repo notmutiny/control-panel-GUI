@@ -116,7 +116,7 @@
             // scriptLocationLabel
             // 
             this.scriptLocationLabel.AutoSize = true;
-            this.scriptLocationLabel.Location = new System.Drawing.Point(9, 70);
+            this.scriptLocationLabel.Location = new System.Drawing.Point(7, 71);
             this.scriptLocationLabel.Name = "scriptLocationLabel";
             this.scriptLocationLabel.Size = new System.Drawing.Size(74, 13);
             this.scriptLocationLabel.TabIndex = 4;
@@ -181,6 +181,7 @@
             this.cancelButton.TabIndex = 1;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // preferencesForm
             // 

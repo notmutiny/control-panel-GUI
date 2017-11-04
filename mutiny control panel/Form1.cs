@@ -28,7 +28,21 @@ namespace mutiny_control_panel {
         }
 
         private void pushButton_Click(object sender, EventArgs e) {
-
+            Process[] node = Process.GetProcessesByName("node");
+            if (onlineEnabled == true) {
+                if (checkServer() == "online") {
+                    node[0].Kill();
+                    Process.Start("C:/Program Files/nodejs/node.exe", "D:/Library/Projects/Coding/Discord/mutiny_bot/mybot.js"); // replace with persistant settings
+                } else {
+                    Process.Start("C:/Program Files/nodejs/node.exe", "D:/Library/Projects/Coding/Discord/mutiny_bot/mybot.js"); // ^
+                }
+            } else {
+                if (checkServer() == "offline") {
+                    return;
+                } else {
+                    node[0].Kill();
+                }
+            }
         }
 
         private void editButton_Click(object sender, EventArgs e) {
