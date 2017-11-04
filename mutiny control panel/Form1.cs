@@ -17,7 +17,6 @@ namespace mutiny_control_panel {
 
         public mainWindow() {
             InitializeComponent();
-            //Debug.WriteLine(Properties.Settings.Default.scriptPath + "ayy");
         }
 
         private void onlineButton_CheckedChanged(object sender, EventArgs e) {
@@ -33,9 +32,17 @@ namespace mutiny_control_panel {
             if (onlineEnabled == true) {
                 if (checkServer() == "online") {
                     node[0].Kill();
-                    Process.Start("C:/Program Files/nodejs/node.exe", Properties.Settings.Default.scriptPath); // replace with persistant settings
+                    try {
+                        Process.Start(Properties.Settings.Default.nodePath, Properties.Settings.Default.scriptPath);
+                    } catch {
+                        MessageBox.Show("Script cannot be hosted. Is your path to node.exe correct?", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 } else {
-                    Process.Start("C:/Program Files/nodejs/node.exe", Properties.Settings.Default.scriptPath); // ^
+                    try {
+                        Process.Start(Properties.Settings.Default.nodePath, Properties.Settings.Default.scriptPath);
+                    } catch {
+                        MessageBox.Show("Script cannot be hosted. Is your path to node.exe correct?", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             } else {
                 if (checkServer() == "offline") {
@@ -47,7 +54,11 @@ namespace mutiny_control_panel {
         }
 
         private void editButton_Click(object sender, EventArgs e) {
-            Process.Start(Properties.Settings.Default.scriptPath);
+            if (Properties.Settings.Default.useDefaultEditor) {
+                Process.Start(Properties.Settings.Default.scriptPath);
+            } else {
+                Process.Start(Properties.Settings.Default.editorCustomPath, Properties.Settings.Default.scriptPath);
+            }
         }
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e) {

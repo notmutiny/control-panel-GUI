@@ -58,5 +58,17 @@ namespace mutiny_control_panel.Properties {
                 this["scriptPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string nodePath {
+            get {
+                return ((string)(this["nodePath"]));
+            }
+            set {
+                this["nodePath"] = value;
+            }
+        }
     }
 }

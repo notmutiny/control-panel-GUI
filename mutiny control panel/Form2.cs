@@ -40,6 +40,15 @@ namespace mutiny_control_panel {
             }
         }
 
+        private void findNodeButton_Click(object sender, EventArgs e) {
+            OpenFileDialog node = new OpenFileDialog();
+            node.InitialDirectory = "c:\\";
+            node.Filter = "Executable files (*.exe)|*.exe";
+            if (node.ShowDialog() == DialogResult.OK) {
+                nodePathText.Text = node.FileName;
+            }
+        }
+
         private void defaultScriptEditorButton_CheckedChanged(object sender, EventArgs e) {
 
         }
@@ -64,6 +73,9 @@ namespace mutiny_control_panel {
             if (useDefaultEditor != Properties.Settings.Default.useDefaultEditor) {
                 Properties.Settings.Default.useDefaultEditor = useDefaultEditor;
             }
+            if (nodePathText.Text != Properties.Settings.Default.nodePath) {
+                Properties.Settings.Default.nodePath = nodePathText.Text;
+            }
             Properties.Settings.Default.Save();
             this.Hide();
         }
@@ -74,6 +86,9 @@ namespace mutiny_control_panel {
             }
             if (Properties.Settings.Default.editorCustomPath != "") {
                 customEditorPathText.Text = Properties.Settings.Default.editorCustomPath;
+            }
+            if (Properties.Settings.Default.nodePath != "") {
+                nodePathText.Text = Properties.Settings.Default.nodePath;
             }
             useDefaultEditor = Properties.Settings.Default.useDefaultEditor;
             if (useDefaultEditor) {
