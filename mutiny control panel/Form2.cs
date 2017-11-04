@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 namespace mutiny_control_panel {
     public partial class preferencesForm : Form {
+        private bool useDefaultEditor;
+
         public preferencesForm() {
             InitializeComponent();
             RestoreSettings();
@@ -28,10 +30,26 @@ namespace mutiny_control_panel {
             }
         }
 
+        private void findScriptEditorButton_Click(object sender, EventArgs e) {
+            OpenFileDialog editor = new OpenFileDialog();
+            editor.InitialDirectory = "c:\\";
+            editor.Filter = "Executable files (*.exe)|*.exe";
+            if (editor.ShowDialog() == DialogResult.OK) {
+                customScriptEditorButton.Checked = true;
+                customEditorPathText.Text = editor.FileName;
+            }
+        }
+
+        private void defaultScriptEditorButton_CheckedChanged(object sender, EventArgs e) {
+
+        }
+
         private void customScriptEditorButton_CheckedChanged(object sender, EventArgs e) {
             if (customScriptEditorButton.Checked == true) {
+                useDefaultEditor = false;
                 customEditorPathText.ReadOnly = false;
             } else {
+                useDefaultEditor = true;
                 customEditorPathText.ReadOnly = true;
             }
         }
@@ -40,6 +58,12 @@ namespace mutiny_control_panel {
             if (scriptPathText.Text != Properties.Settings.Default.scriptPath) {
                 Properties.Settings.Default.scriptPath = scriptPathText.Text;
             }
+            if (customEditorPathText.Text != Properties.Settings.Default.editorCustomPath) {
+                Properties.Settings.Default.editorCustomPath = customEditorPathText.Text;
+            }
+            if (useDefaultEditor != Properties.Settings.Default.useDefaultEditor) {
+                Properties.Settings.Default.useDefaultEditor = useDefaultEditor;
+            }
             Properties.Settings.Default.Save();
             this.Hide();
         }
@@ -47,6 +71,15 @@ namespace mutiny_control_panel {
         private void RestoreSettings() {
             if (Properties.Settings.Default.scriptPath != "") {
                 scriptPathText.Text = Properties.Settings.Default.scriptPath;
+            }
+            if (Properties.Settings.Default.editorCustomPath != "") {
+                customEditorPathText.Text = Properties.Settings.Default.editorCustomPath;
+            }
+            useDefaultEditor = Properties.Settings.Default.useDefaultEditor;
+            if (useDefaultEditor) {
+                defaultScriptEditorButton.Checked = true;
+            } else {
+                customScriptEditorButton.Checked = true;
             }
         }
     }

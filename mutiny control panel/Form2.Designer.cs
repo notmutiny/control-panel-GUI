@@ -84,6 +84,7 @@
             this.defaultScriptEditorButton.TabStop = true;
             this.defaultScriptEditorButton.Text = "Use my default script editor";
             this.defaultScriptEditorButton.UseVisualStyleBackColor = true;
+            this.defaultScriptEditorButton.CheckedChanged += new System.EventHandler(this.defaultScriptEditorButton_CheckedChanged);
             // 
             // customScriptEditorButton
             // 
@@ -112,6 +113,7 @@
             this.findScriptEditorButton.TabIndex = 3;
             this.findScriptEditorButton.Text = "...";
             this.findScriptEditorButton.UseVisualStyleBackColor = true;
+            this.findScriptEditorButton.Click += new System.EventHandler(this.findScriptEditorButton_Click);
             // 
             // scriptLocationLabel
             // 
@@ -126,7 +128,6 @@
             // 
             this.scriptPathText.Location = new System.Drawing.Point(12, 91);
             this.scriptPathText.Name = "scriptPathText";
-            this.scriptPathText.ReadOnly = true;
             this.scriptPathText.Size = new System.Drawing.Size(245, 20);
             this.scriptPathText.TabIndex = 5;
             // 
