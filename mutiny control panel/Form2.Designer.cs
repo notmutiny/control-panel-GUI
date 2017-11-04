@@ -40,6 +40,7 @@
             this.nodeLocationLabel = new System.Windows.Forms.Label();
             this.nodePathText = new System.Windows.Forms.TextBox();
             this.findNodeButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.scriptSettingsGroupBox.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -154,6 +155,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 168F));
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel1, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 205);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -230,6 +232,16 @@
             this.findNodeButton.UseVisualStyleBackColor = true;
             this.findNodeButton.Click += new System.EventHandler(this.findNodeButton_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label1.Location = new System.Drawing.Point(3, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(127, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "0.2 preview build";
+            // 
             // preferencesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -243,6 +255,7 @@
             this.scriptSettingsGroupBox.ResumeLayout(false);
             this.scriptSettingsGroupBox.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.nodeGroupBox.ResumeLayout(false);
             this.nodeGroupBox.PerformLayout();
@@ -269,5 +282,6 @@
         private System.Windows.Forms.Button findNodeButton;
         private System.Windows.Forms.TextBox nodePathText;
         private System.Windows.Forms.Label nodeLocationLabel;
+        private System.Windows.Forms.Label label1;
     }
 }
