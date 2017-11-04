@@ -12,7 +12,6 @@ using System.Windows.Forms;
 namespace mutiny_control_panel {
     public partial class mainWindow : Form {
 
-        //test
         // visual studio data
         private bool onlineEnabled;
 
