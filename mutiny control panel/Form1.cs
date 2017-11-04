@@ -17,6 +17,7 @@ namespace mutiny_control_panel {
 
         public mainWindow() {
             InitializeComponent();
+            //Debug.WriteLine(Properties.Settings.Default.scriptPath + "ayy");
         }
 
         private void onlineButton_CheckedChanged(object sender, EventArgs e) {

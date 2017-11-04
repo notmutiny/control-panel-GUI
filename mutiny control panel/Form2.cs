@@ -12,10 +12,7 @@ namespace mutiny_control_panel {
     public partial class preferencesForm : Form {
         public preferencesForm() {
             InitializeComponent();
-        }
-
-        private void saveButton_Click(object sender, EventArgs e) {
-
+            RestoreSettings();
         }
 
         private void cancelButton_Click(object sender, EventArgs e) {
@@ -36,6 +33,19 @@ namespace mutiny_control_panel {
                 customEditorPathText.ReadOnly = false;
             } else {
                 customEditorPathText.ReadOnly = true;
+            }
+        }
+
+        private void saveButton_Click(object sender, EventArgs e) {
+            if (scriptPathText.Text != Properties.Settings.Default.scriptPath) {
+                Properties.Settings.Default.scriptPath = scriptPathText.Text;
+            }
+            this.Hide();
+        }
+
+        private void RestoreSettings() {
+            if (Properties.Settings.Default.scriptPath != "") {
+                scriptPathText.Text = Properties.Settings.Default.scriptPath;
             }
         }
     }
