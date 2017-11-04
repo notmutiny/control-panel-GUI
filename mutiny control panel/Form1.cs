@@ -33,9 +33,9 @@ namespace mutiny_control_panel {
             if (onlineEnabled == true) {
                 if (checkServer() == "online") {
                     node[0].Kill();
-                    Process.Start("C:/Program Files/nodejs/node.exe", "D:/Library/Projects/Coding/Discord/mutiny_bot/mybot.js"); // replace with persistant settings
+                    Process.Start("C:/Program Files/nodejs/node.exe", Properties.Settings.Default.scriptPath); // replace with persistant settings
                 } else {
-                    Process.Start("C:/Program Files/nodejs/node.exe", "D:/Library/Projects/Coding/Discord/mutiny_bot/mybot.js"); // ^
+                    Process.Start("C:/Program Files/nodejs/node.exe", Properties.Settings.Default.scriptPath); // ^
                 }
             } else {
                 if (checkServer() == "offline") {
@@ -47,7 +47,7 @@ namespace mutiny_control_panel {
         }
 
         private void editButton_Click(object sender, EventArgs e) {
-
+            Process.Start(Properties.Settings.Default.scriptPath);
         }
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e) {

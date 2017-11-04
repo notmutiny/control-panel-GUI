@@ -40,6 +40,7 @@ namespace mutiny_control_panel {
             if (scriptPathText.Text != Properties.Settings.Default.scriptPath) {
                 Properties.Settings.Default.scriptPath = scriptPathText.Text;
             }
+            Properties.Settings.Default.Save();
             this.Hide();
         }
 
