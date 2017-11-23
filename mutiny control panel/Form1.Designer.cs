@@ -34,6 +34,7 @@
             this.goToGitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.scriptGroupBox = new System.Windows.Forms.GroupBox();
+            this.debugCheckBox = new System.Windows.Forms.CheckBox();
             this.offlineButton = new System.Windows.Forms.RadioButton();
             this.onlineButton = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -41,7 +42,6 @@
             this.pushButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
-            this.debugCheckBox = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.scriptGroupBox.SuspendLayout();
@@ -131,6 +131,17 @@
             this.scriptGroupBox.TabStop = false;
             this.scriptGroupBox.Text = "mutiny bot configuration";
             // 
+            // debugCheckBox
+            // 
+            this.debugCheckBox.AutoSize = true;
+            this.debugCheckBox.Location = new System.Drawing.Point(6, 46);
+            this.debugCheckBox.Name = "debugCheckBox";
+            this.debugCheckBox.Size = new System.Drawing.Size(120, 17);
+            this.debugCheckBox.TabIndex = 2;
+            this.debugCheckBox.Text = "Debug cmd window";
+            this.debugCheckBox.UseVisualStyleBackColor = true;
+            this.debugCheckBox.CheckedChanged += new System.EventHandler(this.debugCheckBox_CheckedChanged);
+            // 
             // offlineButton
             // 
             this.offlineButton.AutoSize = true;
@@ -205,17 +216,6 @@
             // 
             this.statusTimer.Enabled = true;
             this.statusTimer.Tick += new System.EventHandler(this.statusTimer_Tick);
-            // 
-            // debugCheckBox
-            // 
-            this.debugCheckBox.AutoSize = true;
-            this.debugCheckBox.Location = new System.Drawing.Point(6, 42);
-            this.debugCheckBox.Name = "debugCheckBox";
-            this.debugCheckBox.Size = new System.Drawing.Size(118, 17);
-            this.debugCheckBox.TabIndex = 2;
-            this.debugCheckBox.Text = "Debugging console";
-            this.debugCheckBox.UseVisualStyleBackColor = true;
-            this.debugCheckBox.CheckedChanged += new System.EventHandler(this.debugCheckBox_CheckedChanged);
             // 
             // mainWindow
             // 
