@@ -14,6 +14,7 @@ namespace mutiny_control_panel {
 
         // visual studio data
         private bool onlineEnabled;
+        private bool debugEnabled;
 
         public mainWindow() {
             InitializeComponent();
@@ -28,25 +29,26 @@ namespace mutiny_control_panel {
         }
 
         private void pushButton_Click(object sender, EventArgs e) {
-            Process[] node = Process.GetProcessesByName("node");
-            if (onlineEnabled == true) {
-                try {
-                    if (checkServer() == "online") {
-                        node[0].Kill();
-                        Process.Start(Properties.Settings.Default.nodePath, Properties.Settings.Default.scriptPath);
-                    } else {
-                        Process.Start(Properties.Settings.Default.nodePath, Properties.Settings.Default.scriptPath);
-                    }
-                } catch {
-                    MessageBox.Show("Cannot connect with with node. Is your path to node.exe correct?", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            } else {
-                if (checkServer() == "offline") {
-                    return;
-                } else {
-                    node[0].Kill();
-                }
-            }
+            //Process[] node = Process.GetProcessesByName("node");
+            hostJavascriptBot();
+            //if (onlineEnabled == true) {
+            //    try {
+            //        if (checkServer() == "online") {
+            //            node[0].Kill();
+            //            Process.Start(Properties.Settings.Default.nodePath, Properties.Settings.Default.scriptPath);
+            //        } else {
+            //            Process.Start(Properties.Settings.Default.nodePath, Properties.Settings.Default.scriptPath);
+            //        }
+            //    } catch {
+            //        MessageBox.Show("Cannot connect with with node. Is your path to node.exe correct?", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //} else {
+            //    if (checkServer() == "offline") {
+            //        return;
+            //    } else {
+            //        node[0].Kill();
+            //    }
+            //}
         }
 
         private void editButton_Click(object sender, EventArgs e) {
@@ -89,5 +91,89 @@ namespace mutiny_control_panel {
             }
             return onlineStatus;
         }
+
+        private void debugCheckBox_CheckedChanged(object sender, EventArgs e) {
+            if (debugCheckBox.Checked) {
+                debugEnabled = true;
+            } else {
+                debugEnabled = false;
+            }
+        }
+
+        // TODO
+
+            // substring cmd directory from script save
+            // rename variables
+
+        private void hostJavascriptBot() {
+            Process[] node = Process.GetProcessesByName("node");
+            Process[] cmd = Process.GetProcessesByName("cmd");
+            if (onlineEnabled == true) {
+                if (node.Length > 0) {
+                    node[0].Kill();
+                }
+                if (cmd.Length > 0) {
+                    cmd[0].Kill();
+                }
+                if (debugEnabled) {
+                    ProcessStartInfo prompt = new ProcessStartInfo("cmd.exe");
+                    prompt.WorkingDirectory = "D:/Library/Projects/Coding/Discord/mutiny_bot";
+                    prompt.Arguments = "/k node .";
+                    try {
+                        Process.Start(prompt);
+                    } catch {
+                        MessageBox.Show("Cannot launch cmd.exe.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                } else {
+                    try {
+                        Process.Start(Properties.Settings.Default.nodePath, Properties.Settings.Default.scriptPath);
+                    } catch {
+                        MessageBox.Show("Cannot connect with with node. Is your path to node.exe correct?", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            } else {
+                if (node.Length > 0) {
+                    node[0].Kill();
+                } else if (cmd.Length > 0) {
+                    cmd[0].Kill();
+                } else {
+                    return;
+                }
+            }
+        }
+
+
+            //try {
+            //    if (debugEnabled) {
+            //        if (checkServer() == "online") {
+
+            //        }
+            //    }
+
+
+            //if (checkServer() == "online") {
+            //    node[0].Kill();
+            //    Process.Start(Properties.Settings.Default.nodePath, Properties.Settings.Default.scriptPath);
+            //} else {
+            //    Process.Start(Properties.Settings.Default.nodePath, Properties.Settings.Default.scriptPath);
+            //}
+            //        } catch {
+            //            MessageBox.Show("Cannot connect with with node. Is your path to node.exe correct?", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        }
+            //    } else {
+            //        if (checkServer() == "offline") {
+            //            return;
+            //        } else {
+            //            node[0].Kill();
+            //        }
+            //    }
+            //}
+
+
+            //if (debugEnabled) {
+            //    Process.Start("cmd.exe", "d: && cd D:/Library/Projects/Coding/Discord/mutiny_bot && . node");
+            //} else {
+
+            //}
     }
 }

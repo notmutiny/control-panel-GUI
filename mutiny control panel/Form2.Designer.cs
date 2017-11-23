@@ -201,7 +201,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(127, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "0.2 release build";
+            this.label1.Text = "0.3 alpha build";
             // 
             // nodeGroupBox
             // 
@@ -236,11 +236,11 @@
             // nodeLocationLabel
             // 
             this.nodeLocationLabel.AutoSize = true;
-            this.nodeLocationLabel.Location = new System.Drawing.Point(7, 22);
+            this.nodeLocationLabel.Location = new System.Drawing.Point(7, 23);
             this.nodeLocationLabel.Name = "nodeLocationLabel";
-            this.nodeLocationLabel.Size = new System.Drawing.Size(73, 13);
+            this.nodeLocationLabel.Size = new System.Drawing.Size(91, 13);
             this.nodeLocationLabel.TabIndex = 7;
-            this.nodeLocationLabel.Text = "Node location";
+            this.nodeLocationLabel.Text = "node.exe location";
             // 
             // preferencesForm
             // 

@@ -26,22 +26,22 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainWindow));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.goToGitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.scriptGroupBox = new System.Windows.Forms.GroupBox();
-            this.onlineButton = new System.Windows.Forms.RadioButton();
             this.offlineButton = new System.Windows.Forms.RadioButton();
-            this.parrotEnabledCheckbox = new System.Windows.Forms.CheckBox();
+            this.onlineButton = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.onlineStatusLabel = new System.Windows.Forms.Label();
             this.pushButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.goToGitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
+            this.debugCheckBox = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.scriptGroupBox.SuspendLayout();
@@ -60,6 +60,49 @@
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.preferencesToolStripMenuItem});
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            // 
+            // preferencesToolStripMenuItem
+            // 
+            this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.preferencesToolStripMenuItem.Text = "Preferences";
+            this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem,
+            this.goToGitHubToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // goToGitHubToolStripMenuItem
+            // 
+            this.goToGitHubToolStripMenuItem.Name = "goToGitHubToolStripMenuItem";
+            this.goToGitHubToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.goToGitHubToolStripMenuItem.Text = "GitHub";
+            this.goToGitHubToolStripMenuItem.Click += new System.EventHandler(this.goToGitHubToolStripMenuItem_Click);
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
@@ -77,28 +120,16 @@
             // 
             // scriptGroupBox
             // 
-            this.scriptGroupBox.Controls.Add(this.parrotEnabledCheckbox);
+            this.scriptGroupBox.Controls.Add(this.debugCheckBox);
             this.scriptGroupBox.Controls.Add(this.offlineButton);
             this.scriptGroupBox.Controls.Add(this.onlineButton);
             this.scriptGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scriptGroupBox.Location = new System.Drawing.Point(3, 3);
             this.scriptGroupBox.Name = "scriptGroupBox";
-            this.scriptGroupBox.Size = new System.Drawing.Size(142, 72);
+            this.scriptGroupBox.Size = new System.Drawing.Size(141, 72);
             this.scriptGroupBox.TabIndex = 0;
             this.scriptGroupBox.TabStop = false;
             this.scriptGroupBox.Text = "mutiny bot configuration";
-            // 
-            // onlineButton
-            // 
-            this.onlineButton.AutoSize = true;
-            this.onlineButton.Location = new System.Drawing.Point(6, 19);
-            this.onlineButton.Name = "onlineButton";
-            this.onlineButton.Size = new System.Drawing.Size(55, 17);
-            this.onlineButton.TabIndex = 0;
-            this.onlineButton.TabStop = true;
-            this.onlineButton.Text = "Online";
-            this.onlineButton.UseVisualStyleBackColor = true;
-            this.onlineButton.CheckedChanged += new System.EventHandler(this.onlineButton_CheckedChanged);
             // 
             // offlineButton
             // 
@@ -112,15 +143,17 @@
             this.offlineButton.UseVisualStyleBackColor = true;
             this.offlineButton.CheckedChanged += new System.EventHandler(this.offlineButton_CheckedChanged);
             // 
-            // parrotEnabledCheckbox
+            // onlineButton
             // 
-            this.parrotEnabledCheckbox.AutoSize = true;
-            this.parrotEnabledCheckbox.Location = new System.Drawing.Point(6, 43);
-            this.parrotEnabledCheckbox.Name = "parrotEnabledCheckbox";
-            this.parrotEnabledCheckbox.Size = new System.Drawing.Size(109, 17);
-            this.parrotEnabledCheckbox.TabIndex = 2;
-            this.parrotEnabledCheckbox.Text = "Parroting enabled";
-            this.parrotEnabledCheckbox.UseVisualStyleBackColor = true;
+            this.onlineButton.AutoSize = true;
+            this.onlineButton.Location = new System.Drawing.Point(6, 19);
+            this.onlineButton.Name = "onlineButton";
+            this.onlineButton.Size = new System.Drawing.Size(55, 17);
+            this.onlineButton.TabIndex = 0;
+            this.onlineButton.TabStop = true;
+            this.onlineButton.Text = "Online";
+            this.onlineButton.UseVisualStyleBackColor = true;
+            this.onlineButton.CheckedChanged += new System.EventHandler(this.onlineButton_CheckedChanged);
             // 
             // tableLayoutPanel2
             // 
@@ -130,13 +163,13 @@
             this.tableLayoutPanel2.Controls.Add(this.pushButton, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.editButton, 0, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(151, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(150, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 13F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(157, 72);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(158, 72);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // onlineStatusLabel
@@ -168,53 +201,21 @@
             this.editButton.UseVisualStyleBackColor = true;
             this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.preferencesToolStripMenuItem});
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem,
-            this.goToGitHubToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
-            // 
-            // preferencesToolStripMenuItem
-            // 
-            this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.preferencesToolStripMenuItem.Text = "Preferences";
-            this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aboutToolStripMenuItem.Text = "About";
-            // 
-            // goToGitHubToolStripMenuItem
-            // 
-            this.goToGitHubToolStripMenuItem.Name = "goToGitHubToolStripMenuItem";
-            this.goToGitHubToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.goToGitHubToolStripMenuItem.Text = "GitHub";
-            this.goToGitHubToolStripMenuItem.Click += new System.EventHandler(this.goToGitHubToolStripMenuItem_Click);
-            // 
             // statusTimer
             // 
             this.statusTimer.Enabled = true;
             this.statusTimer.Tick += new System.EventHandler(this.statusTimer_Tick);
+            // 
+            // debugCheckBox
+            // 
+            this.debugCheckBox.AutoSize = true;
+            this.debugCheckBox.Location = new System.Drawing.Point(6, 42);
+            this.debugCheckBox.Name = "debugCheckBox";
+            this.debugCheckBox.Size = new System.Drawing.Size(118, 17);
+            this.debugCheckBox.TabIndex = 2;
+            this.debugCheckBox.Text = "Debugging console";
+            this.debugCheckBox.UseVisualStyleBackColor = true;
+            this.debugCheckBox.CheckedChanged += new System.EventHandler(this.debugCheckBox_CheckedChanged);
             // 
             // mainWindow
             // 
@@ -246,7 +247,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox scriptGroupBox;
-        private System.Windows.Forms.CheckBox parrotEnabledCheckbox;
         private System.Windows.Forms.RadioButton offlineButton;
         private System.Windows.Forms.RadioButton onlineButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
@@ -260,6 +260,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem goToGitHubToolStripMenuItem;
         private System.Windows.Forms.Timer statusTimer;
+        private System.Windows.Forms.CheckBox debugCheckBox;
     }
 }
 
