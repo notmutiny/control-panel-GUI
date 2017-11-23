@@ -12,6 +12,14 @@ using System.Windows.Forms;
 namespace mutiny_control_panel {
     public partial class mainWindow : Form {
 
+        //todo
+        /*
+            - get process by id
+            - rework functions to only handle our processes
+            - make node headless
+
+        */
+
         // visual studio data
         private bool onlineEnabled;
         private bool debugEnabled;
@@ -115,7 +123,7 @@ namespace mutiny_control_panel {
                 cmd[0].Kill();
             }
             if (getBotFolder() == "nil") {
-                MessageBox.Show("Script location not set. Did you configure settings > preferences?", "CMD.exe error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Script location not set. Did you configure settings > preferences?", "File path error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (debugEnabled) {
@@ -125,13 +133,13 @@ namespace mutiny_control_panel {
                 try {
                     Process.Start(prompt);
                 } catch {
-                    MessageBox.Show("Cannot launch command prompt.", "CMD error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Cannot launch command prompt. What did you do?", "CMD.exe error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             } else {
                 try {
                     Process.Start(Properties.Settings.Default.nodePath, Properties.Settings.Default.scriptPath);
                 } catch {
-                    MessageBox.Show("Cannot connect with with node. Is your node.exe path correct?", "Node error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Cannot open node. Did you configure settings > preferences?", "Node.exe error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
