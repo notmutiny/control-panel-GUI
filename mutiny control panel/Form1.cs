@@ -44,7 +44,7 @@ namespace mutiny_control_panel {
                     Process.Start(Properties.Settings.Default.editorCustomPath, Properties.Settings.Default.scriptPath);
                 }
             } catch {
-                MessageBox.Show("Script cannot be opened for editing. Is your text editor set up correctly?", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Editor cannot be opened. Did you configure settings > preferences?", "Script editor error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -127,17 +127,20 @@ namespace mutiny_control_panel {
                 return;
             }
             if (debugEnabled) {
-                ProcessStartInfo prompt = new ProcessStartInfo("cmd.exe");
-                prompt.WorkingDirectory = getBotFolder();
-                prompt.Arguments = "/k node .";
+                ProcessStartInfo debugWindow = new ProcessStartInfo("cmd.exe");
+                debugWindow.WorkingDirectory = getBotFolder();
+                debugWindow.Arguments = "/k node .";
                 try {
-                    Process.Start(prompt);
+                    Process.Start(debugWindow);
                 } catch {
                     MessageBox.Show("Cannot launch command prompt. What did you do?", "CMD.exe error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             } else {
                 try {
-                    Process.Start(Properties.Settings.Default.nodePath, Properties.Settings.Default.scriptPath);
+                    ProcessStartInfo nodeWindow = new ProcessStartInfo(Properties.Settings.Default.nodePath);
+                    nodeWindow.WindowStyle = ProcessWindowStyle.Hidden;
+                    nodeWindow.Arguments = Properties.Settings.Default.scriptPath;
+                    Process.Start(nodeWindow);
                 } catch {
                     MessageBox.Show("Cannot open node. Did you configure settings > preferences?", "Node.exe error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -145,10 +148,12 @@ namespace mutiny_control_panel {
         }
 
         private void killJavascriptBot(Process[] node, Process[] cmd) {
-            if (node.Length > 0 || cmd.Length > 0) {
+            if (node.Length > 0) {
                 node[0].Kill();
+            }
+            if (cmd.Length > 0) {
                 cmd[0].Kill();
-            } else return;
+            }
         }
     }
 }
