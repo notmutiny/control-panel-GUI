@@ -134,7 +134,7 @@
             // debugCheckBox
             // 
             this.debugCheckBox.AutoSize = true;
-            this.debugCheckBox.Location = new System.Drawing.Point(6, 46);
+            this.debugCheckBox.Location = new System.Drawing.Point(9, 46);
             this.debugCheckBox.Name = "debugCheckBox";
             this.debugCheckBox.Size = new System.Drawing.Size(120, 17);
             this.debugCheckBox.TabIndex = 2;
@@ -145,7 +145,7 @@
             // offlineButton
             // 
             this.offlineButton.AutoSize = true;
-            this.offlineButton.Location = new System.Drawing.Point(67, 19);
+            this.offlineButton.Location = new System.Drawing.Point(70, 19);
             this.offlineButton.Name = "offlineButton";
             this.offlineButton.Size = new System.Drawing.Size(55, 17);
             this.offlineButton.TabIndex = 1;
@@ -157,7 +157,7 @@
             // onlineButton
             // 
             this.onlineButton.AutoSize = true;
-            this.onlineButton.Location = new System.Drawing.Point(6, 19);
+            this.onlineButton.Location = new System.Drawing.Point(9, 19);
             this.onlineButton.Name = "onlineButton";
             this.onlineButton.Size = new System.Drawing.Size(55, 17);
             this.onlineButton.TabIndex = 0;

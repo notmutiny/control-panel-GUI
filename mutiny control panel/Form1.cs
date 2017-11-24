@@ -12,15 +12,12 @@ using System.Windows.Forms;
 namespace mutiny_control_panel {
     public partial class mainWindow : Form {
 
-        //todo
-        /*
+        /*  todo
             - get process by id
             - rework functions to only handle our processes
-            - make node headless
-
         */
 
-        // visual studio data
+        // Visual Studio methods //
         private bool onlineEnabled;
         private bool debugEnabled;
 
@@ -71,7 +68,7 @@ namespace mutiny_control_panel {
             updateServerStatus();
         }
 
-        // custom functions
+        // custom methods //
         private void updateServerStatus() {
             onlineStatusLabel.Text = "mutiny bot is currently " + checkServer() + "!";
         }
@@ -127,10 +124,10 @@ namespace mutiny_control_panel {
                 return;
             }
             if (debugEnabled) {
-                ProcessStartInfo debugWindow = new ProcessStartInfo("cmd.exe");
-                debugWindow.WorkingDirectory = getBotFolder();
-                debugWindow.Arguments = "/k node .";
                 try {
+                    ProcessStartInfo debugWindow = new ProcessStartInfo("cmd.exe");
+                    debugWindow.WorkingDirectory = getBotFolder();
+                    debugWindow.Arguments = "/k node .";
                     Process.Start(debugWindow);
                 } catch {
                     MessageBox.Show("Cannot launch command prompt. What did you do?", "CMD.exe error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
