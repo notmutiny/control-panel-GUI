@@ -92,17 +92,16 @@ namespace mutiny_control_panel {
             return "offline";
         }
 
-        private string getBotFolder() { // this removes file path so cmd can cd into the directory
+        private string getBotParentFolder() {
             string path = Properties.Settings.Default.scriptPath;
-            int cache = 0;
+
             if (path == "") return "";
             else {
                 for (int i = path.Length - 1; i >= 0; i--) {
                     if (i != path.Length - 1) {
                         if (path.Substring(i, 1) == "\\" || path.Substring(i, 1) == "/") {
-                            cache = i;
-                            Console.WriteLine("Bot directory found: " + path.Substring(0, cache));
-                            return path.Substring(0, cache);
+                            Console.WriteLine("Bot directory found: " + path.Substring(0, i));
+                            return path.Substring(0, i);
                         }
                     }
                 }
@@ -129,7 +128,7 @@ namespace mutiny_control_panel {
                     ProcessStartInfo cmdClient = new ProcessStartInfo("cmd.exe");
 
                     cmdClient.Arguments = "/k node .";
-                    cmdClient.WorkingDirectory = getBotFolder();
+                    cmdClient.WorkingDirectory = getBotParentFolder();
 
                     Process cmdProcess = Process.Start(cmdClient);
                     Console.WriteLine("process id saved " + cmdProcess.Id);
