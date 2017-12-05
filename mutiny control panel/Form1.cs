@@ -11,7 +11,6 @@ using System.Windows.Forms;
 
 namespace mutiny_control_panel {
     public partial class mainWindow : Form {
-
         /*  todo
             - get process by id
             - rework functions to only handle our processes
@@ -35,11 +34,10 @@ namespace mutiny_control_panel {
 
         private void editButton_Click(object sender, EventArgs e) {
             try {
-                if (Properties.Settings.Default.useDefaultEditor) {
+                if (Properties.Settings.Default.useDefaultEditor)
                     Process.Start(Properties.Settings.Default.scriptPath);
-                } else {
+                else
                     Process.Start(Properties.Settings.Default.editorCustomPath, Properties.Settings.Default.scriptPath);
-                }
             } catch {
                 MessageBox.Show("Editor cannot be opened. Did you configure settings > preferences?", "Script editor error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -48,11 +46,9 @@ namespace mutiny_control_panel {
         private void pushButton_Click(object sender, EventArgs e) {
             Process[] node = Process.GetProcessesByName("node");
             Process[] cmd = Process.GetProcessesByName("cmd");
-            if (onlineEnabled) {
-                hostJavascriptBot(node, cmd);
-            } else {
-                killJavascriptBot(node, cmd);
-            }
+
+            if (onlineEnabled) hostJSBot(node, cmd);
+            else killJSBot(node, cmd); //need to add cmd functionality
         }
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -64,26 +60,6 @@ namespace mutiny_control_panel {
             Process.Start("https://github.com/notmutiny/control-panel-GUI");
         }
 
-        private void statusTimer_Tick(object sender, EventArgs e) {
-            updateServerStatus();
-        }
-
-        // custom methods //
-        private void updateServerStatus() {
-            onlineStatusLabel.Text = "mutiny bot is currently " + checkServer() + "!";
-        }
-
-        private string checkServer() {
-            Process[] node = Process.GetProcessesByName("node");
-            string onlineStatus;
-            if (node.Length > 0) {
-                onlineStatus = "online";
-            } else {
-                onlineStatus = "offline";
-            }
-            return onlineStatus;
-        }
-
         private void debugCheckBox_CheckedChanged(object sender, EventArgs e) {
             if (debugCheckBox.Checked) {
                 debugEnabled = true;
@@ -92,64 +68,106 @@ namespace mutiny_control_panel {
             }
         }
 
+        private void statusTimer_Tick(object sender, EventArgs e) {
+            updateBotStatus();
+        }
+
+        // custom methods //
+        private void updateBotStatus() {
+            onlineStatusLabel.Text = "mutiny bot is currently "+checkServer()+"!";
+        }
+
+        private string checkServer() {
+            Process[] node = Process.GetProcessesByName("node");
+            Process[] cmd = Process.GetProcessesByName("cmd");
+            
+            foreach (Process proc in node) {
+                if (proc.Id == Properties.Settings.Default.processID) return "online";
+            }
+
+            foreach (Process proc in cmd) {
+                if (proc.Id == Properties.Settings.Default.processID) return "online";
+            }
+
+            return "offline";
+        }
+
         private string getBotFolder() { // this removes file path so cmd can cd into the directory
             string path = Properties.Settings.Default.scriptPath;
             int cache = 0;
-            if (path != "") {
+            if (path == "") return "";
+            else {
                 for (int i = path.Length - 1; i >= 0; i--) {
                     if (i != path.Length - 1) {
                         if (path.Substring(i, 1) == "\\" || path.Substring(i, 1) == "/") {
                             cache = i;
-                            break;
+                            Console.WriteLine("Bot directory found: " + path.Substring(0, cache));
+                            return path.Substring(0, cache);
                         }
                     }
                 }
-                Console.WriteLine("Bot directory found: " + path.Substring(0, cache));
-                return path.Substring(0, cache);
-            } else {
-                Console.WriteLine("Error finding bot directory");
-                return "nil";
+                return "";
             }
         }
 
-        private void hostJavascriptBot(Process[] node, Process[] cmd) {
-            if (node.Length > 0) {
-                node[0].Kill();
-            }
-            if (cmd.Length > 0) {
-                cmd[0].Kill();
-            }
-            if (getBotFolder() == "nil") {
+        private void hostJSBot(Process[] node, Process[] cmd) {
+            if (Properties.Settings.Default.scriptPath == "") {
                 MessageBox.Show("Script location not set. Did you configure settings > preferences?", "File path error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (debugEnabled) {
-                try {
-                    ProcessStartInfo debugWindow = new ProcessStartInfo("cmd.exe");
-                    debugWindow.WorkingDirectory = getBotFolder();
-                    debugWindow.Arguments = "/k node .";
-                    Process.Start(debugWindow);
-                } catch {
-                    MessageBox.Show("Cannot launch command prompt. What did you do?", "CMD.exe error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            } else {
-                try {
-                    ProcessStartInfo nodeWindow = new ProcessStartInfo(Properties.Settings.Default.nodePath);
-                    nodeWindow.WindowStyle = ProcessWindowStyle.Hidden;
-                    nodeWindow.Arguments = Properties.Settings.Default.scriptPath;
-                    Process.Start(nodeWindow);
-                } catch {
-                    MessageBox.Show("Cannot open node. Did you configure settings > preferences?", "Node.exe error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            if (cmd.Length > 0) { //bug, cant kill cmd with kill(),
+                foreach (Process proc in cmd) {
+                    if (proc.Id == Properties.Settings.Default.processID) return;
                 }
             }
+
+            killJSBot(node, cmd);
+
+            try {
+                if (debugEnabled) {
+                    ProcessStartInfo cmdClient = new ProcessStartInfo("cmd.exe");
+
+                    cmdClient.Arguments = "/k node .";
+                    cmdClient.WorkingDirectory = getBotFolder();
+
+                    Process cmdProcess = Process.Start(cmdClient);
+                    Console.WriteLine("process id saved " + cmdProcess.Id);
+                    Properties.Settings.Default.processID = cmdProcess.Id;
+                } else {
+                    ProcessStartInfo nodeClient = new ProcessStartInfo(Properties.Settings.Default.nodePath);
+
+                    nodeClient.Arguments = Properties.Settings.Default.scriptPath;
+                    nodeClient.WindowStyle = ProcessWindowStyle.Hidden;
+
+                    Process nodeProcess = Process.Start(nodeClient);
+                    Console.WriteLine("process id saved " + nodeProcess.Id);
+                    Properties.Settings.Default.processID = nodeProcess.Id;
+                }
+            } catch {
+                MessageBox.Show("Cannot host bot. Did you configure settings > preferences?", "Node.exe error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            Properties.Settings.Default.Save();
         }
 
-        private void killJavascriptBot(Process[] node, Process[] cmd) {
-            if (node.Length > 0) {
-                node[0].Kill();
-            }
+        private void killJSBot(Process[] node, Process[] cmd) {
             if (cmd.Length > 0) {
-                cmd[0].Kill();
+                foreach (Process process in cmd) {
+                    if (process.Id == Properties.Settings.Default.processID) {
+                        process.Kill();
+                        break;
+                    }
+                }
+            }
+
+            if (node.Length > 0) {
+                foreach (Process process in node) {
+                    if (process.Id == Properties.Settings.Default.processID) {
+                        process.Kill();
+                        break;
+                    }
+                }
             }
         }
     }

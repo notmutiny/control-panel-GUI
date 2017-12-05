@@ -145,7 +145,7 @@
             // offlineButton
             // 
             this.offlineButton.AutoSize = true;
-            this.offlineButton.Location = new System.Drawing.Point(70, 19);
+            this.offlineButton.Location = new System.Drawing.Point(70, 20);
             this.offlineButton.Name = "offlineButton";
             this.offlineButton.Size = new System.Drawing.Size(55, 17);
             this.offlineButton.TabIndex = 1;
@@ -157,7 +157,7 @@
             // onlineButton
             // 
             this.onlineButton.AutoSize = true;
-            this.onlineButton.Location = new System.Drawing.Point(9, 19);
+            this.onlineButton.Location = new System.Drawing.Point(9, 20);
             this.onlineButton.Name = "onlineButton";
             this.onlineButton.Size = new System.Drawing.Size(55, 17);
             this.onlineButton.TabIndex = 0;

@@ -70,5 +70,17 @@ namespace mutiny_control_panel.Properties {
                 this["nodePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int processID {
+            get {
+                return ((int)(this["processID"]));
+            }
+            set {
+                this["processID"] = value;
+            }
+        }
     }
 }
