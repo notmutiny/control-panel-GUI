@@ -21,29 +21,14 @@ namespace mutiny_control_panel {
         // Visual Studio methods //
         public Debug console;
 
-        delegate void StringArgReturningVoidDelegate(string text); // i don't know what the fuck this is
-
         private Thread nodeThread;
-
         private bool onlineEnabled;
-        private bool debugEnabled;
 
-        private bool useDefaultEditor;
-
-        private string nodePath;
-        private string scriptPath;
-        private string editorPath;
+        delegate void StringArgReturningVoidDelegate(string text); // i don't know what this is
 
         public mainWindow() {
             InitializeComponent();
-
             console = new Debug();
-
-            useDefaultEditor = Properties.Settings.Default.useDefaultEditor;
-
-            nodePath = Properties.Settings.Default.nodePath;
-            scriptPath = Properties.Settings.Default.scriptPath;
-            editorPath = Properties.Settings.Default.editorCustomPath;
         }
 
         private void onlineButton_CheckedChanged(object sender, EventArgs e) {
@@ -56,18 +41,28 @@ namespace mutiny_control_panel {
 
         private void editButton_Click(object sender, EventArgs e) {
             try {
-                if (useDefaultEditor) Process.Start(scriptPath);
-                else Process.Start(editorPath, scriptPath);
+                if (Properties.Settings.Default.useDefaultEditor) Process.Start(Properties.Settings.Default.scriptPath);
+                else Process.Start(Properties.Settings.Default.editorCustomPath, Properties.Settings.Default.scriptPath);
             } catch {
-                MessageBox.Show("Editor cannot be opened. Did you configure settings > preferences?", "Script editor error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Did you configure settings > preferences?", "Error! Cannot open for editing", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void pushButton_Click(object sender, EventArgs e) {
-            Process[] node = Process.GetProcessesByName("node");
+            if (Properties.Settings.Default.scriptPath == "") {
+                MessageBox.Show("Did you configure settings > preferences?", "Error! Script directory not set", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            if (onlineEnabled) Initialize(); //hostJSBot(node);
-            else killJSBot(node);
+            if (Properties.Settings.Default.nodePath == "") {
+                MessageBox.Show("Did you configure settings > preferences?", "Error! Node directory not set", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (onlineEnabled) {
+                killJSBot();
+                hostJSBot();
+            } else killJSBot();
         }
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -80,11 +75,8 @@ namespace mutiny_control_panel {
         }
 
         private void debugCheckBox_CheckedChanged(object sender, EventArgs e) {
-            debugEnabled = debugCheckBox.Checked;
-
-            if (debugEnabled) console.Show();
-            else console.Hide();
-                //debugEnabled = false;
+            if (debugCheckBox.Checked) console.Show();
+            else console.Hide(); //fix disposed error
         }
 
         private void statusTimer_Tick(object sender, EventArgs e) {
@@ -102,7 +94,7 @@ namespace mutiny_control_panel {
             return "offline";
         }
 
-        private void Initialize() {
+        private void hostJSBot() {
             nodeThread = new Thread(new ThreadStart(ThreadProc));
             nodeThread.Start();
         }
@@ -113,40 +105,60 @@ namespace mutiny_control_panel {
                 this.Invoke(d, new object[] { txt });
             } else {
                 console.textBox2.Text += txt + "\r\n";
+                console.textBox2.SelectionStart = console.textBox2.Text.Length;
+                console.textBox2.ScrollToCaret();
             }
         }
 
         public void ThreadProc() { //thread process
-            ProcessStartInfo startInfo = new ProcessStartInfo(nodePath);
-            startInfo.CreateNoWindow = true; // comment this if you want to see the node window while node is running
-            startInfo.RedirectStandardOutput = true; // though its in/out is redirected so it won't display anything
-            startInfo.RedirectStandardInput = true;
-            startInfo.RedirectStandardError = true;
-            startInfo.UseShellExecute = false;
+            try {
+                ProcessStartInfo startInfo = new ProcessStartInfo(Properties.Settings.Default.nodePath);
+                startInfo.CreateNoWindow = true;
+                startInfo.RedirectStandardOutput = true;
+                startInfo.RedirectStandardInput = true;
+                startInfo.RedirectStandardError = true;
+                startInfo.UseShellExecute = false;
 
-            var proc = new Process();
-            proc.StartInfo = startInfo;
-            proc.EnableRaisingEvents = true;
-            proc.OutputDataReceived += (sender, args) => this.Display(args.Data);
-            proc.ErrorDataReceived += (sender, args) => this.Display(args.Data);
-            proc.Start();
+                var proc = new Process();
+                proc.StartInfo = startInfo;
+                proc.EnableRaisingEvents = true;
+                proc.OutputDataReceived += (sender, args) => this.Display(args.Data);
+                proc.ErrorDataReceived += (sender, args) => this.Display(args.Data);
+                proc.Start();
 
-            Properties.Settings.Default.processID = proc.Id;
-            Console.WriteLine("Process ID saved as: {0}", proc.Id);
-            Properties.Settings.Default.Save();
+                Properties.Settings.Default.processID = proc.Id;
+                Console.WriteLine("Process ID saved as: {0}", proc.Id);
+                Properties.Settings.Default.Save();
 
-            var startCommand = "require('D:/Library/Projects/Coding/Discord/mutiny_bot/mybot.js').Start()"; // start the server after node has started
-            StreamWriter myStreamWriter = proc.StandardInput;
-            myStreamWriter.WriteLine(startCommand);
-            myStreamWriter.Close();
+                var startCommand = "require('D:/Library/Projects/Coding/Discord/mutiny_bot/mybot.js').Start()"; // start the server after node has started
+                StreamWriter myStreamWriter = proc.StandardInput;
+                myStreamWriter.WriteLine(startCommand);
+                myStreamWriter.Close();
 
-            proc.BeginOutputReadLine();
-            proc.BeginErrorReadLine();
-            proc.WaitForExit();
+                proc.BeginOutputReadLine();
+                proc.BeginErrorReadLine();
+                proc.WaitForExit();
+            } catch (InvalidOperationException e) {
+                Console.WriteLine("{0}", e);
+                //throw message box
+            }
         }
 
-        private void hostJSBot(Process[] node) {
+        private void killJSBot() {
+            Process[] node = Process.GetProcessesByName("node");
 
+            if (node.Length > 0) {
+                foreach (Process process in node) {
+                    if (process.Id == Properties.Settings.Default.processID) {
+                        process.Kill();
+                        break;
+                    }
+                }
+            }
+        }
+
+        // old method for reference use only
+        /*private void hostJSBot(Process[] node) {
             try {
                 ProcessStartInfo startInfo = new ProcessStartInfo(nodePath);
 
@@ -161,23 +173,6 @@ namespace mutiny_control_panel {
             }
 
             Properties.Settings.Default.Save();
-        }
-
-        private void killJSBot(Process[] node) {
-            if (node.Length > 0) {
-                foreach (Process process in node) {
-                    if (process.Id == Properties.Settings.Default.processID) {
-                        process.Kill();
-                        break;
-                    }
-                }
-            }
-        }
-
-        private void debugToolStripMenuItem_Click(object sender, EventArgs e) {
-            Debug debug = new Debug();
-
-            debug.Show();
-        }
+        }*/
     }
 }

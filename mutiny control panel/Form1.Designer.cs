@@ -32,7 +32,6 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goToGitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.scriptGroupBox = new System.Windows.Forms.GroupBox();
             this.debugCheckBox = new System.Windows.Forms.CheckBox();
@@ -86,8 +85,7 @@
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem,
-            this.goToGitHubToolStripMenuItem,
-            this.debugToolStripMenuItem});
+            this.goToGitHubToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -95,22 +93,15 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // goToGitHubToolStripMenuItem
             // 
             this.goToGitHubToolStripMenuItem.Name = "goToGitHubToolStripMenuItem";
-            this.goToGitHubToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.goToGitHubToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.goToGitHubToolStripMenuItem.Text = "GitHub";
             this.goToGitHubToolStripMenuItem.Click += new System.EventHandler(this.goToGitHubToolStripMenuItem_Click);
-            // 
-            // debugToolStripMenuItem
-            // 
-            this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
-            this.debugToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.debugToolStripMenuItem.Text = "Debug";
-            this.debugToolStripMenuItem.Click += new System.EventHandler(this.debugToolStripMenuItem_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -145,9 +136,9 @@
             this.debugCheckBox.AutoSize = true;
             this.debugCheckBox.Location = new System.Drawing.Point(9, 46);
             this.debugCheckBox.Name = "debugCheckBox";
-            this.debugCheckBox.Size = new System.Drawing.Size(118, 17);
+            this.debugCheckBox.Size = new System.Drawing.Size(115, 17);
             this.debugCheckBox.TabIndex = 2;
-            this.debugCheckBox.Text = "Use console output";
+            this.debugCheckBox.Text = "Show console logs";
             this.debugCheckBox.UseVisualStyleBackColor = true;
             this.debugCheckBox.CheckedChanged += new System.EventHandler(this.debugCheckBox_CheckedChanged);
             // 
@@ -270,7 +261,6 @@
         private System.Windows.Forms.ToolStripMenuItem goToGitHubToolStripMenuItem;
         private System.Windows.Forms.Timer statusTimer;
         private System.Windows.Forms.CheckBox debugCheckBox;
-        private System.Windows.Forms.ToolStripMenuItem debugToolStripMenuItem;
     }
 }
 
