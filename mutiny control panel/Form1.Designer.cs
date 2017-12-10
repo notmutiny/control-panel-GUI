@@ -42,6 +42,7 @@
             this.pushButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
+            this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.scriptGroupBox.SuspendLayout();
@@ -85,7 +86,8 @@
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem,
-            this.goToGitHubToolStripMenuItem});
+            this.goToGitHubToolStripMenuItem,
+            this.debugToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -93,13 +95,13 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // goToGitHubToolStripMenuItem
             // 
             this.goToGitHubToolStripMenuItem.Name = "goToGitHubToolStripMenuItem";
-            this.goToGitHubToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.goToGitHubToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.goToGitHubToolStripMenuItem.Text = "GitHub";
             this.goToGitHubToolStripMenuItem.Click += new System.EventHandler(this.goToGitHubToolStripMenuItem_Click);
             // 
@@ -217,6 +219,13 @@
             this.statusTimer.Enabled = true;
             this.statusTimer.Tick += new System.EventHandler(this.statusTimer_Tick);
             // 
+            // debugToolStripMenuItem
+            // 
+            this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
+            this.debugToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.debugToolStripMenuItem.Text = "Debug";
+            this.debugToolStripMenuItem.Click += new System.EventHandler(this.debugToolStripMenuItem_Click);
+            // 
             // mainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -261,6 +270,7 @@
         private System.Windows.Forms.ToolStripMenuItem goToGitHubToolStripMenuItem;
         private System.Windows.Forms.Timer statusTimer;
         private System.Windows.Forms.CheckBox debugCheckBox;
+        private System.Windows.Forms.ToolStripMenuItem debugToolStripMenuItem;
     }
 }
 

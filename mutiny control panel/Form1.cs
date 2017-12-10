@@ -4,8 +4,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,11 +19,29 @@ namespace mutiny_control_panel {
         */
 
         // Visual Studio methods //
+        public debugger test;
+
+        delegate void StringArgReturningVoidDelegate(string text); // i don't know what the fuck this is
+
+        private Thread nodeThread;
+
         private bool onlineEnabled;
         private bool debugEnabled;
 
+        private bool useDefaultEditor;
+
+        private string nodePath;
+        private string scriptPath;
+        private string editorPath;
+
         public mainWindow() {
             InitializeComponent();
+
+            useDefaultEditor = Properties.Settings.Default.useDefaultEditor;
+
+            nodePath = Properties.Settings.Default.nodePath;
+            scriptPath = Properties.Settings.Default.scriptPath;
+            editorPath = Properties.Settings.Default.editorCustomPath;
         }
 
         private void onlineButton_CheckedChanged(object sender, EventArgs e) {
@@ -34,10 +54,8 @@ namespace mutiny_control_panel {
 
         private void editButton_Click(object sender, EventArgs e) {
             try {
-                if (Properties.Settings.Default.useDefaultEditor)
-                    Process.Start(Properties.Settings.Default.scriptPath);
-                else
-                    Process.Start(Properties.Settings.Default.editorCustomPath, Properties.Settings.Default.scriptPath);
+                if (useDefaultEditor) Process.Start(scriptPath);
+                else Process.Start(editorPath, scriptPath);
             } catch {
                 MessageBox.Show("Editor cannot be opened. Did you configure settings > preferences?", "Script editor error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -45,10 +63,9 @@ namespace mutiny_control_panel {
 
         private void pushButton_Click(object sender, EventArgs e) {
             Process[] node = Process.GetProcessesByName("node");
-            Process[] cmd = Process.GetProcessesByName("cmd");
 
-            if (onlineEnabled) hostJSBot(node, cmd);
-            else killJSBot(node, cmd); //need to add cmd functionality
+            if (onlineEnabled) Initialize(); //hostJSBot(node);
+            else killJSBot(node);
         }
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -61,88 +78,85 @@ namespace mutiny_control_panel {
         }
 
         private void debugCheckBox_CheckedChanged(object sender, EventArgs e) {
-            if (debugCheckBox.Checked) {
-                debugEnabled = true;
-            } else {
-                debugEnabled = false;
-            }
+            debugEnabled = debugCheckBox.Checked;
+
+            test = new debugger();
+
+            if (debugEnabled) test.Show();
+            else test.Hide();
+                //debugEnabled = false;
         }
 
         private void statusTimer_Tick(object sender, EventArgs e) {
-            updateBotStatus();
+            onlineStatusLabel.Text = "mutiny bot is currently " + checkServer() + "!";
         }
 
         // custom methods //
-        private void updateBotStatus() {
-            onlineStatusLabel.Text = "mutiny bot is currently "+checkServer()+"!";
-        }
-
         private string checkServer() {
             Process[] node = Process.GetProcessesByName("node");
-            Process[] cmd = Process.GetProcessesByName("cmd");
             
             foreach (Process proc in node) {
-                if (proc.Id == Properties.Settings.Default.processID) return "online";
-            }
-
-            foreach (Process proc in cmd) {
                 if (proc.Id == Properties.Settings.Default.processID) return "online";
             }
 
             return "offline";
         }
 
-        private string getBotParentFolder() {
-            string path = Properties.Settings.Default.scriptPath;
+        private void Initialize() {
+            // start node in another thread
+            nodeThread = new Thread(new ThreadStart(ThreadProc));
+            nodeThread.Start();
 
-            if (path == "") return "";
-            else {
-                for (int i = path.Length - 1; i >= 0; i--) {
-                    if (i != path.Length - 1) {
-                        if (path.Substring(i, 1) == "\\" || path.Substring(i, 1) == "/") {
-                            Console.WriteLine("Bot directory found: " + path.Substring(0, i));
-                            return path.Substring(0, i);
-                        }
-                    }
-                }
-                return "";
+            // wait for the node thread to die
+            //nodeThread.Join();
+        }
+
+        private void Display(string txt) {
+            if (test.textBox2.InvokeRequired) { // nodejs and Lua manage multithreading without all this bullshit
+                StringArgReturningVoidDelegate d = new StringArgReturningVoidDelegate(Display);
+                this.Invoke(d, new object[] { txt });
+            } else {
+                test.textBox2.Text += txt + "\r\n";
             }
         }
 
-        private void hostJSBot(Process[] node, Process[] cmd) {
-            if (Properties.Settings.Default.scriptPath == "") {
-                MessageBox.Show("Script location not set. Did you configure settings > preferences?", "File path error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+        public void ThreadProc() { //thread process
+            // node is like a beacon of light among this retarded mess
+            ProcessStartInfo startInfo = new ProcessStartInfo(nodePath);
+            startInfo.CreateNoWindow = true; // comment this if you want to see the node window while node is running
+            startInfo.RedirectStandardOutput = true; // though its in/out is redirected so it won't display anything
+            startInfo.RedirectStandardInput = true;
+            startInfo.RedirectStandardError = true;
+            startInfo.UseShellExecute = false;
 
-            if (cmd.Length > 0) { //bug, cant kill cmd with kill(),
-                foreach (Process proc in cmd) {
-                    if (proc.Id == Properties.Settings.Default.processID) return;
-                }
-            }
+            var proc = new Process();
+            proc.StartInfo = startInfo;
+            proc.EnableRaisingEvents = true;
+            proc.OutputDataReceived += (sender, args) => this.Display(args.Data);
+            proc.ErrorDataReceived += (sender, args) => this.Display(args.Data);
+            proc.Start();
 
-            killJSBot(node, cmd);
+            var startCommand = "require('D:/Library/Projects/Coding/Discord/mutiny_bot/mybot.js').Start()"; // start the server after node has started
+            StreamWriter myStreamWriter = proc.StandardInput;
+            myStreamWriter.WriteLine(startCommand);
+            myStreamWriter.Close();
+
+            proc.BeginOutputReadLine();
+            proc.BeginErrorReadLine();
+            proc.WaitForExit();
+        }
+
+        private void hostJSBot(Process[] node) {
 
             try {
-                if (debugEnabled) {
-                    ProcessStartInfo cmdClient = new ProcessStartInfo("cmd.exe");
+                ProcessStartInfo startInfo = new ProcessStartInfo(nodePath);
 
-                    cmdClient.Arguments = "/k node .";
-                    cmdClient.WorkingDirectory = getBotParentFolder();
+                startInfo.Arguments = Properties.Settings.Default.scriptPath;
+                startInfo.WindowStyle = ProcessWindowStyle.Normal;
 
-                    Process cmdProcess = Process.Start(cmdClient);
-                    Console.WriteLine("process id saved " + cmdProcess.Id);
-                    Properties.Settings.Default.processID = cmdProcess.Id;
-                } else {
-                    ProcessStartInfo nodeClient = new ProcessStartInfo(Properties.Settings.Default.nodePath);
-
-                    nodeClient.Arguments = Properties.Settings.Default.scriptPath;
-                    nodeClient.WindowStyle = ProcessWindowStyle.Hidden;
-
-                    Process nodeProcess = Process.Start(nodeClient);
-                    Console.WriteLine("process id saved " + nodeProcess.Id);
-                    Properties.Settings.Default.processID = nodeProcess.Id;
-                }
+                Process nodeProcess = Process.Start(startInfo);
+                Console.WriteLine("process id saved " + nodeProcess.Id);
+                Properties.Settings.Default.processID = nodeProcess.Id;
             } catch {
                 MessageBox.Show("Cannot host bot. Did you configure settings > preferences?", "Node.exe error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -150,16 +164,7 @@ namespace mutiny_control_panel {
             Properties.Settings.Default.Save();
         }
 
-        private void killJSBot(Process[] node, Process[] cmd) {
-            if (cmd.Length > 0) {
-                foreach (Process process in cmd) {
-                    if (process.Id == Properties.Settings.Default.processID) {
-                        process.Kill();
-                        break;
-                    }
-                }
-            }
-
+        private void killJSBot(Process[] node) {
             if (node.Length > 0) {
                 foreach (Process process in node) {
                     if (process.Id == Properties.Settings.Default.processID) {
@@ -168,6 +173,12 @@ namespace mutiny_control_panel {
                     }
                 }
             }
+        }
+
+        private void debugToolStripMenuItem_Click(object sender, EventArgs e) {
+            debugger debug = new debugger();
+
+            debug.Show();
         }
     }
 }

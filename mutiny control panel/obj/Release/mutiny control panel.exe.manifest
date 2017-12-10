@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="mutiny control panel.exe" size="42440">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="mutiny control panel.exe" size="44488">
       <assemblyIdentity name="mutiny control panel" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>bVLNKOhRKUtHSLHWVlzb2laquHyNckQG+W4+YkpaaTE=</dsig:DigestValue>
+        <dsig:DigestValue>vHxOnJREhZM625VZWD0vJ5FLKTwSzGmzSjh5um1Qf0s=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -63,13 +63,13 @@
       <dsig:DigestValue>WOl/jZMIRcgtFA1KyohbcvODviaFOQWyTq/l1VMXU7s=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="mutiny control panel.exe.config" size="1426">
+  <file name="mutiny control panel.exe.config" size="1397">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Ez0qTcHKIesNGh869bDXiyxzjYUbKBMBpj7R3/waOeo=</dsig:DigestValue>
+      <dsig:DigestValue>cRS/zdhBn3V55LfkcVJNg6hVPCQp7KYPtRdhBZnLgW0=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>
