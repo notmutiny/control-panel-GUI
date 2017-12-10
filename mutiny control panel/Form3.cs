@@ -9,7 +9,7 @@ namespace mutiny_control_panel {
         private TextBox textBox1;
         private Thread nodeThread;
 
-        delegate void StringArgReturningVoidDelegate(string text); // i don't know what the fuck this is
+        delegate void StringArgReturningVoidDelegate(string text); // i don't know what this is
 
         public debugger() {
             InitializeComponent();
