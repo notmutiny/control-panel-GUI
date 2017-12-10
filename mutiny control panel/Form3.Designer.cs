@@ -47,8 +47,8 @@
             this.ClientSize = new System.Drawing.Size(538, 245);
             this.Controls.Add(this.textBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.HelpButton = true;
             this.Name = "Debug";
+            this.ShowIcon = false;
             this.Text = "Debug";
             this.Load += new System.EventHandler(this.debugger_Load);
             this.ResumeLayout(false);

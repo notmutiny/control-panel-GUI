@@ -14,12 +14,12 @@ using System.Windows.Forms;
 namespace mutiny_control_panel {
     public partial class mainWindow : Form {
         /*  todo
-            - get process by id
-            - rework functions to only handle our processes
+            - tie log checkbox to form3 visibility
+            - clean and add to console output ui
         */
 
         // Visual Studio methods //
-        public Debug console;
+        public Debug console = new Debug();
 
         private Thread nodeThread;
         private bool onlineEnabled;
@@ -28,7 +28,13 @@ namespace mutiny_control_panel {
 
         public mainWindow() {
             InitializeComponent();
-            console = new Debug();
+        }
+
+        private void console_FormClosing(object sender, FormClosingEventArgs e) {
+            if (e.CloseReason == CloseReason.UserClosing) {
+                e.Cancel = true;
+                Hide();
+            }
         }
 
         private void onlineButton_CheckedChanged(object sender, EventArgs e) {
@@ -99,6 +105,19 @@ namespace mutiny_control_panel {
             nodeThread.Start();
         }
 
+        private void killJSBot() {
+            Process[] node = Process.GetProcessesByName("node");
+
+            if (node.Length > 0) {
+                foreach (Process process in node) {
+                    if (process.Id == Properties.Settings.Default.processID) {
+                        process.Kill();
+                        break;
+                    }
+                }
+            }
+        }
+
         private void Display(string txt) {
             if (console.textBox2.InvokeRequired) {
                 StringArgReturningVoidDelegate d = new StringArgReturningVoidDelegate(Display);
@@ -143,36 +162,5 @@ namespace mutiny_control_panel {
                 //throw message box
             }
         }
-
-        private void killJSBot() {
-            Process[] node = Process.GetProcessesByName("node");
-
-            if (node.Length > 0) {
-                foreach (Process process in node) {
-                    if (process.Id == Properties.Settings.Default.processID) {
-                        process.Kill();
-                        break;
-                    }
-                }
-            }
-        }
-
-        // old method for reference use only
-        /*private void hostJSBot(Process[] node) {
-            try {
-                ProcessStartInfo startInfo = new ProcessStartInfo(nodePath);
-
-                startInfo.Arguments = Properties.Settings.Default.scriptPath;
-                startInfo.WindowStyle = ProcessWindowStyle.Normal;
-
-                Process nodeProcess = Process.Start(startInfo);
-                Console.WriteLine("process id saved " + nodeProcess.Id);
-                Properties.Settings.Default.processID = nodeProcess.Id;
-            } catch {
-                MessageBox.Show("Cannot host bot. Did you configure settings > preferences?", "Node.exe error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            Properties.Settings.Default.Save();
-        }*/
     }
 }
