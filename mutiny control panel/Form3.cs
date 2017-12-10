@@ -4,14 +4,14 @@ using System.Threading;
 using System.Windows.Forms;
 
 namespace mutiny_control_panel {
-    public partial class debugger : Form {
+    public partial class Debug : Form {
 
         private TextBox textBox1;
         private Thread nodeThread;
 
         delegate void StringArgReturningVoidDelegate(string text); // i don't know what this is
 
-        public debugger() {
+        public Debug() {
             InitializeComponent();
         }
 

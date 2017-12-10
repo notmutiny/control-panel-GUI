@@ -1,5 +1,5 @@
 ﻿namespace mutiny_control_panel {
-    partial class debugger {
+    partial class Debug {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -35,18 +35,20 @@
             this.textBox2.Location = new System.Drawing.Point(0, 0);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(558, 261);
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(538, 245);
             this.textBox2.TabIndex = 0;
             // 
-            // debugger
+            // Debug
             // 
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.InfoText;
-            this.ClientSize = new System.Drawing.Size(558, 261);
+            this.ClientSize = new System.Drawing.Size(538, 245);
             this.Controls.Add(this.textBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Name = "debugger";
-            this.Text = "debugger";
+            this.HelpButton = true;
+            this.Name = "Debug";
+            this.Text = "Debug";
             this.Load += new System.EventHandler(this.debugger_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -19,7 +19,7 @@ namespace mutiny_control_panel {
         */
 
         // Visual Studio methods //
-        public debugger test;
+        public Debug console;
 
         delegate void StringArgReturningVoidDelegate(string text); // i don't know what the fuck this is
 
@@ -36,6 +36,8 @@ namespace mutiny_control_panel {
 
         public mainWindow() {
             InitializeComponent();
+
+            console = new Debug();
 
             useDefaultEditor = Properties.Settings.Default.useDefaultEditor;
 
@@ -80,10 +82,8 @@ namespace mutiny_control_panel {
         private void debugCheckBox_CheckedChanged(object sender, EventArgs e) {
             debugEnabled = debugCheckBox.Checked;
 
-            test = new debugger();
-
-            if (debugEnabled) test.Show();
-            else test.Hide();
+            if (debugEnabled) console.Show();
+            else console.Hide();
                 //debugEnabled = false;
         }
 
@@ -103,25 +103,20 @@ namespace mutiny_control_panel {
         }
 
         private void Initialize() {
-            // start node in another thread
             nodeThread = new Thread(new ThreadStart(ThreadProc));
             nodeThread.Start();
-
-            // wait for the node thread to die
-            //nodeThread.Join();
         }
 
         private void Display(string txt) {
-            if (test.textBox2.InvokeRequired) { // nodejs and Lua manage multithreading without all this bullshit
+            if (console.textBox2.InvokeRequired) {
                 StringArgReturningVoidDelegate d = new StringArgReturningVoidDelegate(Display);
                 this.Invoke(d, new object[] { txt });
             } else {
-                test.textBox2.Text += txt + "\r\n";
+                console.textBox2.Text += txt + "\r\n";
             }
         }
 
         public void ThreadProc() { //thread process
-            // node is like a beacon of light among this retarded mess
             ProcessStartInfo startInfo = new ProcessStartInfo(nodePath);
             startInfo.CreateNoWindow = true; // comment this if you want to see the node window while node is running
             startInfo.RedirectStandardOutput = true; // though its in/out is redirected so it won't display anything
@@ -135,6 +130,10 @@ namespace mutiny_control_panel {
             proc.OutputDataReceived += (sender, args) => this.Display(args.Data);
             proc.ErrorDataReceived += (sender, args) => this.Display(args.Data);
             proc.Start();
+
+            Properties.Settings.Default.processID = proc.Id;
+            Console.WriteLine("Process ID saved as: {0}", proc.Id);
+            Properties.Settings.Default.Save();
 
             var startCommand = "require('D:/Library/Projects/Coding/Discord/mutiny_bot/mybot.js').Start()"; // start the server after node has started
             StreamWriter myStreamWriter = proc.StandardInput;
@@ -176,7 +175,7 @@ namespace mutiny_control_panel {
         }
 
         private void debugToolStripMenuItem_Click(object sender, EventArgs e) {
-            debugger debug = new debugger();
+            Debug debug = new Debug();
 
             debug.Show();
         }
