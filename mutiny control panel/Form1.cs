@@ -13,6 +13,9 @@ using System.Windows.Forms;
 
 namespace mutiny_control_panel {
     public partial class mainWindow : Form {
+
+        private string version = "0.4.2";
+
         /*  todo
          *  
          *  - clean and add to console output ui
@@ -20,7 +23,6 @@ namespace mutiny_control_panel {
          * 
          */
 
-        // Visual Studio methods //
         private bool pushOnline;
 
         private Debug console;
@@ -28,6 +30,7 @@ namespace mutiny_control_panel {
 
         delegate void StringArgReturningVoidDelegate(string text); // i don't know what this is
 
+        // Visual Studio methods //
         public mainWindow() {
             InitializeComponent();
             spawnConsole();
@@ -170,6 +173,12 @@ namespace mutiny_control_panel {
                 Console.WriteLine("{0}", e);
                 //throw message box
             }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
+            AboutBox1 about = new AboutBox1();
+            about.labelVersion.Text = "Version "+version;
+            about.ShowDialog();
         }
     }
 }
