@@ -19,7 +19,7 @@ namespace mutiny_control_panel {
         */
 
         // Visual Studio methods //
-        public Debug console = new Debug();
+        public Debug console;
 
         private Thread nodeThread;
         private bool onlineEnabled;
@@ -28,13 +28,18 @@ namespace mutiny_control_panel {
 
         public mainWindow() {
             InitializeComponent();
+            spawnConsole();
+        }
+
+        private void spawnConsole() {
+            console = new Debug();
+            console.FormClosing += new FormClosingEventHandler(console_FormClosing);
         }
 
         private void console_FormClosing(object sender, FormClosingEventArgs e) {
-            if (e.CloseReason == CloseReason.UserClosing) {
-                e.Cancel = true;
-                Hide();
-            }
+            console.Hide();
+            debugCheckBox.Checked = false;
+            e.Cancel = true; // this cancels the close event.
         }
 
         private void onlineButton_CheckedChanged(object sender, EventArgs e) {
@@ -124,6 +129,7 @@ namespace mutiny_control_panel {
                 this.Invoke(d, new object[] { txt });
             } else {
                 console.textBox2.Text += txt + "\r\n";
+
                 console.textBox2.SelectionStart = console.textBox2.Text.Length;
                 console.textBox2.ScrollToCaret();
             }

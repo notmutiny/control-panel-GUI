@@ -50,7 +50,6 @@
             this.Name = "Debug";
             this.ShowIcon = false;
             this.Text = "Debug";
-            this.Load += new System.EventHandler(this.debugger_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -12,8 +12,10 @@ namespace mutiny_control_panel {
             InitializeComponent();
         }
 
-        private void debugger_Load(object sender, System.EventArgs e) {
-
+        private void console_FormClosing(object sender, FormClosingEventArgs e) {
+            this.Hide();
+            //debugCheckBox.Checked = false;
+            e.Cancel = true; // this cancels the close event.
         }
     }
 }
