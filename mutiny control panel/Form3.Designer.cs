@@ -49,7 +49,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "Debug";
             this.ShowIcon = false;
-            this.Text = "Debug";
+            this.Text = "Script output";
             this.ResumeLayout(false);
             this.PerformLayout();
 

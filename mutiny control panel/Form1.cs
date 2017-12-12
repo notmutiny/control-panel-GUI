@@ -17,7 +17,7 @@ namespace mutiny_control_panel {
          *  
          *  - clean and add to console output ui
          *  - fix threadproc hardcode
-         *  
+         * 
          */
 
         // Visual Studio methods //
@@ -55,7 +55,7 @@ namespace mutiny_control_panel {
         private void editButton_Click(object sender, EventArgs e) {
             try {
                 if (Properties.Settings.Default.useDefaultEditor) Process.Start(Properties.Settings.Default.scriptPath);
-                else Process.Start(Properties.Settings.Default.editorCustomPath, Properties.Settings.Default.scriptPath);
+                else Process.Start(Properties.Settings.Default.editorPath, Properties.Settings.Default.scriptPath);
             } catch {
                 MessageBox.Show("Cannot edit script, configure Settings > Preferences", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -66,12 +66,12 @@ namespace mutiny_control_panel {
 
             if (pushOnline) {
                 if (Properties.Settings.Default.scriptPath == "") {
-                    MessageBox.Show("Script directory not set, configure Settings > Preferences", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Script directory not saved, configure Settings > Preferences", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (Properties.Settings.Default.nodePath == "") {
-                    MessageBox.Show("Node directory not set, configure Settings > Preferences", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Node directory not saved, configure Settings > Preferences", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 

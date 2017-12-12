@@ -137,9 +137,9 @@
             this.debugCheckBox.AutoSize = true;
             this.debugCheckBox.Location = new System.Drawing.Point(9, 46);
             this.debugCheckBox.Name = "debugCheckBox";
-            this.debugCheckBox.Size = new System.Drawing.Size(121, 17);
+            this.debugCheckBox.Size = new System.Drawing.Size(114, 17);
             this.debugCheckBox.TabIndex = 2;
-            this.debugCheckBox.Text = "Display script output";
+            this.debugCheckBox.Text = "Show script output";
             this.debugCheckBox.UseVisualStyleBackColor = true;
             this.debugCheckBox.CheckedChanged += new System.EventHandler(this.debugCheckBox_CheckedChanged);
             // 

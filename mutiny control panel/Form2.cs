@@ -11,14 +11,48 @@ using System.Windows.Forms;
 namespace mutiny_control_panel {
     public partial class preferencesForm : Form {
         private bool useDefaultEditor;
-
+         
         public preferencesForm() {
             InitializeComponent();
-            RestoreSettings();
+            restoreSettings();
+
+            editorDirectoryTextbox.Text = Properties.Settings.Default.editorPath;
+        }
+
+        private void restoreSettings() {
+            if (Properties.Settings.Default.editorPath != "")
+                editorDirectoryTextbox.Text = Properties.Settings.Default.editorPath;
+
+            if (Properties.Settings.Default.scriptPath != "") {
+                scriptPathText.Text = Properties.Settings.Default.scriptPath;
+                scriptPathText.BackColor = Color.White;
+            }
+
+            if (Properties.Settings.Default.nodePath != "") {
+                nodePathText.Text = Properties.Settings.Default.nodePath;
+                var text = nodePathText.Text;
+                if (text.Substring(text.Length - 8, 8) == "node.exe" || text.Substring(text.Length - 9, 8) == "node.exe") {
+                    nodePathText.BackColor = Color.White;
+                } else nodePathText.BackColor = SystemColors.Control;
+            }
+
+            useDefaultEditor = Properties.Settings.Default.useDefaultEditor;
+            if (useDefaultEditor) defaultScriptEditorButton.Checked = true;
+            else customScriptEditorButton.Checked = true;
+        }
+
+        private void saveButton_Click_1(object sender, EventArgs e) {
+            if (scriptPathText.Text != Properties.Settings.Default.scriptPath) Properties.Settings.Default.scriptPath = scriptPathText.Text;
+            if (editorDirectoryTextbox.Text != Properties.Settings.Default.editorPath) Properties.Settings.Default.editorPath = editorDirectoryTextbox.Text;
+            if (useDefaultEditor != Properties.Settings.Default.useDefaultEditor) Properties.Settings.Default.useDefaultEditor = useDefaultEditor;
+            if (nodePathText.Text != Properties.Settings.Default.nodePath) Properties.Settings.Default.nodePath = nodePathText.Text;
+
+            Properties.Settings.Default.Save();
+            this.Close();
         }
 
         private void cancelButton_Click(object sender, EventArgs e) {
-            this.Hide();
+            this.Close();
         }
 
         private void findScriptButton_Click(object sender, EventArgs e) {
@@ -27,74 +61,42 @@ namespace mutiny_control_panel {
             script.Filter = "Javascript files (*.js)|*.js";
             if (script.ShowDialog() == DialogResult.OK) {
                 scriptPathText.Text = script.FileName;
+                if (script.FileName != "") scriptPathText.BackColor = Color.White;
+                else scriptPathText.BackColor = SystemColors.Control;
             }
         }
 
-        private void findScriptEditorButton_Click(object sender, EventArgs e) {
+        private void findScriptEditorButton_Click_1(object sender, EventArgs e) {
             OpenFileDialog editor = new OpenFileDialog();
             editor.InitialDirectory = "c:\\";
             editor.Filter = "Executable files (*.exe)|*.exe";
             if (editor.ShowDialog() == DialogResult.OK) {
                 customScriptEditorButton.Checked = true;
-                customEditorPathText.Text = editor.FileName;
+                editorDirectoryTextbox.Text = editor.FileName;
             }
         }
 
-        private void findNodeButton_Click(object sender, EventArgs e) {
+        private void findNodeButton_Click_1(object sender, EventArgs e) {
             OpenFileDialog node = new OpenFileDialog();
             node.InitialDirectory = "c:\\";
-            node.Filter = "Executable files (*.exe)|*.exe";
+            node.Filter = "Node executable (node.exe)|*.exe";
             if (node.ShowDialog() == DialogResult.OK) {
                 nodePathText.Text = node.FileName;
+
+                var text = nodePathText.Text;
+                if (text.Substring(text.Length - 8, 8) == "node.exe" || text.Substring(text.Length - 9, 8) == "node.exe") {
+                    nodePathText.BackColor = Color.White;
+                } else nodePathText.BackColor = SystemColors.Control;
             }
-        }
-
-        private void defaultScriptEditorButton_CheckedChanged(object sender, EventArgs e) {
-
         }
 
         private void customScriptEditorButton_CheckedChanged(object sender, EventArgs e) {
             if (customScriptEditorButton.Checked == true) {
                 useDefaultEditor = false;
-                customEditorPathText.ReadOnly = false;
+                editorDirectoryTextbox.BackColor = Color.White;
             } else {
                 useDefaultEditor = true;
-                customEditorPathText.ReadOnly = true;
-            }
-        }
-
-        private void saveButton_Click(object sender, EventArgs e) {
-            if (scriptPathText.Text != Properties.Settings.Default.scriptPath) {
-                Properties.Settings.Default.scriptPath = scriptPathText.Text;
-            }
-            if (customEditorPathText.Text != Properties.Settings.Default.editorCustomPath) {
-                Properties.Settings.Default.editorCustomPath = customEditorPathText.Text;
-            }
-            if (useDefaultEditor != Properties.Settings.Default.useDefaultEditor) {
-                Properties.Settings.Default.useDefaultEditor = useDefaultEditor;
-            }
-            if (nodePathText.Text != Properties.Settings.Default.nodePath) {
-                Properties.Settings.Default.nodePath = nodePathText.Text;
-            }
-            Properties.Settings.Default.Save();
-            this.Hide();
-        }
-
-        private void RestoreSettings() {
-            if (Properties.Settings.Default.scriptPath != "") {
-                scriptPathText.Text = Properties.Settings.Default.scriptPath;
-            }
-            if (Properties.Settings.Default.editorCustomPath != "") {
-                customEditorPathText.Text = Properties.Settings.Default.editorCustomPath;
-            }
-            if (Properties.Settings.Default.nodePath != "") {
-                nodePathText.Text = Properties.Settings.Default.nodePath;
-            }
-            useDefaultEditor = Properties.Settings.Default.useDefaultEditor;
-            if (useDefaultEditor) {
-                defaultScriptEditorButton.Checked = true;
-            } else {
-                customScriptEditorButton.Checked = true;
+                editorDirectoryTextbox.BackColor = SystemColors.Control;
             }
         }
     }

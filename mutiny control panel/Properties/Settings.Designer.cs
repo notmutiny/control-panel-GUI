@@ -25,13 +25,13 @@ namespace mutiny_control_panel.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string editorCustomPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Windows\\System32\\notepad.exe")]
+        public string editorPath {
             get {
-                return ((string)(this["editorCustomPath"]));
+                return ((string)(this["editorPath"]));
             }
             set {
-                this["editorCustomPath"] = value;
+                this["editorPath"] = value;
             }
         }
         
