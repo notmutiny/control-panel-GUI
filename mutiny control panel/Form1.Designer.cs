@@ -42,6 +42,7 @@
             this.pushButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.scriptGroupBox.SuspendLayout();
@@ -93,13 +94,13 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // goToGitHubToolStripMenuItem
             // 
             this.goToGitHubToolStripMenuItem.Name = "goToGitHubToolStripMenuItem";
-            this.goToGitHubToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.goToGitHubToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.goToGitHubToolStripMenuItem.Text = "GitHub";
             this.goToGitHubToolStripMenuItem.Click += new System.EventHandler(this.goToGitHubToolStripMenuItem_Click);
             // 
@@ -217,6 +218,11 @@
             this.statusTimer.Enabled = true;
             this.statusTimer.Tick += new System.EventHandler(this.statusTimer_Tick);
             // 
+            // notifyIcon
+            // 
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "notifyIcon";
+            // 
             // mainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -261,6 +267,7 @@
         private System.Windows.Forms.ToolStripMenuItem goToGitHubToolStripMenuItem;
         private System.Windows.Forms.Timer statusTimer;
         private System.Windows.Forms.CheckBox debugCheckBox;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
     }
 }
 

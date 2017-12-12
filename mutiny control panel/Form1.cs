@@ -57,7 +57,7 @@ namespace mutiny_control_panel {
                 if (Properties.Settings.Default.useDefaultEditor) Process.Start(Properties.Settings.Default.scriptPath);
                 else Process.Start(Properties.Settings.Default.editorCustomPath, Properties.Settings.Default.scriptPath);
             } catch {
-                MessageBox.Show("Did you configure settings > preferences?", "Error! Cannot open for editing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Cannot edit script, configure Settings > Preferences", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -66,12 +66,12 @@ namespace mutiny_control_panel {
 
             if (pushOnline) {
                 if (Properties.Settings.Default.scriptPath == "") {
-                    MessageBox.Show("Did you configure settings > preferences?", "Error! Script directory not set", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Script directory not set, configure Settings > Preferences", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (Properties.Settings.Default.nodePath == "") {
-                    MessageBox.Show("Did you configure settings > preferences?", "Error! Node directory not set", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Node directory not set, configure Settings > Preferences", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 

@@ -104,9 +104,9 @@
             this.scriptLocationLabel.AutoSize = true;
             this.scriptLocationLabel.Location = new System.Drawing.Point(7, 71);
             this.scriptLocationLabel.Name = "scriptLocationLabel";
-            this.scriptLocationLabel.Size = new System.Drawing.Size(74, 13);
+            this.scriptLocationLabel.Size = new System.Drawing.Size(77, 13);
             this.scriptLocationLabel.TabIndex = 4;
-            this.scriptLocationLabel.Text = "Script location";
+            this.scriptLocationLabel.Text = "Script directory";
             // 
             // findScriptEditorButton
             // 
@@ -201,7 +201,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(127, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "version 0.4a";
+            this.label1.Text = "version 0.4b";
             // 
             // nodeGroupBox
             // 
@@ -238,9 +238,9 @@
             this.nodeLocationLabel.AutoSize = true;
             this.nodeLocationLabel.Location = new System.Drawing.Point(7, 23);
             this.nodeLocationLabel.Name = "nodeLocationLabel";
-            this.nodeLocationLabel.Size = new System.Drawing.Size(91, 13);
+            this.nodeLocationLabel.Size = new System.Drawing.Size(94, 13);
             this.nodeLocationLabel.TabIndex = 7;
-            this.nodeLocationLabel.Text = "node.exe location";
+            this.nodeLocationLabel.Text = "node.exe directory";
             // 
             // preferencesForm
             // 
