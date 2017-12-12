@@ -14,15 +14,17 @@ using System.Windows.Forms;
 namespace mutiny_control_panel {
     public partial class mainWindow : Form {
         /*  todo
-            - tie log checkbox to form3 visibility
-            - clean and add to console output ui
-        */
+         *  
+         *  - clean and add to console output ui
+         *  - fix threadproc hardcode
+         *  
+         */
 
         // Visual Studio methods //
-        public Debug console;
+        private bool pushOnline;
 
+        private Debug console;
         private Thread nodeThread;
-        private bool onlineEnabled;
 
         delegate void StringArgReturningVoidDelegate(string text); // i don't know what this is
 
@@ -39,15 +41,15 @@ namespace mutiny_control_panel {
         private void console_FormClosing(object sender, FormClosingEventArgs e) {
             console.Hide();
             debugCheckBox.Checked = false;
-            e.Cancel = true; // this cancels the close event.
+            e.Cancel = true;
         }
 
         private void onlineButton_CheckedChanged(object sender, EventArgs e) {
-            onlineEnabled = true;
+            pushOnline = true;
         }
 
         private void offlineButton_CheckedChanged(object sender, EventArgs e) {
-            onlineEnabled = false;
+            pushOnline = false;
         }
 
         private void editButton_Click(object sender, EventArgs e) {
@@ -60,20 +62,21 @@ namespace mutiny_control_panel {
         }
 
         private void pushButton_Click(object sender, EventArgs e) {
-            if (Properties.Settings.Default.scriptPath == "") {
-                MessageBox.Show("Did you configure settings > preferences?", "Error! Script directory not set", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            killJSBot();
 
-            if (Properties.Settings.Default.nodePath == "") {
-                MessageBox.Show("Did you configure settings > preferences?", "Error! Node directory not set", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            if (pushOnline) {
+                if (Properties.Settings.Default.scriptPath == "") {
+                    MessageBox.Show("Did you configure settings > preferences?", "Error! Script directory not set", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            if (onlineEnabled) {
-                killJSBot();
+                if (Properties.Settings.Default.nodePath == "") {
+                    MessageBox.Show("Did you configure settings > preferences?", "Error! Node directory not set", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 hostJSBot();
-            } else killJSBot();
+            }
         }
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -87,7 +90,7 @@ namespace mutiny_control_panel {
 
         private void debugCheckBox_CheckedChanged(object sender, EventArgs e) {
             if (debugCheckBox.Checked) console.Show();
-            else console.Hide(); //fix disposed error
+            else console.Hide();
         }
 
         private void statusTimer_Tick(object sender, EventArgs e) {
