@@ -57,7 +57,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(311, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(297, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -116,7 +116,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(311, 78);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(297, 78);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // scriptGroupBox
@@ -127,7 +127,7 @@
             this.scriptGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scriptGroupBox.Location = new System.Drawing.Point(3, 3);
             this.scriptGroupBox.Name = "scriptGroupBox";
-            this.scriptGroupBox.Size = new System.Drawing.Size(141, 72);
+            this.scriptGroupBox.Size = new System.Drawing.Size(135, 72);
             this.scriptGroupBox.TabIndex = 0;
             this.scriptGroupBox.TabStop = false;
             this.scriptGroupBox.Text = "mutiny bot configuration";
@@ -137,9 +137,9 @@
             this.debugCheckBox.AutoSize = true;
             this.debugCheckBox.Location = new System.Drawing.Point(9, 46);
             this.debugCheckBox.Name = "debugCheckBox";
-            this.debugCheckBox.Size = new System.Drawing.Size(115, 17);
+            this.debugCheckBox.Size = new System.Drawing.Size(121, 17);
             this.debugCheckBox.TabIndex = 2;
-            this.debugCheckBox.Text = "Show console logs";
+            this.debugCheckBox.Text = "Display script output";
             this.debugCheckBox.UseVisualStyleBackColor = true;
             this.debugCheckBox.CheckedChanged += new System.EventHandler(this.debugCheckBox_CheckedChanged);
             // 
@@ -175,13 +175,13 @@
             this.tableLayoutPanel2.Controls.Add(this.pushButton, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.editButton, 0, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(150, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(144, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 13F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(158, 72);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(150, 72);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // onlineStatusLabel
@@ -189,7 +189,7 @@
             this.onlineStatusLabel.AutoSize = true;
             this.onlineStatusLabel.Location = new System.Drawing.Point(3, 0);
             this.onlineStatusLabel.Name = "onlineStatusLabel";
-            this.onlineStatusLabel.Size = new System.Drawing.Size(149, 13);
+            this.onlineStatusLabel.Size = new System.Drawing.Size(111, 13);
             this.onlineStatusLabel.TabIndex = 0;
             this.onlineStatusLabel.Text = "mutiny bot is currently unknwn";
             // 
@@ -227,7 +227,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(311, 102);
+            this.ClientSize = new System.Drawing.Size(297, 102);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
