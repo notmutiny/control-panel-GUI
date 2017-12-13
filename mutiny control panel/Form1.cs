@@ -14,13 +14,14 @@ using System.Windows.Forms;
 namespace mutiny_control_panel {
     public partial class mainWindow : Form {
 
-        private string version = "0.4.2";
+        private string version = "0.4.3";
 
         /*  todo
          *  
          *  - clean and add to console output ui
          *  - fix threadproc hardcode
-         * 
+         *  - add setting script > clean log every i changes
+         *
          */
 
         private bool pushOnline;
@@ -85,6 +86,12 @@ namespace mutiny_control_panel {
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e) {
             preferencesForm pref = new preferencesForm();
             pref.ShowDialog();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
+            AboutBox1 about = new AboutBox1();
+            about.labelVersion.Text = "Version " + version;
+            about.ShowDialog();
         }
 
         private void goToGitHubToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -161,7 +168,15 @@ namespace mutiny_control_panel {
                 Console.WriteLine("Process ID saved as: {0}", proc.Id);
                 Properties.Settings.Default.Save();
 
-                var startCommand = "require('D:/Library/Projects/Coding/Discord/mutiny_bot/mybot.js').Start()"; // start the server after node has started
+                char[] array = Properties.Settings.Default.scriptPath.ToCharArray();
+                string patch = ""; //adds double backslashes to allow script directory
+
+                foreach (char letter in array) {
+                    if (letter == '\\') patch += '\\';
+                    patch += letter;
+                }
+
+                var startCommand = String.Format("require('{0}').Start()", patch); // start the server after node has started
                 StreamWriter myStreamWriter = proc.StandardInput;
                 myStreamWriter.WriteLine(startCommand);
                 myStreamWriter.Close();
@@ -173,12 +188,6 @@ namespace mutiny_control_panel {
                 Console.WriteLine("{0}", e);
                 //throw message box
             }
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
-            AboutBox1 about = new AboutBox1();
-            about.labelVersion.Text = "Version "+version;
-            about.ShowDialog();
         }
     }
 }

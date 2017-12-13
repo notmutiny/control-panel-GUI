@@ -13,3 +13,4 @@ d:\library\documents\visual studio 2017\Projects\mutiny control panel\mutiny con
 d:\library\documents\visual studio 2017\Projects\mutiny control panel\mutiny control panel\obj\Release\mutiny control panel.exe
 d:\library\documents\visual studio 2017\Projects\mutiny control panel\mutiny control panel\obj\Release\mutiny control panel.pdb
 d:\library\documents\visual studio 2017\Projects\mutiny control panel\mutiny control panel\obj\Release\mutiny_control_panel.AboutBox1.resources
+d:\library\documents\visual studio 2017\Projects\mutiny control panel\mutiny control panel\obj\Release\mutiny control panel.csprojResolveAssemblyReference.cache
