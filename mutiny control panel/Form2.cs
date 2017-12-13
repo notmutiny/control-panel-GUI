@@ -19,7 +19,7 @@ namespace mutiny_control_panel {
             editorDirectoryTextbox.Text = Properties.Settings.Default.editorPath;
         }
 
-        private void restoreSettings() {
+        private void restoreSettings() { // rebuild panel here
             if (Properties.Settings.Default.editorPath != "")
                 editorDirectoryTextbox.Text = Properties.Settings.Default.editorPath;
 
@@ -29,8 +29,9 @@ namespace mutiny_control_panel {
             }
 
             if (Properties.Settings.Default.nodePath != "") {
-                nodePathText.Text = Properties.Settings.Default.nodePath;
-                var text = nodePathText.Text;
+                string text = Properties.Settings.Default.nodePath;
+                nodePathText.Text = text;
+  
                 if (text.Substring(text.Length - 8, 8) == "node.exe" || text.Substring(text.Length - 9, 8) == "node.exe") {
                     nodePathText.BackColor = Color.White;
                 } else nodePathText.BackColor = SystemColors.Control;
@@ -39,13 +40,16 @@ namespace mutiny_control_panel {
             useDefaultEditor = Properties.Settings.Default.useDefaultEditor;
             if (useDefaultEditor) defaultScriptEditorButton.Checked = true;
             else customScriptEditorButton.Checked = true;
+
+            botStartupCheckbox.Checked = Properties.Settings.Default.autoStartBot;
         }
 
-        private void saveButton_Click_1(object sender, EventArgs e) {
+        private void saveButton_Click_1(object sender, EventArgs e) { // save persistant settings here
             if (scriptPathText.Text != Properties.Settings.Default.scriptPath) Properties.Settings.Default.scriptPath = scriptPathText.Text;
             if (editorDirectoryTextbox.Text != Properties.Settings.Default.editorPath) Properties.Settings.Default.editorPath = editorDirectoryTextbox.Text;
             if (useDefaultEditor != Properties.Settings.Default.useDefaultEditor) Properties.Settings.Default.useDefaultEditor = useDefaultEditor;
             if (nodePathText.Text != Properties.Settings.Default.nodePath) Properties.Settings.Default.nodePath = nodePathText.Text;
+            if (botStartupCheckbox.Checked != Properties.Settings.Default.autoStartBot) Properties.Settings.Default.autoStartBot = botStartupCheckbox.Checked;
 
             Properties.Settings.Default.Save();
             this.Close();
@@ -79,7 +83,7 @@ namespace mutiny_control_panel {
         private void findNodeButton_Click_1(object sender, EventArgs e) {
             OpenFileDialog node = new OpenFileDialog();
             node.InitialDirectory = "c:\\";
-            node.Filter = "Node executable (node.exe)|*.exe";
+            node.Filter = "node.exe|*.exe";
             if (node.ShowDialog() == DialogResult.OK) {
                 nodePathText.Text = node.FileName;
 

@@ -14,20 +14,19 @@ using System.Windows.Forms;
 namespace mutiny_control_panel {
     public partial class mainWindow : Form {
 
-        private string version = "0.4.3";
+        private string version = "0.4.4a";
 
         /*  todo
          *  
+         *  - minimize to tray
+         *  - add program settings
          *  - clean and add to console output ui
-         *  - fix threadproc hardcode
          *  - add setting script > clean log every i changes
-         *
+         * 
          */
 
-        private bool pushOnline;
-
-        private Debug console;
         private Thread nodeThread;
+        private Debug consoleForm;
 
         delegate void StringArgReturningVoidDelegate(string text); // i don't know what this is
 
@@ -35,40 +34,25 @@ namespace mutiny_control_panel {
         public mainWindow() {
             InitializeComponent();
             spawnConsole();
+
+            if (checkServer() == "offline" && Properties.Settings.Default.autoStartBot) hostJSBot();
         }
 
         private void spawnConsole() {
-            console = new Debug();
-            console.FormClosing += new FormClosingEventHandler(console_FormClosing);
+            consoleForm = new Debug();
+            consoleForm.FormClosing += new FormClosingEventHandler(console_FormClosing);
         }
 
         private void console_FormClosing(object sender, FormClosingEventArgs e) {
-            console.Hide();
             debugCheckBox.Checked = false;
+            consoleForm.Hide();
             e.Cancel = true;
-        }
-
-        private void onlineButton_CheckedChanged(object sender, EventArgs e) {
-            pushOnline = true;
-        }
-
-        private void offlineButton_CheckedChanged(object sender, EventArgs e) {
-            pushOnline = false;
-        }
-
-        private void editButton_Click(object sender, EventArgs e) {
-            try {
-                if (Properties.Settings.Default.useDefaultEditor) Process.Start(Properties.Settings.Default.scriptPath);
-                else Process.Start(Properties.Settings.Default.editorPath, Properties.Settings.Default.scriptPath);
-            } catch {
-                MessageBox.Show("Cannot edit script, configure Settings > Preferences", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private void pushButton_Click(object sender, EventArgs e) {
             killJSBot();
 
-            if (pushOnline) {
+            if (onlineButton.Checked) {
                 if (Properties.Settings.Default.scriptPath == "") {
                     MessageBox.Show("Script directory not saved, configure Settings > Preferences", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -83,6 +67,15 @@ namespace mutiny_control_panel {
             }
         }
 
+        private void editButton_Click(object sender, EventArgs e) {
+            try {
+                if (Properties.Settings.Default.useDefaultEditor) Process.Start(Properties.Settings.Default.scriptPath);
+                else Process.Start(Properties.Settings.Default.editorPath, Properties.Settings.Default.scriptPath);
+            } catch {
+                MessageBox.Show("Cannot edit script, configure Settings > Preferences", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e) {
             preferencesForm pref = new preferencesForm();
             pref.ShowDialog();
@@ -90,7 +83,7 @@ namespace mutiny_control_panel {
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
             AboutBox1 about = new AboutBox1();
-            about.labelVersion.Text = "Version " + version;
+            about.labelVersion.Text = "Version " +version;
             about.ShowDialog();
         }
 
@@ -99,8 +92,8 @@ namespace mutiny_control_panel {
         }
 
         private void debugCheckBox_CheckedChanged(object sender, EventArgs e) {
-            if (debugCheckBox.Checked) console.Show();
-            else console.Hide();
+            if (debugCheckBox.Checked) consoleForm.Show();
+            else consoleForm.Hide();
         }
 
         private void statusTimer_Tick(object sender, EventArgs e) {
@@ -127,9 +120,9 @@ namespace mutiny_control_panel {
             Process[] node = Process.GetProcessesByName("node");
 
             if (node.Length > 0) {
-                foreach (Process process in node) {
-                    if (process.Id == Properties.Settings.Default.processID) {
-                        process.Kill();
+                foreach (Process proc in node) {
+                    if (Properties.Settings.Default.processID == proc.Id) {
+                        proc.Kill();
                         break;
                     }
                 }
@@ -137,14 +130,14 @@ namespace mutiny_control_panel {
         }
 
         private void Display(string txt) {
-            if (console.textBox2.InvokeRequired) {
+            if (consoleForm.textBox2.InvokeRequired) {
                 StringArgReturningVoidDelegate d = new StringArgReturningVoidDelegate(Display);
                 this.Invoke(d, new object[] { txt });
             } else {
-                console.textBox2.Text += txt + "\r\n";
+                consoleForm.textBox2.Text += txt + "\r\n";
 
-                console.textBox2.SelectionStart = console.textBox2.Text.Length;
-                console.textBox2.ScrollToCaret();
+                consoleForm.textBox2.SelectionStart = consoleForm.textBox2.Text.Length;
+                consoleForm.textBox2.ScrollToCaret();
             }
         }
 
@@ -169,7 +162,7 @@ namespace mutiny_control_panel {
                 Properties.Settings.Default.Save();
 
                 char[] array = Properties.Settings.Default.scriptPath.ToCharArray();
-                string patch = ""; //adds double backslashes to allow script directory
+                string patch = ""; //adds double backslashes to fix script directory
 
                 foreach (char letter in array) {
                     if (letter == '\\') patch += '\\';

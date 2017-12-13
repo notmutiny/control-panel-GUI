@@ -94,7 +94,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -154,7 +154,6 @@
             this.offlineButton.TabStop = true;
             this.offlineButton.Text = "Offline";
             this.offlineButton.UseVisualStyleBackColor = true;
-            this.offlineButton.CheckedChanged += new System.EventHandler(this.offlineButton_CheckedChanged);
             // 
             // onlineButton
             // 
@@ -166,7 +165,6 @@
             this.onlineButton.TabStop = true;
             this.onlineButton.Text = "Online";
             this.onlineButton.UseVisualStyleBackColor = true;
-            this.onlineButton.CheckedChanged += new System.EventHandler(this.onlineButton_CheckedChanged);
             // 
             // tableLayoutPanel2
             // 
@@ -190,9 +188,9 @@
             this.onlineStatusLabel.AutoSize = true;
             this.onlineStatusLabel.Location = new System.Drawing.Point(3, 0);
             this.onlineStatusLabel.Name = "onlineStatusLabel";
-            this.onlineStatusLabel.Size = new System.Drawing.Size(111, 13);
+            this.onlineStatusLabel.Size = new System.Drawing.Size(144, 13);
             this.onlineStatusLabel.TabIndex = 0;
-            this.onlineStatusLabel.Text = "mutiny bot is currently unknwn";
+            this.onlineStatusLabel.Text = "mutiny bot is currently broken";
             // 
             // pushButton
             // 

@@ -82,5 +82,17 @@ namespace mutiny_control_panel.Properties {
                 this["processID"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool autoStartBot {
+            get {
+                return ((bool)(this["autoStartBot"]));
+            }
+            set {
+                this["autoStartBot"] = value;
+            }
+        }
     }
 }
