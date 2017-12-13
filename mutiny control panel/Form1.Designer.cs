@@ -251,7 +251,6 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.GroupBox scriptGroupBox;
         private System.Windows.Forms.RadioButton offlineButton;
         private System.Windows.Forms.RadioButton onlineButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
@@ -267,6 +266,7 @@
         private System.Windows.Forms.Timer statusTimer;
         private System.Windows.Forms.CheckBox debugCheckBox;
         private System.Windows.Forms.NotifyIcon notifyIcon;
+        public System.Windows.Forms.GroupBox scriptGroupBox;
     }
 }
 

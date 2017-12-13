@@ -43,9 +43,9 @@
             this.customScriptEditorButton = new System.Windows.Forms.RadioButton();
             this.defaultScriptEditorButton = new System.Windows.Forms.RadioButton();
             this.programTab = new System.Windows.Forms.TabPage();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.botnameLabel = new System.Windows.Forms.Label();
             this.botnameTextBox = new System.Windows.Forms.TextBox();
+            this.programAutoStartCheckbox = new System.Windows.Forms.CheckBox();
+            this.botnameLabel = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -255,42 +255,44 @@
             // programTab
             // 
             this.programTab.BackColor = System.Drawing.Color.White;
-            this.programTab.Controls.Add(this.checkBox1);
-            this.programTab.Controls.Add(this.botnameLabel);
             this.programTab.Controls.Add(this.botnameTextBox);
+            this.programTab.Controls.Add(this.programAutoStartCheckbox);
+            this.programTab.Controls.Add(this.botnameLabel);
             this.programTab.Location = new System.Drawing.Point(4, 22);
             this.programTab.Name = "programTab";
             this.programTab.Padding = new System.Windows.Forms.Padding(3);
-            this.programTab.Size = new System.Drawing.Size(292, 177);
+            this.programTab.Size = new System.Drawing.Size(292, 180);
             this.programTab.TabIndex = 1;
             this.programTab.Text = "Program settings";
             // 
-            // checkBox1
+            // botnameTextBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(5, 105);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(153, 17);
-            this.checkBox1.TabIndex = 25;
-            this.checkBox1.Text = "Launch program on startup";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.botnameTextBox.BackColor = System.Drawing.SystemColors.Control;
+            this.botnameTextBox.Location = new System.Drawing.Point(146, 32);
+            this.botnameTextBox.Name = "botnameTextBox";
+            this.botnameTextBox.Size = new System.Drawing.Size(140, 20);
+            this.botnameTextBox.TabIndex = 26;
+            this.botnameTextBox.Text = "Discord bot";
+            this.botnameTextBox.TextChanged += new System.EventHandler(this.botnameTextBox_TextChanged);
+            // 
+            // programAutoStartCheckbox
+            // 
+            this.programAutoStartCheckbox.AutoSize = true;
+            this.programAutoStartCheckbox.Location = new System.Drawing.Point(3, 6);
+            this.programAutoStartCheckbox.Name = "programAutoStartCheckbox";
+            this.programAutoStartCheckbox.Size = new System.Drawing.Size(155, 17);
+            this.programAutoStartCheckbox.TabIndex = 25;
+            this.programAutoStartCheckbox.Text = "Start program with windows";
+            this.programAutoStartCheckbox.UseVisualStyleBackColor = true;
             // 
             // botnameLabel
             // 
             this.botnameLabel.AutoSize = true;
-            this.botnameLabel.Location = new System.Drawing.Point(3, 5);
+            this.botnameLabel.Location = new System.Drawing.Point(0, 34);
             this.botnameLabel.Name = "botnameLabel";
             this.botnameLabel.Size = new System.Drawing.Size(110, 13);
             this.botnameLabel.TabIndex = 24;
             this.botnameLabel.Text = "Discord bot nickname";
-            // 
-            // botnameTextBox
-            // 
-            this.botnameTextBox.Location = new System.Drawing.Point(5, 23);
-            this.botnameTextBox.Name = "botnameTextBox";
-            this.botnameTextBox.ReadOnly = true;
-            this.botnameTextBox.Size = new System.Drawing.Size(140, 20);
-            this.botnameTextBox.TabIndex = 20;
             // 
             // preferencesForm
             // 
@@ -334,10 +336,10 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button saveButton;
-        private System.Windows.Forms.TextBox botnameTextBox;
         private System.Windows.Forms.Label botnameLabel;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox programAutoStartCheckbox;
         private System.Windows.Forms.CheckBox botStartupCheckbox;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.TextBox botnameTextBox;
     }
 }

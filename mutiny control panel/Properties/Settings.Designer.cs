@@ -94,5 +94,17 @@ namespace mutiny_control_panel.Properties {
                 this["autoStartBot"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Discord bot")]
+        public string botNickname {
+            get {
+                return ((string)(this["botNickname"]));
+            }
+            set {
+                this["botNickname"] = value;
+            }
+        }
     }
 }

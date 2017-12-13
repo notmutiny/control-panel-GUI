@@ -85,7 +85,7 @@ namespace mutiny_control_panel {
         }
 
         private void statusTimer_Tick(object sender, EventArgs e) {
-            onlineStatusLabel.Text = "mutiny bot is currently " + checkServer() + "!";
+            onlineStatusLabel.Text = String.Format("{0} is currently {1}!", Properties.Settings.Default.botNickname, checkServer());
         }
 
         // custom methods //

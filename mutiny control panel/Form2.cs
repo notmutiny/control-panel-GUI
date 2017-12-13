@@ -16,7 +16,7 @@ namespace mutiny_control_panel {
             InitializeComponent();
             restoreSettings();
 
-            //toolTip1.SetToolTip(botStartupCheckbox, "Automatically starts bot (default off)");
+            toolTip1.SetToolTip(programAutoStartCheckbox, "not working bcuz lazy");
         }
 
         private void restoreSettings() { // rebuild panel here
@@ -37,13 +37,16 @@ namespace mutiny_control_panel {
                 } else nodePathText.BackColor = SystemColors.Control;
             }
 
+            //script settings
+            botStartupCheckbox.Checked = Properties.Settings.Default.autoStartBot;
             editorDirectoryTextbox.Text = Properties.Settings.Default.editorPath;
 
             useDefaultEditor = Properties.Settings.Default.useDefaultEditor;
             if (useDefaultEditor) defaultScriptEditorButton.Checked = true;
             else customScriptEditorButton.Checked = true;
 
-            botStartupCheckbox.Checked = Properties.Settings.Default.autoStartBot;
+            //program settings
+            botnameTextBox.Text = Properties.Settings.Default.botNickname;
         }
 
         private void saveButton_Click_1(object sender, EventArgs e) { // save persistant settings here
@@ -53,7 +56,10 @@ namespace mutiny_control_panel {
             if (nodePathText.Text != Properties.Settings.Default.nodePath) Properties.Settings.Default.nodePath = nodePathText.Text;
             if (botStartupCheckbox.Checked != Properties.Settings.Default.autoStartBot) Properties.Settings.Default.autoStartBot = botStartupCheckbox.Checked;
 
+            if (botnameTextBox.Text != "" && botnameTextBox.Text != Properties.Settings.Default.botNickname) Properties.Settings.Default.botNickname = botnameTextBox.Text;
+
             Properties.Settings.Default.Save();
+
             this.Close();
         }
 
@@ -104,6 +110,11 @@ namespace mutiny_control_panel {
                 useDefaultEditor = true;
                 editorDirectoryTextbox.BackColor = SystemColors.Control;
             }
+        }
+
+        private void botnameTextBox_TextChanged(object sender, EventArgs e) {
+            if (botnameTextBox.Text != "") botnameTextBox.BackColor = Color.White;
+            else botnameTextBox.BackColor = SystemColors.Control;
         }
     }
 }
