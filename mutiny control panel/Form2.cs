@@ -16,7 +16,7 @@ namespace mutiny_control_panel {
             InitializeComponent();
             restoreSettings();
 
-            editorDirectoryTextbox.Text = Properties.Settings.Default.editorPath;
+            //toolTip1.SetToolTip(botStartupCheckbox, "Automatically starts bot (default off)");
         }
 
         private void restoreSettings() { // rebuild panel here
@@ -36,6 +36,8 @@ namespace mutiny_control_panel {
                     nodePathText.BackColor = Color.White;
                 } else nodePathText.BackColor = SystemColors.Control;
             }
+
+            editorDirectoryTextbox.Text = Properties.Settings.Default.editorPath;
 
             useDefaultEditor = Properties.Settings.Default.useDefaultEditor;
             if (useDefaultEditor) defaultScriptEditorButton.Checked = true;

@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.cancelButton = new System.Windows.Forms.Button();
@@ -45,6 +46,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.botnameLabel = new System.Windows.Forms.Label();
             this.botnameTextBox = new System.Windows.Forms.TextBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -66,7 +68,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(306, 243);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(306, 246);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -75,7 +77,7 @@
             this.flowLayoutPanel1.Controls.Add(this.saveButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 212);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 215);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(300, 28);
             this.flowLayoutPanel1.TabIndex = 7;
@@ -108,7 +110,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(300, 203);
+            this.panel1.Size = new System.Drawing.Size(300, 206);
             this.panel1.TabIndex = 6;
             // 
             // tabControl1
@@ -119,7 +121,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(300, 203);
+            this.tabControl1.Size = new System.Drawing.Size(300, 206);
             this.tabControl1.TabIndex = 4;
             // 
             // scriptTab
@@ -139,7 +141,7 @@
             this.scriptTab.Location = new System.Drawing.Point(4, 22);
             this.scriptTab.Name = "scriptTab";
             this.scriptTab.Padding = new System.Windows.Forms.Padding(3);
-            this.scriptTab.Size = new System.Drawing.Size(292, 177);
+            this.scriptTab.Size = new System.Drawing.Size(292, 180);
             this.scriptTab.TabIndex = 0;
             this.scriptTab.Text = "Script settings";
             // 
@@ -259,7 +261,7 @@
             this.programTab.Location = new System.Drawing.Point(4, 22);
             this.programTab.Name = "programTab";
             this.programTab.Padding = new System.Windows.Forms.Padding(3);
-            this.programTab.Size = new System.Drawing.Size(292, 182);
+            this.programTab.Size = new System.Drawing.Size(292, 177);
             this.programTab.TabIndex = 1;
             this.programTab.Text = "Program settings";
             // 
@@ -294,10 +296,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(306, 243);
+            this.ClientSize = new System.Drawing.Size(306, 246);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "preferencesForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Preferences";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
@@ -335,5 +338,6 @@
         private System.Windows.Forms.Label botnameLabel;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox botStartupCheckbox;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

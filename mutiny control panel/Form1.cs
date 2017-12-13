@@ -14,7 +14,7 @@ using System.Windows.Forms;
 namespace mutiny_control_panel {
     public partial class mainWindow : Form {
 
-        private string version = "0.4.4a";
+        private string version = "0.4.5a";
 
         /*  todo
          *  
@@ -52,19 +52,7 @@ namespace mutiny_control_panel {
         private void pushButton_Click(object sender, EventArgs e) {
             killJSBot();
 
-            if (onlineButton.Checked) {
-                if (Properties.Settings.Default.scriptPath == "") {
-                    MessageBox.Show("Script directory not saved, configure Settings > Preferences", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                if (Properties.Settings.Default.nodePath == "") {
-                    MessageBox.Show("Node directory not saved, configure Settings > Preferences", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                hostJSBot();
-            }
+            if (onlineButton.Checked) hostJSBot();
         }
 
         private void editButton_Click(object sender, EventArgs e) {
@@ -112,6 +100,16 @@ namespace mutiny_control_panel {
         }
 
         private void hostJSBot() {
+            if (Properties.Settings.Default.scriptPath == "") {
+                MessageBox.Show("Script directory not saved. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (Properties.Settings.Default.nodePath == "") {
+                MessageBox.Show("Node directory not saved. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             nodeThread = new Thread(new ThreadStart(ThreadProc));
             nodeThread.Start();
         }
