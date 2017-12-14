@@ -38,11 +38,11 @@
             this.offlineButton = new System.Windows.Forms.RadioButton();
             this.onlineButton = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.onlineStatusLabel = new System.Windows.Forms.Label();
-            this.pushButton = new System.Windows.Forms.Button();
-            this.editButton = new System.Windows.Forms.Button();
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.editButton = new System.Windows.Forms.Button();
+            this.pushButton = new System.Windows.Forms.Button();
+            this.onlineStatusLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.scriptGroupBox.SuspendLayout();
@@ -57,7 +57,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(297, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(302, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -117,7 +117,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(297, 78);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(302, 78);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // scriptGroupBox
@@ -128,7 +128,7 @@
             this.scriptGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scriptGroupBox.Location = new System.Drawing.Point(3, 3);
             this.scriptGroupBox.Name = "scriptGroupBox";
-            this.scriptGroupBox.Size = new System.Drawing.Size(135, 72);
+            this.scriptGroupBox.Size = new System.Drawing.Size(137, 72);
             this.scriptGroupBox.TabIndex = 0;
             this.scriptGroupBox.TabStop = false;
             this.scriptGroupBox.Text = "mutiny bot configuration";
@@ -174,43 +174,14 @@
             this.tableLayoutPanel2.Controls.Add(this.pushButton, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.editButton, 0, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(144, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(146, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 13F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(150, 72);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(153, 72);
             this.tableLayoutPanel2.TabIndex = 1;
-            // 
-            // onlineStatusLabel
-            // 
-            this.onlineStatusLabel.AutoSize = true;
-            this.onlineStatusLabel.Location = new System.Drawing.Point(3, 0);
-            this.onlineStatusLabel.Name = "onlineStatusLabel";
-            this.onlineStatusLabel.Size = new System.Drawing.Size(144, 13);
-            this.onlineStatusLabel.TabIndex = 0;
-            this.onlineStatusLabel.Text = "mutiny bot is currently broken";
-            // 
-            // pushButton
-            // 
-            this.pushButton.Location = new System.Drawing.Point(3, 16);
-            this.pushButton.Name = "pushButton";
-            this.pushButton.Size = new System.Drawing.Size(142, 23);
-            this.pushButton.TabIndex = 1;
-            this.pushButton.Text = "Push changes";
-            this.pushButton.UseVisualStyleBackColor = true;
-            this.pushButton.Click += new System.EventHandler(this.pushButton_Click);
-            // 
-            // editButton
-            // 
-            this.editButton.Location = new System.Drawing.Point(3, 45);
-            this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(142, 23);
-            this.editButton.TabIndex = 2;
-            this.editButton.Text = "Edit script";
-            this.editButton.UseVisualStyleBackColor = true;
-            this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // statusTimer
             // 
@@ -219,14 +190,49 @@
             // 
             // notifyIcon
             // 
+            this.notifyIcon.BalloonTipText = "test";
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
-            this.notifyIcon.Text = "notifyIcon";
+            this.notifyIcon.Text = "mutiny control panel";
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick_1);
+            // 
+            // editButton
+            // 
+            this.editButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.editButton.Location = new System.Drawing.Point(3, 45);
+            this.editButton.Name = "editButton";
+            this.editButton.Size = new System.Drawing.Size(147, 24);
+            this.editButton.TabIndex = 2;
+            this.editButton.Text = "Edit script";
+            this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
+            // 
+            // pushButton
+            // 
+            this.pushButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pushButton.Location = new System.Drawing.Point(3, 16);
+            this.pushButton.Name = "pushButton";
+            this.pushButton.Size = new System.Drawing.Size(147, 23);
+            this.pushButton.TabIndex = 1;
+            this.pushButton.Text = "Push changes";
+            this.pushButton.UseVisualStyleBackColor = true;
+            this.pushButton.Click += new System.EventHandler(this.pushButton_Click);
+            // 
+            // onlineStatusLabel
+            // 
+            this.onlineStatusLabel.AutoSize = true;
+            this.onlineStatusLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.onlineStatusLabel.Location = new System.Drawing.Point(3, 0);
+            this.onlineStatusLabel.Name = "onlineStatusLabel";
+            this.onlineStatusLabel.Size = new System.Drawing.Size(147, 13);
+            this.onlineStatusLabel.TabIndex = 0;
+            this.onlineStatusLabel.Text = "mutiny bot is currently broken";
             // 
             // mainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(297, 102);
+            this.ClientSize = new System.Drawing.Size(302, 102);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -235,6 +241,7 @@
             this.MaximizeBox = false;
             this.Name = "mainWindow";
             this.Text = "mutiny control panel";
+            this.Resize += new System.EventHandler(this.mainWindow_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -254,9 +261,6 @@
         private System.Windows.Forms.RadioButton offlineButton;
         private System.Windows.Forms.RadioButton onlineButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Label onlineStatusLabel;
-        private System.Windows.Forms.Button pushButton;
-        private System.Windows.Forms.Button editButton;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
@@ -267,6 +271,9 @@
         private System.Windows.Forms.CheckBox debugCheckBox;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         public System.Windows.Forms.GroupBox scriptGroupBox;
+        private System.Windows.Forms.Label onlineStatusLabel;
+        private System.Windows.Forms.Button pushButton;
+        private System.Windows.Forms.Button editButton;
     }
 }
 

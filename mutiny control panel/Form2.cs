@@ -11,7 +11,14 @@ using System.Windows.Forms;
 namespace mutiny_control_panel {
     public partial class preferencesForm : Form {
         private bool useDefaultEditor;
-         
+
+        /* TODO
+         * 
+         * clean names (saves = Properties.Settings.Default > save.editorPath)
+         * make save() function ( save(useDefaultEditor, test) )
+         * 
+         */
+
         public preferencesForm() {
             InitializeComponent();
             restoreSettings();
@@ -46,6 +53,7 @@ namespace mutiny_control_panel {
             else customScriptEditorButton.Checked = true;
 
             //program settings
+            minimizeToTrayCheckbox.Checked = Properties.Settings.Default.minimizeToTray;
             botnameTextBox.Text = Properties.Settings.Default.botNickname;
         }
 
@@ -55,6 +63,8 @@ namespace mutiny_control_panel {
             if (useDefaultEditor != Properties.Settings.Default.useDefaultEditor) Properties.Settings.Default.useDefaultEditor = useDefaultEditor;
             if (nodePathText.Text != Properties.Settings.Default.nodePath) Properties.Settings.Default.nodePath = nodePathText.Text;
             if (botStartupCheckbox.Checked != Properties.Settings.Default.autoStartBot) Properties.Settings.Default.autoStartBot = botStartupCheckbox.Checked;
+
+            if (minimizeToTrayCheckbox.Checked != Properties.Settings.Default.minimizeToTray) Properties.Settings.Default.minimizeToTray = minimizeToTrayCheckbox.Checked;
 
             if (botnameTextBox.Text != "" && botnameTextBox.Text != Properties.Settings.Default.botNickname) Properties.Settings.Default.botNickname = botnameTextBox.Text;
 

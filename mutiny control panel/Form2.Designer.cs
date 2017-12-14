@@ -43,6 +43,7 @@
             this.customScriptEditorButton = new System.Windows.Forms.RadioButton();
             this.defaultScriptEditorButton = new System.Windows.Forms.RadioButton();
             this.programTab = new System.Windows.Forms.TabPage();
+            this.minimizeToTrayCheckbox = new System.Windows.Forms.CheckBox();
             this.botnameTextBox = new System.Windows.Forms.TextBox();
             this.programAutoStartCheckbox = new System.Windows.Forms.CheckBox();
             this.botnameLabel = new System.Windows.Forms.Label();
@@ -255,6 +256,7 @@
             // programTab
             // 
             this.programTab.BackColor = System.Drawing.Color.White;
+            this.programTab.Controls.Add(this.minimizeToTrayCheckbox);
             this.programTab.Controls.Add(this.botnameTextBox);
             this.programTab.Controls.Add(this.programAutoStartCheckbox);
             this.programTab.Controls.Add(this.botnameLabel);
@@ -265,10 +267,22 @@
             this.programTab.TabIndex = 1;
             this.programTab.Text = "Program settings";
             // 
+            // minimizeToTrayCheckbox
+            // 
+            this.minimizeToTrayCheckbox.AutoSize = true;
+            this.minimizeToTrayCheckbox.Checked = true;
+            this.minimizeToTrayCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.minimizeToTrayCheckbox.Location = new System.Drawing.Point(3, 29);
+            this.minimizeToTrayCheckbox.Name = "minimizeToTrayCheckbox";
+            this.minimizeToTrayCheckbox.Size = new System.Drawing.Size(133, 17);
+            this.minimizeToTrayCheckbox.TabIndex = 27;
+            this.minimizeToTrayCheckbox.Text = "Minimize to system tray";
+            this.minimizeToTrayCheckbox.UseVisualStyleBackColor = true;
+            // 
             // botnameTextBox
             // 
             this.botnameTextBox.BackColor = System.Drawing.SystemColors.Control;
-            this.botnameTextBox.Location = new System.Drawing.Point(146, 32);
+            this.botnameTextBox.Location = new System.Drawing.Point(146, 55);
             this.botnameTextBox.Name = "botnameTextBox";
             this.botnameTextBox.Size = new System.Drawing.Size(140, 20);
             this.botnameTextBox.TabIndex = 26;
@@ -288,7 +302,7 @@
             // botnameLabel
             // 
             this.botnameLabel.AutoSize = true;
-            this.botnameLabel.Location = new System.Drawing.Point(0, 34);
+            this.botnameLabel.Location = new System.Drawing.Point(0, 57);
             this.botnameLabel.Name = "botnameLabel";
             this.botnameLabel.Size = new System.Drawing.Size(110, 13);
             this.botnameLabel.TabIndex = 24;
@@ -341,5 +355,6 @@
         private System.Windows.Forms.CheckBox botStartupCheckbox;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TextBox botnameTextBox;
+        private System.Windows.Forms.CheckBox minimizeToTrayCheckbox;
     }
 }

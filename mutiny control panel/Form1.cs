@@ -14,7 +14,7 @@ using System.Windows.Forms;
 namespace mutiny_control_panel {
     public partial class mainWindow : Form {
 
-        private string version = "0.4.5a";
+        private string version = "0.4.6 b";
 
         /*  todo
          *  
@@ -22,6 +22,8 @@ namespace mutiny_control_panel {
          *  - add program settings
          *  - clean and add to console output ui
          *  - add setting script > clean log every i changes
+         *  
+         *  - allow pasting dirs in settings
          * 
          */
 
@@ -35,11 +37,15 @@ namespace mutiny_control_panel {
             InitializeComponent();
             spawnConsole();
 
+            if (Properties.Settings.Default.minimizeToTray) notifyIcon.Visible = true;
+            else notifyIcon.Visible = false;
+
             if (checkServer() == "offline" && Properties.Settings.Default.autoStartBot) hostJSBot();
         }
 
         private void spawnConsole() {
             consoleForm = new Debug();
+            consoleForm.Text = Properties.Settings.Default.scriptPath;
             consoleForm.FormClosing += new FormClosingEventHandler(console_FormClosing);
         }
 
@@ -59,8 +65,23 @@ namespace mutiny_control_panel {
             try {
                 if (Properties.Settings.Default.useDefaultEditor) Process.Start(Properties.Settings.Default.scriptPath);
                 else Process.Start(Properties.Settings.Default.editorPath, Properties.Settings.Default.scriptPath);
-            } catch {
-                MessageBox.Show("Cannot edit script, configure Settings > Preferences", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } catch(Win32Exception err) {
+                MessageBox.Show("Cannot open script editor. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine("{0}", err);
+            }
+        }
+
+        private void mainWindow_Resize(object sender, EventArgs e) {
+            if (Properties.Settings.Default.minimizeToTray && this.WindowState == FormWindowState.Minimized) {
+                notifyIcon.ShowBalloonTip(3000);
+                this.ShowInTaskbar = false;
+            }
+        }
+
+        private void notifyIcon_MouseDoubleClick_1(object sender, MouseEventArgs e) {
+            if (Properties.Settings.Default.minimizeToTray) {
+                this.WindowState = FormWindowState.Normal;
+                this.ShowInTaskbar = true;
             }
         }
 
@@ -85,7 +106,10 @@ namespace mutiny_control_panel {
         }
 
         private void statusTimer_Tick(object sender, EventArgs e) {
-            onlineStatusLabel.Text = String.Format("{0} is currently {1}!", Properties.Settings.Default.botNickname, checkServer());
+            string nickname = Properties.Settings.Default.botNickname;
+            if (nickname.Length > 10) nickname = nickname.Substring(0, 11);
+
+            onlineStatusLabel.Text = String.Format("{0} is currently {1}!", nickname, checkServer());
         }
 
         // custom methods //

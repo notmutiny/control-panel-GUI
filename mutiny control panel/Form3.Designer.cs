@@ -29,6 +29,8 @@
             // textBox2
             // 
             this.textBox2.BackColor = System.Drawing.SystemColors.InfoText;
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.ForeColor = System.Drawing.SystemColors.Window;
@@ -49,7 +51,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "Debug";
             this.ShowIcon = false;
-            this.Text = "Script output";
+            this.Text = "script location";
             this.ResumeLayout(false);
             this.PerformLayout();
 
