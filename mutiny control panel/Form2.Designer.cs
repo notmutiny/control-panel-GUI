@@ -38,7 +38,7 @@
             this.findScriptButton = new System.Windows.Forms.Button();
             this.scriptDirTextBox = new System.Windows.Forms.TextBox();
             this.scriptLocationLabel = new System.Windows.Forms.Label();
-            this.findScriptEditorButton = new System.Windows.Forms.Button();
+            this.findEditorButton = new System.Windows.Forms.Button();
             this.customScriptEditorTextBox = new System.Windows.Forms.TextBox();
             this.customScriptEditorButton = new System.Windows.Forms.RadioButton();
             this.defaultScriptEditorButton = new System.Windows.Forms.RadioButton();
@@ -135,7 +135,7 @@
             this.scriptTab.Controls.Add(this.findScriptButton);
             this.scriptTab.Controls.Add(this.scriptDirTextBox);
             this.scriptTab.Controls.Add(this.scriptLocationLabel);
-            this.scriptTab.Controls.Add(this.findScriptEditorButton);
+            this.scriptTab.Controls.Add(this.findEditorButton);
             this.scriptTab.Controls.Add(this.customScriptEditorTextBox);
             this.scriptTab.Controls.Add(this.customScriptEditorButton);
             this.scriptTab.Controls.Add(this.defaultScriptEditorButton);
@@ -153,9 +153,9 @@
             this.scriptStartupCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.scriptStartupCheckbox.Location = new System.Drawing.Point(3, 6);
             this.scriptStartupCheckbox.Name = "scriptStartupCheckbox";
-            this.scriptStartupCheckbox.Size = new System.Drawing.Size(167, 17);
+            this.scriptStartupCheckbox.Size = new System.Drawing.Size(139, 17);
             this.scriptStartupCheckbox.TabIndex = 28;
-            this.scriptStartupCheckbox.Text = "Start script on program launch";
+            this.scriptStartupCheckbox.Text = "Start script with program";
             this.scriptStartupCheckbox.UseVisualStyleBackColor = true;
             // 
             // findNodeButton
@@ -214,15 +214,15 @@
             this.scriptLocationLabel.TabIndex = 18;
             this.scriptLocationLabel.Text = "Script directory";
             // 
-            // findScriptEditorButton
+            // findEditorButton
             // 
-            this.findScriptEditorButton.Location = new System.Drawing.Point(257, 53);
-            this.findScriptEditorButton.Name = "findScriptEditorButton";
-            this.findScriptEditorButton.Size = new System.Drawing.Size(29, 20);
-            this.findScriptEditorButton.TabIndex = 17;
-            this.findScriptEditorButton.Text = "...";
-            this.findScriptEditorButton.UseVisualStyleBackColor = true;
-            this.findScriptEditorButton.Click += new System.EventHandler(this.findScriptEditorButton_Click);
+            this.findEditorButton.Location = new System.Drawing.Point(257, 53);
+            this.findEditorButton.Name = "findEditorButton";
+            this.findEditorButton.Size = new System.Drawing.Size(29, 20);
+            this.findEditorButton.TabIndex = 17;
+            this.findEditorButton.Text = "...";
+            this.findEditorButton.UseVisualStyleBackColor = true;
+            this.findEditorButton.Click += new System.EventHandler(this.findEditorButton_Click);
             // 
             // customScriptEditorTextBox
             // 
@@ -264,7 +264,7 @@
             this.programTab.Location = new System.Drawing.Point(4, 22);
             this.programTab.Name = "programTab";
             this.programTab.Padding = new System.Windows.Forms.Padding(3);
-            this.programTab.Size = new System.Drawing.Size(292, 180);
+            this.programTab.Size = new System.Drawing.Size(292, 276);
             this.programTab.TabIndex = 1;
             this.programTab.Text = "Program settings";
             // 
@@ -340,7 +340,7 @@
         private System.Windows.Forms.Button findScriptButton;
         private System.Windows.Forms.TextBox scriptDirTextBox;
         private System.Windows.Forms.Label scriptLocationLabel;
-        private System.Windows.Forms.Button findScriptEditorButton;
+        private System.Windows.Forms.Button findEditorButton;
         private System.Windows.Forms.TextBox customScriptEditorTextBox;
         private System.Windows.Forms.RadioButton customScriptEditorButton;
         private System.Windows.Forms.RadioButton defaultScriptEditorButton;

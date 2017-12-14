@@ -14,18 +14,16 @@ using System.Windows.Forms;
 namespace mutiny_control_panel {
     public partial class MainWindow : Form {
 
-        private string version = "0.4.8";
+        private string version = "0.4.9";
 
         /*  todo
          *  
-         *  - minimize to tray
-         *  - add program settings
-         *  - clean and add to console output ui
-         *  - add setting script > clean log every i changes
+         *  - clean threadproc
          *  
-         *  - FIX closing console then closing main
+         *  - add fluff to debug form
+         *  - add setting clean log every x changes
          *  
-         *  - allow pasting dirs in settings
+         *  - BUG closing console then closing main
          * 
          */
 
@@ -46,16 +44,6 @@ namespace mutiny_control_panel {
             if (checkServer() == "offline" && Properties.Settings.Default.autoStartBot) hostJSBot();
         }
 
-        public void SetValues() {
-            var saves = Properties.Settings.Default;
-
-            if (saves.minimizeToTray) notifyIcon.Visible = true;
-            else notifyIcon.Visible = false;
-
-            scriptGroupBox.Text = String.Format("{0} configuration", saves.botNickname);
-            consoleForm.Text = Properties.Settings.Default.scriptPath;
-        }
-
         public void SpawnConsole() {
             consoleForm = new Debug();
             consoleForm.Text = Properties.Settings.Default.scriptPath;
@@ -66,6 +54,16 @@ namespace mutiny_control_panel {
             debugCheckBox.Checked = false;
             consoleForm.Hide();
             e.Cancel = true;
+        }
+
+        public void SetValues() {
+            var saves = Properties.Settings.Default;
+
+            if (saves.minimizeToTray) notifyIcon.Visible = true;
+            else notifyIcon.Visible = false;
+
+            scriptGroupBox.Text = String.Format("{0} configuration", saves.botNickname);
+            consoleForm.Text = Properties.Settings.Default.scriptPath;
         }
 
         // Visual Studio methods //
@@ -89,7 +87,6 @@ namespace mutiny_control_panel {
 
         private void mainWindow_Resize(object sender, EventArgs e) {
             if (Properties.Settings.Default.minimizeToTray && this.WindowState == FormWindowState.Minimized) {
-                //notifyIcon.ShowBalloonTip(3000);
                 this.ShowInTaskbar = false;
             }
         }
@@ -216,8 +213,11 @@ namespace mutiny_control_panel {
                 proc.BeginErrorReadLine();
                 proc.WaitForExit();
             } catch (InvalidOperationException e) {
-                Console.WriteLine("{0}", e);
+                Console.WriteLine("how do you even error this {0}", e);
                 //throw message box
+            } catch (Win32Exception e) {
+                Console.WriteLine("{0}", e);
+                MessageBox.Show("Node directory is invalid. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

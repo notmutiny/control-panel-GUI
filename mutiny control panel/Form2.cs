@@ -11,23 +11,16 @@ using System.Windows.Forms;
 namespace mutiny_control_panel {
     public partial class PreferencesForm : Form {
 
-        /* TODO
-         * 
-         * make save() function ( save(useDefaultEditor, test) )
-         * 
-         */
-
         private MainWindow instance;
 
         public PreferencesForm(MainWindow param) {
             InitializeComponent();
+            this.instance = param;
             RestoreSettings();
 
-            this.instance = param;
-
             toolTip.SetToolTip(programAutoStartCheckbox, "not working bcuz lazy");
-            //toolTip.SetToolTip(scriptStartupCheckbox, "Hosts script, preventing accidental downtime");
             //toolTip.SetToolTip(minimizeToTrayCheckbox, "Hides the program so it can work quietly");
+            //toolTip.SetToolTip(scriptStartupCheckbox, "Hosts script, preventing accidental downtime");
         }
 
         public void RestoreSettings() {
@@ -75,15 +68,8 @@ namespace mutiny_control_panel {
             this.Close();
         }
 
-        // open file explorer buttons
-        private void findScriptButton_Click(object sender, EventArgs e) {
-            OpenFileDialog script = new OpenFileDialog();
-            script.InitialDirectory = "c:\\";
-            script.Filter = "Javascript files (*.js)|*.js";
-            if (script.ShowDialog() == DialogResult.OK) scriptDirTextBox.Text = script.FileName;
-        }
-
-        private void findScriptEditorButton_Click(object sender, EventArgs e) {
+        // popup file explorer buttons
+        private void findEditorButton_Click(object sender, EventArgs e) {
             OpenFileDialog editor = new OpenFileDialog();
             editor.InitialDirectory = "c:\\";
             editor.Filter = "Executable files (*.exe)|*.exe";
@@ -91,6 +77,13 @@ namespace mutiny_control_panel {
                 customScriptEditorButton.Checked = true;
                 customScriptEditorTextBox.Text = editor.FileName;
             }
+        }
+
+        private void findScriptButton_Click(object sender, EventArgs e) {
+            OpenFileDialog script = new OpenFileDialog();
+            script.InitialDirectory = "c:\\";
+            script.Filter = "Javascript files (*.js)|*.js";
+            if (script.ShowDialog() == DialogResult.OK) scriptDirTextBox.Text = script.FileName;
         }
 
         private void findNodeButton_Click(object sender, EventArgs e) {
