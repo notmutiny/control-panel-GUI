@@ -12,11 +12,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace mutiny_control_panel {
-    public partial class mainWindow : Form {
+    public partial class MainWindow : Form {
 
-        private string version = "0.4.6 b";
-
-        mainWindow instance;
+        private string version = "0.4.8";
 
         /*  todo
          *  
@@ -25,32 +23,27 @@ namespace mutiny_control_panel {
          *  - clean and add to console output ui
          *  - add setting script > clean log every i changes
          *  
+         *  - FIX closing console then closing main
+         *  
          *  - allow pasting dirs in settings
          * 
          */
+
+        public MainWindow Instance;
 
         private Thread nodeThread;
         private Debug consoleForm;
 
         delegate void StringArgReturningVoidDelegate(string text); // i don't know what this is
 
-        // Visual Studio methods //
-        public mainWindow() {
+        public MainWindow() {
             InitializeComponent();
-            spawnConsole();
+            Instance = this;
 
-            instance = this;
-
+            SpawnConsole();            
             SetValues();
 
-
             if (checkServer() == "offline" && Properties.Settings.Default.autoStartBot) hostJSBot();
-        }
-
-        private void spawnConsole() {
-            consoleForm = new Debug();
-            consoleForm.Text = Properties.Settings.Default.scriptPath;
-            consoleForm.FormClosing += new FormClosingEventHandler(console_FormClosing);
         }
 
         public void SetValues() {
@@ -60,6 +53,13 @@ namespace mutiny_control_panel {
             else notifyIcon.Visible = false;
 
             scriptGroupBox.Text = String.Format("{0} configuration", saves.botNickname);
+            consoleForm.Text = Properties.Settings.Default.scriptPath;
+        }
+
+        public void SpawnConsole() {
+            consoleForm = new Debug();
+            consoleForm.Text = Properties.Settings.Default.scriptPath;
+            consoleForm.FormClosing += new FormClosingEventHandler(console_FormClosing);
         }
 
         private void console_FormClosing(object sender, FormClosingEventArgs e) {
@@ -68,6 +68,7 @@ namespace mutiny_control_panel {
             e.Cancel = true;
         }
 
+        // Visual Studio methods //
         private void pushButton_Click(object sender, EventArgs e) {
             killJSBot();
 
@@ -75,9 +76,11 @@ namespace mutiny_control_panel {
         }
 
         private void editButton_Click(object sender, EventArgs e) {
+            var saves = Properties.Settings.Default;
+
             try {
-                if (Properties.Settings.Default.useDefaultEditor) Process.Start(Properties.Settings.Default.scriptPath);
-                else Process.Start(Properties.Settings.Default.editorPath, Properties.Settings.Default.scriptPath);
+                if (saves.useDefaultEditor) Process.Start(saves.scriptPath);
+                else Process.Start(saves.editorPath, saves.scriptPath);
             } catch(Win32Exception err) {
                 MessageBox.Show("Cannot open script editor. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine("{0}", err);
@@ -91,7 +94,7 @@ namespace mutiny_control_panel {
             }
         }
 
-        private void notifyIcon_MouseDoubleClick_1(object sender, MouseEventArgs e) {
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e) {
             if (Properties.Settings.Default.minimizeToTray) {
                 this.WindowState = FormWindowState.Normal;
                 this.ShowInTaskbar = true;
@@ -99,7 +102,7 @@ namespace mutiny_control_panel {
         }
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e) {
-            preferencesForm pref = new preferencesForm(instance);
+            PreferencesForm pref = new PreferencesForm(Instance);
             pref.ShowDialog();
         }
 

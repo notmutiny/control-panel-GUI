@@ -50,7 +50,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>hJrdB+WsP8soSNWleWsmTuEBG8m1PdGAqc7gura+fcQ=</dsig:DigestValue>
+        <dsig:DigestValue>bOD/jtwwRIoyqou4gHKR7ohsc4rBMo8H1DGNemzc30U=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -63,13 +63,13 @@
       <dsig:DigestValue>WOl/jZMIRcgtFA1KyohbcvODviaFOQWyTq/l1VMXU7s=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="mutiny control panel.exe.config" size="1828">
+  <file name="mutiny control panel.exe.config" size="1827">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>fdRGWDLX+lMaWyihtDDsLVpKp63LxDEXbT5K0nsqLEg=</dsig:DigestValue>
+      <dsig:DigestValue>vBY5lqvz+quE9Eu5q2qAEmyKu7QY/ixdWK2i7xLmTcI=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

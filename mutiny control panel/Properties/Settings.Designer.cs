@@ -97,7 +97,7 @@ namespace mutiny_control_panel.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Discord bot")]
+        [global::System.Configuration.DefaultSettingValueAttribute("not mutiny")]
         public string botNickname {
             get {
                 return ((string)(this["botNickname"]));

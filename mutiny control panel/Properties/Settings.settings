@@ -21,7 +21,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="botNickname" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Discord bot</Value>
+      <Value Profile="(Default)">not mutiny</Value>
     </Setting>
     <Setting Name="minimizeToTray" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

@@ -1,5 +1,5 @@
 ﻿namespace mutiny_control_panel {
-    partial class preferencesForm {
+    partial class PreferencesForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -31,15 +31,15 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.scriptTab = new System.Windows.Forms.TabPage();
-            this.botStartupCheckbox = new System.Windows.Forms.CheckBox();
+            this.scriptStartupCheckbox = new System.Windows.Forms.CheckBox();
             this.findNodeButton = new System.Windows.Forms.Button();
-            this.nodePathText = new System.Windows.Forms.TextBox();
+            this.nodeDirTextBox = new System.Windows.Forms.TextBox();
             this.nodeLocationLabel = new System.Windows.Forms.Label();
             this.findScriptButton = new System.Windows.Forms.Button();
-            this.scriptPathText = new System.Windows.Forms.TextBox();
+            this.scriptDirTextBox = new System.Windows.Forms.TextBox();
             this.scriptLocationLabel = new System.Windows.Forms.Label();
             this.findScriptEditorButton = new System.Windows.Forms.Button();
-            this.editorDirectoryTextbox = new System.Windows.Forms.TextBox();
+            this.customScriptEditorTextBox = new System.Windows.Forms.TextBox();
             this.customScriptEditorButton = new System.Windows.Forms.RadioButton();
             this.defaultScriptEditorButton = new System.Windows.Forms.RadioButton();
             this.programTab = new System.Windows.Forms.TabPage();
@@ -47,7 +47,7 @@
             this.botnameTextBox = new System.Windows.Forms.TextBox();
             this.programAutoStartCheckbox = new System.Windows.Forms.CheckBox();
             this.botnameLabel = new System.Windows.Forms.Label();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -103,7 +103,7 @@
             this.saveButton.TabIndex = 0;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click_1);
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // panel1
             // 
@@ -128,15 +128,15 @@
             // scriptTab
             // 
             this.scriptTab.BackColor = System.Drawing.Color.White;
-            this.scriptTab.Controls.Add(this.botStartupCheckbox);
+            this.scriptTab.Controls.Add(this.scriptStartupCheckbox);
             this.scriptTab.Controls.Add(this.findNodeButton);
-            this.scriptTab.Controls.Add(this.nodePathText);
+            this.scriptTab.Controls.Add(this.nodeDirTextBox);
             this.scriptTab.Controls.Add(this.nodeLocationLabel);
             this.scriptTab.Controls.Add(this.findScriptButton);
-            this.scriptTab.Controls.Add(this.scriptPathText);
+            this.scriptTab.Controls.Add(this.scriptDirTextBox);
             this.scriptTab.Controls.Add(this.scriptLocationLabel);
             this.scriptTab.Controls.Add(this.findScriptEditorButton);
-            this.scriptTab.Controls.Add(this.editorDirectoryTextbox);
+            this.scriptTab.Controls.Add(this.customScriptEditorTextBox);
             this.scriptTab.Controls.Add(this.customScriptEditorButton);
             this.scriptTab.Controls.Add(this.defaultScriptEditorButton);
             this.scriptTab.Location = new System.Drawing.Point(4, 22);
@@ -146,17 +146,17 @@
             this.scriptTab.TabIndex = 0;
             this.scriptTab.Text = "Script settings";
             // 
-            // botStartupCheckbox
+            // scriptStartupCheckbox
             // 
-            this.botStartupCheckbox.AutoSize = true;
-            this.botStartupCheckbox.Checked = true;
-            this.botStartupCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.botStartupCheckbox.Location = new System.Drawing.Point(3, 6);
-            this.botStartupCheckbox.Name = "botStartupCheckbox";
-            this.botStartupCheckbox.Size = new System.Drawing.Size(157, 17);
-            this.botStartupCheckbox.TabIndex = 28;
-            this.botStartupCheckbox.Text = "Start bot on program launch";
-            this.botStartupCheckbox.UseVisualStyleBackColor = true;
+            this.scriptStartupCheckbox.AutoSize = true;
+            this.scriptStartupCheckbox.Checked = true;
+            this.scriptStartupCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.scriptStartupCheckbox.Location = new System.Drawing.Point(3, 6);
+            this.scriptStartupCheckbox.Name = "scriptStartupCheckbox";
+            this.scriptStartupCheckbox.Size = new System.Drawing.Size(167, 17);
+            this.scriptStartupCheckbox.TabIndex = 28;
+            this.scriptStartupCheckbox.Text = "Start script on program launch";
+            this.scriptStartupCheckbox.UseVisualStyleBackColor = true;
             // 
             // findNodeButton
             // 
@@ -166,16 +166,16 @@
             this.findNodeButton.TabIndex = 21;
             this.findNodeButton.Text = "...";
             this.findNodeButton.UseVisualStyleBackColor = true;
-            this.findNodeButton.Click += new System.EventHandler(this.findNodeButton_Click_1);
+            this.findNodeButton.Click += new System.EventHandler(this.findNodeButton_Click);
             // 
-            // nodePathText
+            // nodeDirTextBox
             // 
-            this.nodePathText.BackColor = System.Drawing.SystemColors.Control;
-            this.nodePathText.Location = new System.Drawing.Point(5, 152);
-            this.nodePathText.Name = "nodePathText";
-            this.nodePathText.ReadOnly = true;
-            this.nodePathText.Size = new System.Drawing.Size(245, 20);
-            this.nodePathText.TabIndex = 22;
+            this.nodeDirTextBox.BackColor = System.Drawing.SystemColors.Control;
+            this.nodeDirTextBox.Location = new System.Drawing.Point(5, 152);
+            this.nodeDirTextBox.Name = "nodeDirTextBox";
+            this.nodeDirTextBox.Size = new System.Drawing.Size(245, 20);
+            this.nodeDirTextBox.TabIndex = 22;
+            this.nodeDirTextBox.TextChanged += new System.EventHandler(this.nodeDirTextBox_TextChanged);
             // 
             // nodeLocationLabel
             // 
@@ -196,13 +196,14 @@
             this.findScriptButton.UseVisualStyleBackColor = true;
             this.findScriptButton.Click += new System.EventHandler(this.findScriptButton_Click);
             // 
-            // scriptPathText
+            // scriptDirTextBox
             // 
-            this.scriptPathText.Location = new System.Drawing.Point(5, 102);
-            this.scriptPathText.Name = "scriptPathText";
-            this.scriptPathText.ReadOnly = true;
-            this.scriptPathText.Size = new System.Drawing.Size(245, 20);
-            this.scriptPathText.TabIndex = 19;
+            this.scriptDirTextBox.BackColor = System.Drawing.SystemColors.Control;
+            this.scriptDirTextBox.Location = new System.Drawing.Point(5, 102);
+            this.scriptDirTextBox.Name = "scriptDirTextBox";
+            this.scriptDirTextBox.Size = new System.Drawing.Size(245, 20);
+            this.scriptDirTextBox.TabIndex = 19;
+            this.scriptDirTextBox.TextChanged += new System.EventHandler(this.scriptDirTextBox_TextChanged);
             // 
             // scriptLocationLabel
             // 
@@ -221,15 +222,15 @@
             this.findScriptEditorButton.TabIndex = 17;
             this.findScriptEditorButton.Text = "...";
             this.findScriptEditorButton.UseVisualStyleBackColor = true;
-            this.findScriptEditorButton.Click += new System.EventHandler(this.findScriptEditorButton_Click_1);
+            this.findScriptEditorButton.Click += new System.EventHandler(this.findScriptEditorButton_Click);
             // 
-            // editorDirectoryTextbox
+            // customScriptEditorTextBox
             // 
-            this.editorDirectoryTextbox.Location = new System.Drawing.Point(23, 53);
-            this.editorDirectoryTextbox.Name = "editorDirectoryTextbox";
-            this.editorDirectoryTextbox.ReadOnly = true;
-            this.editorDirectoryTextbox.Size = new System.Drawing.Size(227, 20);
-            this.editorDirectoryTextbox.TabIndex = 16;
+            this.customScriptEditorTextBox.BackColor = System.Drawing.SystemColors.Control;
+            this.customScriptEditorTextBox.Location = new System.Drawing.Point(23, 53);
+            this.customScriptEditorTextBox.Name = "customScriptEditorTextBox";
+            this.customScriptEditorTextBox.Size = new System.Drawing.Size(227, 20);
+            this.customScriptEditorTextBox.TabIndex = 16;
             // 
             // customScriptEditorButton
             // 
@@ -308,14 +309,14 @@
             this.botnameLabel.TabIndex = 24;
             this.botnameLabel.Text = "Discord bot nickname";
             // 
-            // preferencesForm
+            // PreferencesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(306, 246);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "preferencesForm";
+            this.Name = "PreferencesForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Preferences";
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -337,23 +338,23 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage scriptTab;
         private System.Windows.Forms.Button findScriptButton;
-        private System.Windows.Forms.TextBox scriptPathText;
+        private System.Windows.Forms.TextBox scriptDirTextBox;
         private System.Windows.Forms.Label scriptLocationLabel;
         private System.Windows.Forms.Button findScriptEditorButton;
-        private System.Windows.Forms.TextBox editorDirectoryTextbox;
+        private System.Windows.Forms.TextBox customScriptEditorTextBox;
         private System.Windows.Forms.RadioButton customScriptEditorButton;
         private System.Windows.Forms.RadioButton defaultScriptEditorButton;
         private System.Windows.Forms.TabPage programTab;
         private System.Windows.Forms.Button findNodeButton;
-        private System.Windows.Forms.TextBox nodePathText;
+        private System.Windows.Forms.TextBox nodeDirTextBox;
         private System.Windows.Forms.Label nodeLocationLabel;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Label botnameLabel;
         private System.Windows.Forms.CheckBox programAutoStartCheckbox;
-        private System.Windows.Forms.CheckBox botStartupCheckbox;
-        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckBox scriptStartupCheckbox;
+        private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.TextBox botnameTextBox;
         private System.Windows.Forms.CheckBox minimizeToTrayCheckbox;
     }

@@ -9,72 +9,65 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace mutiny_control_panel {
-    public partial class preferencesForm : Form {
-        private bool useDefaultEditor;
-        private mainWindow instance;
-
+    public partial class PreferencesForm : Form {
 
         /* TODO
          * 
-         * clean names (saves = Properties.Settings.Default > save.editorPath)
          * make save() function ( save(useDefaultEditor, test) )
          * 
          */
 
-        public preferencesForm(mainWindow param) {
+        private MainWindow instance;
+
+        public PreferencesForm(MainWindow param) {
             InitializeComponent();
-            restoreSettings();
+            RestoreSettings();
 
             this.instance = param;
 
-            toolTip1.SetToolTip(programAutoStartCheckbox, "not working bcuz lazy");
+            toolTip.SetToolTip(programAutoStartCheckbox, "not working bcuz lazy");
+            //toolTip.SetToolTip(scriptStartupCheckbox, "Hosts script, preventing accidental downtime");
+            //toolTip.SetToolTip(minimizeToTrayCheckbox, "Hides the program so it can work quietly");
         }
 
-        private void restoreSettings() { // rebuild panel here
-            if (Properties.Settings.Default.editorPath != "")
-                editorDirectoryTextbox.Text = Properties.Settings.Default.editorPath;
-
-            if (Properties.Settings.Default.scriptPath != "") {
-                scriptPathText.Text = Properties.Settings.Default.scriptPath;
-                scriptPathText.BackColor = Color.White;
-            }
-
-            if (Properties.Settings.Default.nodePath != "") {
-                string text = Properties.Settings.Default.nodePath;
-                nodePathText.Text = text;
-  
-                if (text.Substring(text.Length - 8, 8) == "node.exe" || text.Substring(text.Length - 9, 8) == "node.exe") {
-                    nodePathText.BackColor = Color.White;
-                } else nodePathText.BackColor = SystemColors.Control;
-            }
+        public void RestoreSettings() {
+            var saves = Properties.Settings.Default;
 
             //script settings
-            botStartupCheckbox.Checked = Properties.Settings.Default.autoStartBot;
-            editorDirectoryTextbox.Text = Properties.Settings.Default.editorPath;
+            scriptStartupCheckbox.Checked = saves.autoStartBot;
 
-            useDefaultEditor = Properties.Settings.Default.useDefaultEditor;
-            if (useDefaultEditor) defaultScriptEditorButton.Checked = true;
-            else customScriptEditorButton.Checked = true;
+            customScriptEditorTextBox.Text = saves.editorPath;
+            customScriptEditorTextBox.Text = saves.editorPath;
+            customScriptEditorButton.Checked = !saves.useDefaultEditor;
+            defaultScriptEditorButton.Checked = saves.useDefaultEditor;
+
+            scriptDirTextBox.Text = saves.scriptPath;
+            nodeDirTextBox.Text = saves.nodePath;
 
             //program settings
-            minimizeToTrayCheckbox.Checked = Properties.Settings.Default.minimizeToTray;
-            botnameTextBox.Text = Properties.Settings.Default.botNickname;
+            minimizeToTrayCheckbox.Checked = saves.minimizeToTray;
+            botnameTextBox.Text = saves.botNickname;
         }
 
-        private void saveButton_Click_1(object sender, EventArgs e) { // save persistant settings here
-            if (scriptPathText.Text != Properties.Settings.Default.scriptPath) Properties.Settings.Default.scriptPath = scriptPathText.Text;
-            if (editorDirectoryTextbox.Text != Properties.Settings.Default.editorPath) Properties.Settings.Default.editorPath = editorDirectoryTextbox.Text;
-            if (useDefaultEditor != Properties.Settings.Default.useDefaultEditor) Properties.Settings.Default.useDefaultEditor = useDefaultEditor;
-            if (nodePathText.Text != Properties.Settings.Default.nodePath) Properties.Settings.Default.nodePath = nodePathText.Text;
-            if (botStartupCheckbox.Checked != Properties.Settings.Default.autoStartBot) Properties.Settings.Default.autoStartBot = botStartupCheckbox.Checked;
+        private void saveButton_Click(object sender, EventArgs e) { // save persistant settings here
+            var saves = Properties.Settings.Default;
 
-            if (minimizeToTrayCheckbox.Checked != Properties.Settings.Default.minimizeToTray) Properties.Settings.Default.minimizeToTray = minimizeToTrayCheckbox.Checked;
+            //script settings
+            if (scriptStartupCheckbox.Checked != saves.autoStartBot) saves.autoStartBot = scriptStartupCheckbox.Checked;
 
-            if (botnameTextBox.Text != "" && botnameTextBox.Text != Properties.Settings.Default.botNickname) Properties.Settings.Default.botNickname = botnameTextBox.Text;
+            if (defaultScriptEditorButton.Checked != saves.useDefaultEditor) saves.useDefaultEditor = defaultScriptEditorButton.Checked;
+            if (customScriptEditorTextBox.Text != "" && customScriptEditorTextBox.Text != saves.editorPath) saves.editorPath = customScriptEditorTextBox.Text;
 
-            Properties.Settings.Default.Save();
+            if (scriptDirTextBox.Text != "" && scriptDirTextBox.Text != saves.scriptPath) saves.scriptPath = scriptDirTextBox.Text;
+            if (nodeDirTextBox.Text != "" && nodeDirTextBox.Text != saves.nodePath) saves.nodePath = nodeDirTextBox.Text;
+            
+            //program settings
+            if (minimizeToTrayCheckbox.Checked != saves.minimizeToTray) saves.minimizeToTray = minimizeToTrayCheckbox.Checked;
+            if (botnameTextBox.Text != "" && botnameTextBox.Text != saves.botNickname) saves.botNickname = botnameTextBox.Text;
 
+            saves.Save();
             instance.SetValues();
+
             this.Close();
         }
 
@@ -82,49 +75,45 @@ namespace mutiny_control_panel {
             this.Close();
         }
 
+        // open file explorer buttons
         private void findScriptButton_Click(object sender, EventArgs e) {
             OpenFileDialog script = new OpenFileDialog();
             script.InitialDirectory = "c:\\";
             script.Filter = "Javascript files (*.js)|*.js";
-            if (script.ShowDialog() == DialogResult.OK) {
-                scriptPathText.Text = script.FileName;
-                if (script.FileName != "") scriptPathText.BackColor = Color.White;
-                else scriptPathText.BackColor = SystemColors.Control;
-            }
+            if (script.ShowDialog() == DialogResult.OK) scriptDirTextBox.Text = script.FileName;
         }
 
-        private void findScriptEditorButton_Click_1(object sender, EventArgs e) {
+        private void findScriptEditorButton_Click(object sender, EventArgs e) {
             OpenFileDialog editor = new OpenFileDialog();
             editor.InitialDirectory = "c:\\";
             editor.Filter = "Executable files (*.exe)|*.exe";
             if (editor.ShowDialog() == DialogResult.OK) {
                 customScriptEditorButton.Checked = true;
-                editorDirectoryTextbox.Text = editor.FileName;
+                customScriptEditorTextBox.Text = editor.FileName;
             }
         }
 
-        private void findNodeButton_Click_1(object sender, EventArgs e) {
+        private void findNodeButton_Click(object sender, EventArgs e) {
             OpenFileDialog node = new OpenFileDialog();
             node.InitialDirectory = "c:\\";
             node.Filter = "node.exe|*.exe";
-            if (node.ShowDialog() == DialogResult.OK) {
-                nodePathText.Text = node.FileName;
+            if (node.ShowDialog() == DialogResult.OK) nodeDirTextBox.Text = node.FileName;
+        }
 
-                var text = nodePathText.Text;
-                if (text.Substring(text.Length - 8, 8) == "node.exe" || text.Substring(text.Length - 9, 8) == "node.exe") {
-                    nodePathText.BackColor = Color.White;
-                } else nodePathText.BackColor = SystemColors.Control;
-            }
+        // handles changing textbox color for invalid entry
+        private void scriptDirTextBox_TextChanged(object sender, EventArgs e) {
+            if (scriptDirTextBox.Text != "") scriptDirTextBox.BackColor = Color.White;
+            else scriptDirTextBox.BackColor = SystemColors.Control;
+        }
+
+        private void nodeDirTextBox_TextChanged(object sender, EventArgs e) {
+            if (nodeDirTextBox.Text != "") nodeDirTextBox.BackColor = Color.White;
+            else nodeDirTextBox.BackColor = SystemColors.Control;
         }
 
         private void customScriptEditorButton_CheckedChanged(object sender, EventArgs e) {
-            if (customScriptEditorButton.Checked == true) {
-                useDefaultEditor = false;
-                editorDirectoryTextbox.BackColor = Color.White;
-            } else {
-                useDefaultEditor = true;
-                editorDirectoryTextbox.BackColor = SystemColors.Control;
-            }
+            if (customScriptEditorButton.Checked) customScriptEditorTextBox.BackColor = Color.White;
+            else customScriptEditorTextBox.BackColor = SystemColors.Control;
         }
 
         private void botnameTextBox_TextChanged(object sender, EventArgs e) {

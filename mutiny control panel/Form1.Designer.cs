@@ -1,5 +1,5 @@
 ﻿namespace mutiny_control_panel {
-    partial class mainWindow {
+    partial class MainWindow {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -24,7 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainWindow));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,11 +38,11 @@
             this.offlineButton = new System.Windows.Forms.RadioButton();
             this.onlineButton = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.onlineStatusLabel = new System.Windows.Forms.Label();
+            this.pushButton = new System.Windows.Forms.Button();
+            this.editButton = new System.Windows.Forms.Button();
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.editButton = new System.Windows.Forms.Button();
-            this.pushButton = new System.Windows.Forms.Button();
-            this.onlineStatusLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.scriptGroupBox.SuspendLayout();
@@ -183,28 +183,15 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(153, 72);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
-            // statusTimer
+            // onlineStatusLabel
             // 
-            this.statusTimer.Enabled = true;
-            this.statusTimer.Tick += new System.EventHandler(this.statusTimer_Tick);
-            // 
-            // notifyIcon
-            // 
-            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
-            this.notifyIcon.Text = "mutiny control panel";
-            this.notifyIcon.Visible = true;
-            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick_1);
-            // 
-            // editButton
-            // 
-            this.editButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.editButton.Location = new System.Drawing.Point(3, 45);
-            this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(147, 24);
-            this.editButton.TabIndex = 2;
-            this.editButton.Text = "Edit script";
-            this.editButton.UseVisualStyleBackColor = true;
-            this.editButton.Click += new System.EventHandler(this.editButton_Click);
+            this.onlineStatusLabel.AutoSize = true;
+            this.onlineStatusLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.onlineStatusLabel.Location = new System.Drawing.Point(3, 0);
+            this.onlineStatusLabel.Name = "onlineStatusLabel";
+            this.onlineStatusLabel.Size = new System.Drawing.Size(147, 13);
+            this.onlineStatusLabel.TabIndex = 0;
+            this.onlineStatusLabel.Text = "mutiny bot is currently broken";
             // 
             // pushButton
             // 
@@ -217,17 +204,30 @@
             this.pushButton.UseVisualStyleBackColor = true;
             this.pushButton.Click += new System.EventHandler(this.pushButton_Click);
             // 
-            // onlineStatusLabel
+            // editButton
             // 
-            this.onlineStatusLabel.AutoSize = true;
-            this.onlineStatusLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.onlineStatusLabel.Location = new System.Drawing.Point(3, 0);
-            this.onlineStatusLabel.Name = "onlineStatusLabel";
-            this.onlineStatusLabel.Size = new System.Drawing.Size(147, 13);
-            this.onlineStatusLabel.TabIndex = 0;
-            this.onlineStatusLabel.Text = "mutiny bot is currently broken";
+            this.editButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.editButton.Location = new System.Drawing.Point(3, 45);
+            this.editButton.Name = "editButton";
+            this.editButton.Size = new System.Drawing.Size(147, 24);
+            this.editButton.TabIndex = 2;
+            this.editButton.Text = "Edit script";
+            this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
-            // mainWindow
+            // statusTimer
+            // 
+            this.statusTimer.Enabled = true;
+            this.statusTimer.Tick += new System.EventHandler(this.statusTimer_Tick);
+            // 
+            // notifyIcon
+            // 
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "mutiny control panel";
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
+            // 
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -238,7 +238,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
-            this.Name = "mainWindow";
+            this.Name = "MainWindow";
             this.Text = "mutiny control panel";
             this.Resize += new System.EventHandler(this.mainWindow_Resize);
             this.menuStrip1.ResumeLayout(false);
