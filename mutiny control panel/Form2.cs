@@ -11,6 +11,8 @@ using System.Windows.Forms;
 namespace mutiny_control_panel {
     public partial class preferencesForm : Form {
         private bool useDefaultEditor;
+        private mainWindow instance;
+
 
         /* TODO
          * 
@@ -19,9 +21,11 @@ namespace mutiny_control_panel {
          * 
          */
 
-        public preferencesForm() {
+        public preferencesForm(mainWindow param) {
             InitializeComponent();
             restoreSettings();
+
+            this.instance = param;
 
             toolTip1.SetToolTip(programAutoStartCheckbox, "not working bcuz lazy");
         }
@@ -70,6 +74,7 @@ namespace mutiny_control_panel {
 
             Properties.Settings.Default.Save();
 
+            instance.SetValues();
             this.Close();
         }
 

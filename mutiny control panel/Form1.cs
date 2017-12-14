@@ -16,6 +16,8 @@ namespace mutiny_control_panel {
 
         private string version = "0.4.6 b";
 
+        mainWindow instance;
+
         /*  todo
          *  
          *  - minimize to tray
@@ -37,8 +39,10 @@ namespace mutiny_control_panel {
             InitializeComponent();
             spawnConsole();
 
-            if (Properties.Settings.Default.minimizeToTray) notifyIcon.Visible = true;
-            else notifyIcon.Visible = false;
+            instance = this;
+
+            SetValues();
+
 
             if (checkServer() == "offline" && Properties.Settings.Default.autoStartBot) hostJSBot();
         }
@@ -47,6 +51,15 @@ namespace mutiny_control_panel {
             consoleForm = new Debug();
             consoleForm.Text = Properties.Settings.Default.scriptPath;
             consoleForm.FormClosing += new FormClosingEventHandler(console_FormClosing);
+        }
+
+        public void SetValues() {
+            var saves = Properties.Settings.Default;
+
+            if (saves.minimizeToTray) notifyIcon.Visible = true;
+            else notifyIcon.Visible = false;
+
+            scriptGroupBox.Text = String.Format("{0} configuration", saves.botNickname);
         }
 
         private void console_FormClosing(object sender, FormClosingEventArgs e) {
@@ -73,7 +86,7 @@ namespace mutiny_control_panel {
 
         private void mainWindow_Resize(object sender, EventArgs e) {
             if (Properties.Settings.Default.minimizeToTray && this.WindowState == FormWindowState.Minimized) {
-                notifyIcon.ShowBalloonTip(3000);
+                //notifyIcon.ShowBalloonTip(3000);
                 this.ShowInTaskbar = false;
             }
         }
@@ -86,7 +99,7 @@ namespace mutiny_control_panel {
         }
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e) {
-            preferencesForm pref = new preferencesForm();
+            preferencesForm pref = new preferencesForm(instance);
             pref.ShowDialog();
         }
 

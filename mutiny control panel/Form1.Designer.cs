@@ -190,7 +190,6 @@
             // 
             // notifyIcon
             // 
-            this.notifyIcon.BalloonTipText = "test";
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "mutiny control panel";
             this.notifyIcon.Visible = true;
