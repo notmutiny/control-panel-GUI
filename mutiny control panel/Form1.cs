@@ -22,6 +22,7 @@ namespace mutiny_control_panel {
          *  
          *  - add fluff to debug form
          *  - add setting clean log every x changes
+         *  - make form3 topmost toggle
          *  
          *  - BUG closing console then closing main
          * 

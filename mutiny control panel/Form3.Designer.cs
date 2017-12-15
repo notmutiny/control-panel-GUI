@@ -52,6 +52,7 @@
             this.Name = "Debug";
             this.ShowIcon = false;
             this.Text = " ";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
