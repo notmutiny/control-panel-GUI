@@ -14,22 +14,25 @@ using System.Windows.Forms;
 namespace mutiny_control_panel {
     public partial class MainWindow : Form {
 
-        private string version = "0.5.3";
+        private string version = "0.5.5"; 
         private string changes = "Changelog: \r\n\r\n" +
-                                 "- added instance checking"+
-         /*  todo  */            "\r\n\r\n ヾ(＾∇＾)";
+                                 "- defaults script auto behavior on \r\n" +
+                                 "- added current instance checking \r\n" +
+                                 "- bug fixes and improved splashes \r\n"+
+        /*  todo  */             "\r\n ヾ(＾∇＾)";
         /*  
-        *  - clean threadproc
-        *  - make service to start app on bootup
-        *  https://stackoverflow.com/questions/5830440/how-to-start-stop-a-windows-service-through-a-windows-form-application
-        *  or use reg https://stackoverflow.com/questions/25276418/how-to-run-my-winform-application-when-computer-starts
-        *             https://stackoverflow.com/questions/5089601/how-to-run-a-c-sharp-application-at-windows-startup
-        *  
-        *  - add fluff to debug form
-        *  - add setting clean log every x changes
-        *  - make form3 topmost toggle
-        *  
-        */
+         *  - clean form1 code, modulate functions to provide better checks
+         *  
+         *  - make service to start app on bootup
+         *  https://stackoverflow.com/questions/5830440/how-to-start-stop-a-windows-service-through-a-windows-form-application
+         *    (or use reg) https://stackoverflow.com/questions/25276418/how-to-run-my-winform-application-when-computer-starts
+         *                 https://stackoverflow.com/questions/5089601/how-to-run-a-c-sharp-application-at-windows-startup
+         *  
+         *  - add fluff to debug form
+         *  - add setting clean log every x changes
+         *  - make form3 topmost toggle
+         *  
+         */
 
         public MainWindow Instance;
 
@@ -45,23 +48,15 @@ namespace mutiny_control_panel {
             SpawnConsole();            
             SetValues();
 
-            if (checkServer() == "offline" && Properties.Settings.Default.autoStartBot) hostJSBot();
-        }
-
-        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e) {
-            if (checkServer() == "online" && Properties.Settings.Default.autoStopBot) killJSBot();
+            if (Properties.Settings.Default.autoStartBot) {
+                if (checkServer() == "offline" && Properties.Settings.Default.scriptPath != "") hostJSBot();
+            }
         }
 
         public void SpawnConsole() {
             consoleForm = new Debug();
             consoleForm.Text = Properties.Settings.Default.scriptPath;
             consoleForm.FormClosing += new FormClosingEventHandler(console_FormClosing);
-        }
-
-        private void console_FormClosing(object sender, FormClosingEventArgs e) {
-            debugCheckBox.Checked = false;
-            consoleForm.Hide();
-            e.Cancel = true;
         }
 
         public void SetValues() {
@@ -76,11 +71,16 @@ namespace mutiny_control_panel {
             consoleForm.Text = Properties.Settings.Default.scriptPath;
         }
 
-        //
-        public void ShowWindow() {
-            if (this.WindowState == FormWindowState.Minimized) this.WindowState = FormWindowState.Normal;
+        // form closing handlers //
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e) {
+            if (checkServer() == "online" && Properties.Settings.Default.autoStopBot) killJSBot();
         }
-        //
+
+        private void console_FormClosing(object sender, FormClosingEventArgs e) {
+            debugCheckBox.Checked = false;
+            consoleForm.Hide();
+            e.Cancel = true;
+        }
 
         // Visual Studio methods //
         private void pushButton_Click(object sender, EventArgs e) {
@@ -92,12 +92,14 @@ namespace mutiny_control_panel {
         private void editButton_Click(object sender, EventArgs e) {
             var saves = Properties.Settings.Default;
 
-            try {
+           try {
                 if (saves.useDefaultEditor) Process.Start(saves.scriptPath);
                 else Process.Start(saves.editorPath, saves.scriptPath);
+            } catch(InvalidOperationException err) {
+                MessageBox.Show("Script directory not saved. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("Cannot open script editor. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             } catch(Win32Exception err) {
-                MessageBox.Show("Cannot open script editor. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine("{0}", err);
+                MessageBox.Show("Script editor is invalid. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -142,6 +144,18 @@ namespace mutiny_control_panel {
             onlineStatusLabel.Text = String.Format("{0} is currently {1}!", nickname, checkServer());
         }
 
+        // tray icon context menu //
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e) {
+            this.Close();
+        }
+
+        private void showScriptOutputToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (!consoleForm.Visible) {
+                consoleForm.Show();
+                debugCheckBox.Checked = true;
+            }
+        }
+
         // custom methods //
         private string checkServer() {
             Process[] node = Process.GetProcessesByName("node");
@@ -172,25 +186,29 @@ namespace mutiny_control_panel {
         private void killJSBot() {
             Process[] node = Process.GetProcessesByName("node");
 
-            if (node.Length > 0) {
-                foreach (Process proc in node) {
-                    if (Properties.Settings.Default.processID == proc.Id) {
-                        proc.Kill();
-                        break;
-                    }
+            if (node.Length <= 0) return;
+            
+            foreach (Process proc in node) {
+                if (Properties.Settings.Default.processID == proc.Id) {
+                    proc.Kill();
+                    break;
                 }
-            }
+            } 
         }
 
         private void Display(string txt) {
-            if (consoleForm.textBox2.InvokeRequired) {
-                StringArgReturningVoidDelegate d = new StringArgReturningVoidDelegate(Display);
-                this.Invoke(d, new object[] { txt });
-            } else {
-                consoleForm.textBox2.Text += txt + "\r\n";
+            try {
+                if (consoleForm.textBox2.InvokeRequired) {
+                    StringArgReturningVoidDelegate d = new StringArgReturningVoidDelegate(Display);
+                    this.Invoke(d, new object[] { txt });
+                } else {
+                    consoleForm.textBox2.Text += txt + "\r\n";
 
-                consoleForm.textBox2.SelectionStart = consoleForm.textBox2.Text.Length;
-                consoleForm.textBox2.ScrollToCaret();
+                    consoleForm.textBox2.SelectionStart = consoleForm.textBox2.Text.Length;
+                    consoleForm.textBox2.ScrollToCaret();
+                }
+            } catch (ObjectDisposedException e) {
+                Console.WriteLine("You closed the program while it was writing text. Did it offend you in some way? {0}", e);
             }
         }
 
@@ -237,14 +255,6 @@ namespace mutiny_control_panel {
                 Console.WriteLine("{0}", e);
                 MessageBox.Show("Node directory is invalid. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void quitToolStripMenuItem_Click(object sender, EventArgs e) {
-            this.Close();
-        }
-
-        private void showScriptOutputToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (!consoleForm.Visible) consoleForm.Show();
         }
     }
 }
