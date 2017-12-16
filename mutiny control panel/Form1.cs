@@ -14,17 +14,17 @@ using System.Windows.Forms;
 namespace mutiny_control_panel {
     public partial class MainWindow : Form {
 
-        private string version = "0.4.9";
-
-        /*  todo
-         *  
+        private string version = "0.5.1";
+        private string changes = "Changelog: \r\n\r\n" +
+                                 "- added behavior groupbox"+
+         /*  todo  */            "\r\n\r\n ヾ(＾∇＾)";                     
+         /*  
          *  - clean threadproc
          *  
          *  - add fluff to debug form
          *  - add setting clean log every x changes
          *  - make form3 topmost toggle
-         *  
-         *  - BUG closing console then closing main
+         *  - add close with program option
          * 
          */
 
@@ -107,6 +107,7 @@ namespace mutiny_control_panel {
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
             AboutBox1 about = new AboutBox1();
             about.labelVersion.Text = "Version " +version;
+            about.textBoxDescription.Text = changes;
             about.ShowDialog();
         }
 

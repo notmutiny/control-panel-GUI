@@ -19,8 +19,9 @@ namespace mutiny_control_panel {
             RestoreSettings();
 
             toolTip.SetToolTip(programAutoStartCheckbox, "not working bcuz lazy");
-            //toolTip.SetToolTip(minimizeToTrayCheckbox, "Hides the program so it can work quietly");
-            //toolTip.SetToolTip(scriptStartupCheckbox, "Hosts script, preventing accidental downtime");
+            toolTip.SetToolTip(scriptStartupCheckbox, "Hosts the script automatically when program is ran");
+            toolTip.SetToolTip(scriptShutdownCheckBox, "Kills the script automatically when program is closed");
+            //"Hides the program so it can work quietly");
         }
 
         public void RestoreSettings() {
@@ -28,6 +29,7 @@ namespace mutiny_control_panel {
 
             //script settings
             scriptStartupCheckbox.Checked = saves.autoStartBot;
+            scriptShutdownCheckBox.Checked = saves.autoStartBot;
 
             customScriptEditorTextBox.Text = saves.editorPath;
             customScriptEditorTextBox.Text = saves.editorPath;
@@ -47,6 +49,7 @@ namespace mutiny_control_panel {
 
             //script settings
             if (scriptStartupCheckbox.Checked != saves.autoStartBot) saves.autoStartBot = scriptStartupCheckbox.Checked;
+            if (scriptShutdownCheckBox.Checked != saves.autoStopBot) saves.autoStopBot = scriptShutdownCheckBox.Checked;
 
             if (defaultScriptEditorButton.Checked != saves.useDefaultEditor) saves.useDefaultEditor = defaultScriptEditorButton.Checked;
             if (customScriptEditorTextBox.Text != "" && customScriptEditorTextBox.Text != saves.editorPath) saves.editorPath = customScriptEditorTextBox.Text;

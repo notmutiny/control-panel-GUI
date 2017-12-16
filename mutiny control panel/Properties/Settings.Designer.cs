@@ -118,5 +118,17 @@ namespace mutiny_control_panel.Properties {
                 this["minimizeToTray"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool autoStopBot {
+            get {
+                return ((bool)(this["autoStopBot"]));
+            }
+            set {
+                this["autoStopBot"] = value;
+            }
+        }
     }
 }

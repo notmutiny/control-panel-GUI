@@ -31,6 +31,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.scriptTab = new System.Windows.Forms.TabPage();
+            this.scriptBehaviorGroupBox = new System.Windows.Forms.GroupBox();
+            this.scriptShutdownCheckBox = new System.Windows.Forms.CheckBox();
             this.scriptStartupCheckbox = new System.Windows.Forms.CheckBox();
             this.findNodeButton = new System.Windows.Forms.Button();
             this.nodeDirTextBox = new System.Windows.Forms.TextBox();
@@ -53,6 +55,7 @@
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.scriptTab.SuspendLayout();
+            this.scriptBehaviorGroupBox.SuspendLayout();
             this.programTab.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,7 +72,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(306, 246);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(306, 260);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -78,7 +81,7 @@
             this.flowLayoutPanel1.Controls.Add(this.saveButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 215);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 229);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(300, 28);
             this.flowLayoutPanel1.TabIndex = 7;
@@ -111,7 +114,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(300, 206);
+            this.panel1.Size = new System.Drawing.Size(300, 220);
             this.panel1.TabIndex = 6;
             // 
             // tabControl1
@@ -122,13 +125,13 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(300, 206);
+            this.tabControl1.Size = new System.Drawing.Size(300, 220);
             this.tabControl1.TabIndex = 4;
             // 
             // scriptTab
             // 
             this.scriptTab.BackColor = System.Drawing.Color.White;
-            this.scriptTab.Controls.Add(this.scriptStartupCheckbox);
+            this.scriptTab.Controls.Add(this.scriptBehaviorGroupBox);
             this.scriptTab.Controls.Add(this.findNodeButton);
             this.scriptTab.Controls.Add(this.nodeDirTextBox);
             this.scriptTab.Controls.Add(this.nodeLocationLabel);
@@ -142,25 +145,47 @@
             this.scriptTab.Location = new System.Drawing.Point(4, 22);
             this.scriptTab.Name = "scriptTab";
             this.scriptTab.Padding = new System.Windows.Forms.Padding(3);
-            this.scriptTab.Size = new System.Drawing.Size(292, 180);
+            this.scriptTab.Size = new System.Drawing.Size(292, 194);
             this.scriptTab.TabIndex = 0;
             this.scriptTab.Text = "Script settings";
+            // 
+            // scriptBehaviorGroupBox
+            // 
+            this.scriptBehaviorGroupBox.Controls.Add(this.scriptShutdownCheckBox);
+            this.scriptBehaviorGroupBox.Controls.Add(this.scriptStartupCheckbox);
+            this.scriptBehaviorGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.scriptBehaviorGroupBox.Location = new System.Drawing.Point(3, 3);
+            this.scriptBehaviorGroupBox.Name = "scriptBehaviorGroupBox";
+            this.scriptBehaviorGroupBox.Size = new System.Drawing.Size(286, 39);
+            this.scriptBehaviorGroupBox.TabIndex = 24;
+            this.scriptBehaviorGroupBox.TabStop = false;
+            this.scriptBehaviorGroupBox.Text = "Script behavior";
+            // 
+            // scriptShutdownCheckBox
+            // 
+            this.scriptShutdownCheckBox.AutoSize = true;
+            this.scriptShutdownCheckBox.Location = new System.Drawing.Point(146, 17);
+            this.scriptShutdownCheckBox.Name = "scriptShutdownCheckBox";
+            this.scriptShutdownCheckBox.Size = new System.Drawing.Size(139, 17);
+            this.scriptShutdownCheckBox.TabIndex = 31;
+            this.scriptShutdownCheckBox.Text = "Stop script with program";
+            this.scriptShutdownCheckBox.UseVisualStyleBackColor = true;
             // 
             // scriptStartupCheckbox
             // 
             this.scriptStartupCheckbox.AutoSize = true;
             this.scriptStartupCheckbox.Checked = true;
             this.scriptStartupCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.scriptStartupCheckbox.Location = new System.Drawing.Point(3, 6);
+            this.scriptStartupCheckbox.Location = new System.Drawing.Point(6, 17);
             this.scriptStartupCheckbox.Name = "scriptStartupCheckbox";
             this.scriptStartupCheckbox.Size = new System.Drawing.Size(139, 17);
-            this.scriptStartupCheckbox.TabIndex = 28;
+            this.scriptStartupCheckbox.TabIndex = 30;
             this.scriptStartupCheckbox.Text = "Start script with program";
             this.scriptStartupCheckbox.UseVisualStyleBackColor = true;
             // 
             // findNodeButton
             // 
-            this.findNodeButton.Location = new System.Drawing.Point(257, 152);
+            this.findNodeButton.Location = new System.Drawing.Point(257, 167);
             this.findNodeButton.Name = "findNodeButton";
             this.findNodeButton.Size = new System.Drawing.Size(29, 20);
             this.findNodeButton.TabIndex = 21;
@@ -171,7 +196,7 @@
             // nodeDirTextBox
             // 
             this.nodeDirTextBox.BackColor = System.Drawing.SystemColors.Control;
-            this.nodeDirTextBox.Location = new System.Drawing.Point(5, 152);
+            this.nodeDirTextBox.Location = new System.Drawing.Point(5, 167);
             this.nodeDirTextBox.Name = "nodeDirTextBox";
             this.nodeDirTextBox.Size = new System.Drawing.Size(245, 20);
             this.nodeDirTextBox.TabIndex = 22;
@@ -180,7 +205,7 @@
             // nodeLocationLabel
             // 
             this.nodeLocationLabel.AutoSize = true;
-            this.nodeLocationLabel.Location = new System.Drawing.Point(0, 132);
+            this.nodeLocationLabel.Location = new System.Drawing.Point(0, 147);
             this.nodeLocationLabel.Name = "nodeLocationLabel";
             this.nodeLocationLabel.Size = new System.Drawing.Size(94, 13);
             this.nodeLocationLabel.TabIndex = 23;
@@ -188,7 +213,7 @@
             // 
             // findScriptButton
             // 
-            this.findScriptButton.Location = new System.Drawing.Point(257, 102);
+            this.findScriptButton.Location = new System.Drawing.Point(257, 117);
             this.findScriptButton.Name = "findScriptButton";
             this.findScriptButton.Size = new System.Drawing.Size(29, 20);
             this.findScriptButton.TabIndex = 20;
@@ -199,7 +224,7 @@
             // scriptDirTextBox
             // 
             this.scriptDirTextBox.BackColor = System.Drawing.SystemColors.Control;
-            this.scriptDirTextBox.Location = new System.Drawing.Point(5, 102);
+            this.scriptDirTextBox.Location = new System.Drawing.Point(5, 117);
             this.scriptDirTextBox.Name = "scriptDirTextBox";
             this.scriptDirTextBox.Size = new System.Drawing.Size(245, 20);
             this.scriptDirTextBox.TabIndex = 19;
@@ -208,7 +233,7 @@
             // scriptLocationLabel
             // 
             this.scriptLocationLabel.AutoSize = true;
-            this.scriptLocationLabel.Location = new System.Drawing.Point(0, 82);
+            this.scriptLocationLabel.Location = new System.Drawing.Point(0, 97);
             this.scriptLocationLabel.Name = "scriptLocationLabel";
             this.scriptLocationLabel.Size = new System.Drawing.Size(77, 13);
             this.scriptLocationLabel.TabIndex = 18;
@@ -216,7 +241,7 @@
             // 
             // findEditorButton
             // 
-            this.findEditorButton.Location = new System.Drawing.Point(257, 53);
+            this.findEditorButton.Location = new System.Drawing.Point(257, 68);
             this.findEditorButton.Name = "findEditorButton";
             this.findEditorButton.Size = new System.Drawing.Size(29, 20);
             this.findEditorButton.TabIndex = 17;
@@ -227,7 +252,7 @@
             // customScriptEditorTextBox
             // 
             this.customScriptEditorTextBox.BackColor = System.Drawing.SystemColors.Control;
-            this.customScriptEditorTextBox.Location = new System.Drawing.Point(23, 53);
+            this.customScriptEditorTextBox.Location = new System.Drawing.Point(23, 68);
             this.customScriptEditorTextBox.Name = "customScriptEditorTextBox";
             this.customScriptEditorTextBox.Size = new System.Drawing.Size(227, 20);
             this.customScriptEditorTextBox.TabIndex = 16;
@@ -235,7 +260,7 @@
             // customScriptEditorButton
             // 
             this.customScriptEditorButton.AutoSize = true;
-            this.customScriptEditorButton.Location = new System.Drawing.Point(3, 56);
+            this.customScriptEditorButton.Location = new System.Drawing.Point(3, 71);
             this.customScriptEditorButton.Name = "customScriptEditorButton";
             this.customScriptEditorButton.Size = new System.Drawing.Size(14, 13);
             this.customScriptEditorButton.TabIndex = 15;
@@ -246,7 +271,7 @@
             // defaultScriptEditorButton
             // 
             this.defaultScriptEditorButton.AutoSize = true;
-            this.defaultScriptEditorButton.Location = new System.Drawing.Point(3, 33);
+            this.defaultScriptEditorButton.Location = new System.Drawing.Point(3, 48);
             this.defaultScriptEditorButton.Name = "defaultScriptEditorButton";
             this.defaultScriptEditorButton.Size = new System.Drawing.Size(152, 17);
             this.defaultScriptEditorButton.TabIndex = 14;
@@ -264,7 +289,7 @@
             this.programTab.Location = new System.Drawing.Point(4, 22);
             this.programTab.Name = "programTab";
             this.programTab.Padding = new System.Windows.Forms.Padding(3);
-            this.programTab.Size = new System.Drawing.Size(292, 276);
+            this.programTab.Size = new System.Drawing.Size(292, 194);
             this.programTab.TabIndex = 1;
             this.programTab.Text = "Program settings";
             // 
@@ -313,7 +338,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(306, 246);
+            this.ClientSize = new System.Drawing.Size(306, 260);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "PreferencesForm";
@@ -325,6 +350,8 @@
             this.tabControl1.ResumeLayout(false);
             this.scriptTab.ResumeLayout(false);
             this.scriptTab.PerformLayout();
+            this.scriptBehaviorGroupBox.ResumeLayout(false);
+            this.scriptBehaviorGroupBox.PerformLayout();
             this.programTab.ResumeLayout(false);
             this.programTab.PerformLayout();
             this.ResumeLayout(false);
@@ -353,9 +380,11 @@
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Label botnameLabel;
         private System.Windows.Forms.CheckBox programAutoStartCheckbox;
-        private System.Windows.Forms.CheckBox scriptStartupCheckbox;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.TextBox botnameTextBox;
         private System.Windows.Forms.CheckBox minimizeToTrayCheckbox;
+        private System.Windows.Forms.GroupBox scriptBehaviorGroupBox;
+        private System.Windows.Forms.CheckBox scriptShutdownCheckBox;
+        private System.Windows.Forms.CheckBox scriptStartupCheckbox;
     }
 }
