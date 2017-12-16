@@ -14,23 +14,27 @@ using System.Windows.Forms;
 namespace mutiny_control_panel {
     public partial class MainWindow : Form {
 
-        private string version = "0.5.2";
+        private string version = "0.5.3";
         private string changes = "Changelog: \r\n\r\n" +
-                                 "- added behavior groupbox"+
-         /*  todo  */            "\r\n\r\n ヾ(＾∇＾)";                     
-         /*  
-         *  - clean threadproc
-         *  
-         *  - add fluff to debug form
-         *  - add setting clean log every x changes
-         *  - make form3 topmost toggle
-         * 
-         */
+                                 "- added instance checking"+
+         /*  todo  */            "\r\n\r\n ヾ(＾∇＾)";
+        /*  
+        *  - clean threadproc
+        *  - make service to start app on bootup
+        *  https://stackoverflow.com/questions/5830440/how-to-start-stop-a-windows-service-through-a-windows-form-application
+        *  or use reg https://stackoverflow.com/questions/25276418/how-to-run-my-winform-application-when-computer-starts
+        *             https://stackoverflow.com/questions/5089601/how-to-run-a-c-sharp-application-at-windows-startup
+        *  
+        *  - add fluff to debug form
+        *  - add setting clean log every x changes
+        *  - make form3 topmost toggle
+        *  
+        */
 
         public MainWindow Instance;
 
-        private Thread nodeThread;
-        private Debug consoleForm;
+        private Debug consoleForm; 
+        private Thread nodeThread; 
 
         delegate void StringArgReturningVoidDelegate(string text); // i don't know what this is
 
@@ -63,12 +67,20 @@ namespace mutiny_control_panel {
         public void SetValues() {
             var saves = Properties.Settings.Default;
 
-            if (saves.minimizeToTray) notifyIcon.Visible = true;
-            else notifyIcon.Visible = false;
+            if (saves.minimizeToTray) {
+                notifyIcon.Visible = true;
+                notifyIcon.ContextMenuStrip = trayContextMenu;
+            } else notifyIcon.Visible = false;
 
             scriptGroupBox.Text = String.Format("{0} configuration", saves.botNickname);
             consoleForm.Text = Properties.Settings.Default.scriptPath;
         }
+
+        //
+        public void ShowWindow() {
+            if (this.WindowState == FormWindowState.Minimized) this.WindowState = FormWindowState.Normal;
+        }
+        //
 
         // Visual Studio methods //
         private void pushButton_Click(object sender, EventArgs e) {
@@ -225,6 +237,14 @@ namespace mutiny_control_panel {
                 Console.WriteLine("{0}", e);
                 MessageBox.Show("Node directory is invalid. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e) {
+            this.Close();
+        }
+
+        private void showScriptOutputToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (!consoleForm.Visible) consoleForm.Show();
         }
     }
 }
