@@ -149,6 +149,7 @@ namespace mutiny_control_panel {
             }
 
             nodeThread = new Thread(new ThreadStart(ThreadProc));
+            nodeThread.IsBackground = true;
             nodeThread.Start();
         }
 
