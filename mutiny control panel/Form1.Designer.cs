@@ -240,6 +240,7 @@
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.Text = "mutiny control panel";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Resize += new System.EventHandler(this.mainWindow_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

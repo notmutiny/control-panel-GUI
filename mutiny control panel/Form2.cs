@@ -29,7 +29,7 @@ namespace mutiny_control_panel {
 
             //script settings
             scriptStartupCheckbox.Checked = saves.autoStartBot;
-            scriptShutdownCheckBox.Checked = saves.autoStartBot;
+            scriptShutdownCheckBox.Checked = saves.autoStopBot;
 
             customScriptEditorTextBox.Text = saves.editorPath;
             customScriptEditorTextBox.Text = saves.editorPath;
