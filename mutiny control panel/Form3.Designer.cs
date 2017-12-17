@@ -51,7 +51,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "Debug";
             this.ShowIcon = false;
-            this.Text = " < script path >";
             this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();

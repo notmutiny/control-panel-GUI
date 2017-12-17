@@ -318,12 +318,15 @@
             // startWithWindowsCheckBox
             // 
             this.startWithWindowsCheckBox.AutoSize = true;
+            this.startWithWindowsCheckBox.Checked = true;
+            this.startWithWindowsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.startWithWindowsCheckBox.Location = new System.Drawing.Point(3, 6);
             this.startWithWindowsCheckBox.Name = "startWithWindowsCheckBox";
             this.startWithWindowsCheckBox.Size = new System.Drawing.Size(155, 17);
             this.startWithWindowsCheckBox.TabIndex = 25;
             this.startWithWindowsCheckBox.Text = "Start program with windows";
             this.startWithWindowsCheckBox.UseVisualStyleBackColor = true;
+            this.startWithWindowsCheckBox.CheckedChanged += new System.EventHandler(this.startWithWindowsCheckBox_CheckedChanged);
             // 
             // botnameLabel
             // 

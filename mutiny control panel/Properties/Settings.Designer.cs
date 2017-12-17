@@ -142,5 +142,17 @@ namespace mutiny_control_panel.Properties {
                 this["startWithWindows"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool avSplash {
+            get {
+                return ((bool)(this["avSplash"]));
+            }
+            set {
+                this["avSplash"] = value;
+            }
+        }
     }
 }

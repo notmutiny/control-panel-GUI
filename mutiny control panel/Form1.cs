@@ -15,7 +15,7 @@ using Microsoft.Win32;
 namespace mutiny_control_panel {
     public partial class MainWindow : Form {
 
-        private string version = "0.5.6";
+        private string version = "0.5.6"; 
         private string changes = "Changelog: \r\n\r\n" +
                                  " - added start with windows method \r\n" +
                                  " - defaults script auto behavior on \r\n" +
@@ -24,42 +24,48 @@ namespace mutiny_control_panel {
         /*  
          *  - clean form1 code, modulate functions to provide better checks
          *  
-         *  - make service to start app on bootup
-         *  https://stackoverflow.com/questions/5830440/how-to-start-stop-a-windows-service-through-a-windows-form-application
-         *    (or use reg) https://stackoverflow.com/questions/25276418/how-to-run-my-winform-application-when-computer-starts
-         *                 https://stackoverflow.com/questions/5089601/how-to-run-a-c-sharp-application-at-windows-startup
-         *  
          *  - add fluff to debug form
          *  - add setting clean log every x changes
          *  - make form3 topmost toggle
          *  
          */
 
-        public string ProgramName;
-        public MainWindow Instance;
-
         private Debug consoleForm; 
-        private Thread nodeThread; 
+        private Thread nodeThread;
+
+        public MainWindow Instance;
+        public string ProgramName;
+        public bool BotStatsCache;
 
         delegate void StringArgReturningVoidDelegate(string text); // i don't know what this is
 
         public MainWindow(string constname) {
             InitializeComponent();
+            Instance = this;
+
             ProgramName = constname;
             this.Text = ProgramName;
-            Instance = this;
+
+            AutoHostScript();
             SpawnConsole();            
             SetValues();
-
-            if (Properties.Settings.Default.autoStartBot) {
-                if (checkServer() == "offline" && Properties.Settings.Default.scriptPath != "") hostJSBot();
-            }
         }
 
         public void SpawnConsole() {
             consoleForm = new Debug();
             consoleForm.Text = Properties.Settings.Default.scriptPath;
             consoleForm.FormClosing += new FormClosingEventHandler(console_FormClosing);
+        }
+
+        public void AutoHostScript() {
+            var saves = Properties.Settings.Default;
+    
+            if (!saves.autoStartBot || saves.scriptPath == "") return;
+
+            if (checkProcess() == "online") {
+                killJSBot();
+                hostJSBot();
+            } else hostJSBot();
         }
 
         public void SetValues() {
@@ -75,15 +81,11 @@ namespace mutiny_control_panel {
             scriptGroupBox.Text = String.Format("{0} configuration", saves.botNickname);
         }
 
-        // form closing handlers //
-        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e) {
-            if (checkServer() == "online" && Properties.Settings.Default.autoStopBot) killJSBot();
-        }
+        public void SetTrayIcon() {
+            if (!notifyIcon.Visible) return;
 
-        private void console_FormClosing(object sender, FormClosingEventArgs e) {
-            debugCheckBox.Checked = false;
-            consoleForm.Hide();
-            e.Cancel = true;
+            if (checkProcess() == "online" && notifyIcon.Icon != Properties.Resources.green) notifyIcon.Icon = Properties.Resources.green;
+            if (checkProcess() == "offline" && notifyIcon.Icon != Properties.Resources.red) notifyIcon.Icon = Properties.Resources.red;
         }
 
         // Visual Studio methods //
@@ -93,17 +95,18 @@ namespace mutiny_control_panel {
             if (onlineButton.Checked) hostJSBot();
         }
 
-        private void editButton_Click(object sender, EventArgs e) {
+        private void editButton_Click(object sender, EventArgs ev) {
             var saves = Properties.Settings.Default;
 
            try {
                 if (saves.useDefaultEditor) Process.Start(saves.scriptPath);
                 else Process.Start(saves.editorPath, saves.scriptPath);
-            } catch(InvalidOperationException err) {
+            } catch(InvalidOperationException e) {
                 MessageBox.Show("Script directory not saved. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //MessageBox.Show("Cannot open script editor. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            } catch(Win32Exception err) {
+                Console.WriteLine("{0}", e);
+            } catch(Win32Exception e) {
                 MessageBox.Show("Script editor is invalid. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine("{0}", e);
             }
         }
 
@@ -143,9 +146,10 @@ namespace mutiny_control_panel {
 
         private void statusTimer_Tick(object sender, EventArgs e) {
             string nickname = Properties.Settings.Default.botNickname;
-            if (nickname.Length > 10) nickname = nickname.Substring(0, 11);
+            string status = checkProcess();
+            SetTrayIcon();
 
-            onlineStatusLabel.Text = String.Format("{0} is currently {1}!", nickname, checkServer());
+            onlineStatusLabel.Text = String.Format("{0} is currently {1}!", nickname, status);
         }
 
         // tray icon context menu //
@@ -160,8 +164,19 @@ namespace mutiny_control_panel {
             }
         }
 
+        // form closing handlers //
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e) {
+            if (checkProcess() == "online" && Properties.Settings.Default.autoStopBot) killJSBot();
+        }
+
+        private void console_FormClosing(object sender, FormClosingEventArgs e) {
+            debugCheckBox.Checked = false;
+            consoleForm.Hide();
+            e.Cancel = true;
+        }
+
         // custom methods //
-        private string checkServer() {
+        private string checkProcess() {
             Process[] node = Process.GetProcessesByName("node");
             
             foreach (Process proc in node) {
@@ -197,7 +212,7 @@ namespace mutiny_control_panel {
                     proc.Kill();
                     break;
                 }
-            } 
+            }
         }
 
         private void Display(string txt) {

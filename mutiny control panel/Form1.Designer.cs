@@ -47,6 +47,7 @@
             this.showScriptOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.keepOutputOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.scriptGroupBox.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -236,29 +237,38 @@
             // 
             this.trayContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showScriptOutputToolStripMenuItem,
+            this.keepOutputOnTopToolStripMenuItem,
             this.toolStripSeparator1,
             this.quitToolStripMenuItem});
             this.trayContextMenu.Name = "trayContextMenu";
-            this.trayContextMenu.Size = new System.Drawing.Size(175, 54);
+            this.trayContextMenu.Size = new System.Drawing.Size(178, 98);
             // 
             // showScriptOutputToolStripMenuItem
             // 
             this.showScriptOutputToolStripMenuItem.Name = "showScriptOutputToolStripMenuItem";
-            this.showScriptOutputToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.showScriptOutputToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.showScriptOutputToolStripMenuItem.Text = "Show script output";
             this.showScriptOutputToolStripMenuItem.Click += new System.EventHandler(this.showScriptOutputToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(171, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(174, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+            // 
+            // keepOutputOnTopToolStripMenuItem
+            // 
+            this.keepOutputOnTopToolStripMenuItem.Checked = true;
+            this.keepOutputOnTopToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.keepOutputOnTopToolStripMenuItem.Name = "keepOutputOnTopToolStripMenuItem";
+            this.keepOutputOnTopToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.keepOutputOnTopToolStripMenuItem.Text = "Keep output on top";
             // 
             // MainWindow
             // 
@@ -311,6 +321,7 @@
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showScriptOutputToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem keepOutputOnTopToolStripMenuItem;
     }
 }
 

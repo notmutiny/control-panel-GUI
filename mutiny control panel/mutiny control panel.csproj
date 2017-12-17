@@ -123,6 +123,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="mutiny control panel_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
@@ -140,6 +141,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="362760990607278080.ico" />
+    <None Include="Resources\1 red.ico" />
+    <None Include="Resources\1 green.ico" />
+    <None Include="Resources\Green.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
