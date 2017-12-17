@@ -12,15 +12,14 @@ namespace mutiny_control_panel {
 
         private static Mutex mutex = null;
 
-        static MainWindow main;
+        static MainWindow panel;
 
         [STAThread]
         static void Main() {
 
             bool createdNew;
-
-            const string appName = "mutiny control panel"; 
-            mutex = new Mutex(true, appName, out createdNew);
+            const string name = "mutiny control panel"; 
+            mutex = new Mutex(true, name, out createdNew);
 
             if (!createdNew) {
                 //if (main.WindowState == FormWindowState.Minimized) main.WindowState = FormWindowState.Normal;
@@ -29,8 +28,9 @@ namespace mutiny_control_panel {
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            main = new MainWindow();
-            Application.Run(main);
+
+            panel = new MainWindow(name);
+            Application.Run(panel);
         }
     }
 }

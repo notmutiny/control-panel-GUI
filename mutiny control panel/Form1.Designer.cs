@@ -272,7 +272,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainWindow";
-            this.Text = "mutiny control panel";
+            this.Text = "appname";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Resize += new System.EventHandler(this.mainWindow_Resize);
             this.tableLayoutPanel1.ResumeLayout(false);

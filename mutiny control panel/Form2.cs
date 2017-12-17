@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace mutiny_control_panel {
     public partial class PreferencesForm : Form {
@@ -18,13 +19,13 @@ namespace mutiny_control_panel {
             this.instance = param;
             RestoreSettings();
 
-            toolTip.SetToolTip(programAutoStartCheckbox, "not working bcuz lazy");
+            toolTip.SetToolTip(startWithWindowsCheckBox, "Experimental, modifies registry. Use with caution.");
             toolTip.SetToolTip(scriptStartupCheckbox, "Hosts the script automatically when program is ran");
             toolTip.SetToolTip(scriptShutdownCheckBox, "Kills the script automatically when program is closed");
-            //"Hides the program so it can work quietly");
+            toolTip.SetToolTip(minimizeToTrayCheckbox, "Hides the program so it can quietly collect logs");
         }
 
-        public void RestoreSettings() {
+        public void RestoreSettings() { // restore persistent settings
             var saves = Properties.Settings.Default;
 
             //script settings
@@ -40,11 +41,13 @@ namespace mutiny_control_panel {
             nodeDirTextBox.Text = saves.nodePath;
 
             //program settings
+            startWithWindowsCheckBox.Checked = saves.startWithWindows;
             minimizeToTrayCheckbox.Checked = saves.minimizeToTray;
+
             botnameTextBox.Text = saves.botNickname;
         }
 
-        private void saveButton_Click(object sender, EventArgs e) { // save persistant settings here
+        private void saveButton_Click(object sender, EventArgs e) { // save persistent settings
             var saves = Properties.Settings.Default;
 
             //script settings
@@ -56,9 +59,15 @@ namespace mutiny_control_panel {
 
             if (scriptDirTextBox.Text != "" && scriptDirTextBox.Text != saves.scriptPath) saves.scriptPath = scriptDirTextBox.Text;
             if (nodeDirTextBox.Text != "" && nodeDirTextBox.Text != saves.nodePath) saves.nodePath = nodeDirTextBox.Text;
-            
+
             //program settings
+            if (startWithWindowsCheckBox.Checked != saves.startWithWindows) {
+                saves.startWithWindows = startWithWindowsCheckBox.Checked;
+                HandleWindowsStartup();
+            }
+
             if (minimizeToTrayCheckbox.Checked != saves.minimizeToTray) saves.minimizeToTray = minimizeToTrayCheckbox.Checked;
+
             if (botnameTextBox.Text != "" && botnameTextBox.Text != saves.botNickname) saves.botNickname = botnameTextBox.Text;
 
             saves.Save();
@@ -69,6 +78,12 @@ namespace mutiny_control_panel {
 
         private void cancelButton_Click(object sender, EventArgs e) {
             this.Close();
+        }
+
+        private void HandleWindowsStartup() {
+            RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            if (Properties.Settings.Default.startWithWindows) registryKey.SetValue(instance.ProgramName, Application.ExecutablePath);
+            else registryKey.DeleteValue(instance.ProgramName, false);
         }
 
         // popup file explorer buttons

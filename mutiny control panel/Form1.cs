@@ -10,11 +10,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace mutiny_control_panel {
     public partial class MainWindow : Form {
 
-        private string version = "0.5.5"; 
+        private string version = "0.5.5";
         private string changes = "Changelog: \r\n\r\n" +
                                  "- defaults script auto behavior on \r\n" +
                                  "- added current instance checking \r\n" +
@@ -34,6 +35,7 @@ namespace mutiny_control_panel {
          *  
          */
 
+        public string ProgramName;
         public MainWindow Instance;
 
         private Debug consoleForm; 
@@ -41,10 +43,11 @@ namespace mutiny_control_panel {
 
         delegate void StringArgReturningVoidDelegate(string text); // i don't know what this is
 
-        public MainWindow() {
+        public MainWindow(string constname) {
             InitializeComponent();
+            ProgramName = constname;
+            this.Text = ProgramName;
             Instance = this;
-
             SpawnConsole();            
             SetValues();
 
@@ -62,13 +65,14 @@ namespace mutiny_control_panel {
         public void SetValues() {
             var saves = Properties.Settings.Default;
 
+            consoleForm.Text = saves.scriptPath;
+
             if (saves.minimizeToTray) {
                 notifyIcon.Visible = true;
                 notifyIcon.ContextMenuStrip = trayContextMenu;
             } else notifyIcon.Visible = false;
 
             scriptGroupBox.Text = String.Format("{0} configuration", saves.botNickname);
-            consoleForm.Text = Properties.Settings.Default.scriptPath;
         }
 
         // form closing handlers //

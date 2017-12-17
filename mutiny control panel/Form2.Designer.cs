@@ -47,7 +47,7 @@
             this.programTab = new System.Windows.Forms.TabPage();
             this.minimizeToTrayCheckbox = new System.Windows.Forms.CheckBox();
             this.botnameTextBox = new System.Windows.Forms.TextBox();
-            this.programAutoStartCheckbox = new System.Windows.Forms.CheckBox();
+            this.startWithWindowsCheckBox = new System.Windows.Forms.CheckBox();
             this.botnameLabel = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
@@ -284,7 +284,7 @@
             this.programTab.BackColor = System.Drawing.Color.White;
             this.programTab.Controls.Add(this.minimizeToTrayCheckbox);
             this.programTab.Controls.Add(this.botnameTextBox);
-            this.programTab.Controls.Add(this.programAutoStartCheckbox);
+            this.programTab.Controls.Add(this.startWithWindowsCheckBox);
             this.programTab.Controls.Add(this.botnameLabel);
             this.programTab.Location = new System.Drawing.Point(4, 22);
             this.programTab.Name = "programTab";
@@ -315,15 +315,15 @@
             this.botnameTextBox.Text = "Discord bot";
             this.botnameTextBox.TextChanged += new System.EventHandler(this.botnameTextBox_TextChanged);
             // 
-            // programAutoStartCheckbox
+            // startWithWindowsCheckBox
             // 
-            this.programAutoStartCheckbox.AutoSize = true;
-            this.programAutoStartCheckbox.Location = new System.Drawing.Point(3, 6);
-            this.programAutoStartCheckbox.Name = "programAutoStartCheckbox";
-            this.programAutoStartCheckbox.Size = new System.Drawing.Size(155, 17);
-            this.programAutoStartCheckbox.TabIndex = 25;
-            this.programAutoStartCheckbox.Text = "Start program with windows";
-            this.programAutoStartCheckbox.UseVisualStyleBackColor = true;
+            this.startWithWindowsCheckBox.AutoSize = true;
+            this.startWithWindowsCheckBox.Location = new System.Drawing.Point(3, 6);
+            this.startWithWindowsCheckBox.Name = "startWithWindowsCheckBox";
+            this.startWithWindowsCheckBox.Size = new System.Drawing.Size(155, 17);
+            this.startWithWindowsCheckBox.TabIndex = 25;
+            this.startWithWindowsCheckBox.Text = "Start program with windows";
+            this.startWithWindowsCheckBox.UseVisualStyleBackColor = true;
             // 
             // botnameLabel
             // 
@@ -379,7 +379,7 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Label botnameLabel;
-        private System.Windows.Forms.CheckBox programAutoStartCheckbox;
+        private System.Windows.Forms.CheckBox startWithWindowsCheckBox;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.TextBox botnameTextBox;
         private System.Windows.Forms.CheckBox minimizeToTrayCheckbox;
