@@ -63,6 +63,7 @@ namespace mutiny_control_panel {
             //program settings
             if (startWithWindowsCheckBox.Checked != saves.startWithWindows) {
                 handleWindowsStartup(startWithWindowsCheckBox.Checked);
+                saves.startWithWindows = startWithWindowsCheckBox.Checked;
             } 
 
             if (minimizeToTrayCheckbox.Checked != saves.minimizeToTray) saves.minimizeToTray = minimizeToTrayCheckbox.Checked;

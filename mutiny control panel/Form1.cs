@@ -15,7 +15,7 @@ using Microsoft.Win32;
 namespace mutiny_control_panel {
     public partial class MainWindow : Form {
 
-        private string version = "0.5.7";  
+        private string version = "0.5.7.1";  
         private string changes = "Changelog: \r\n\r\n" +
                                  " - colorized tray icon for hosting \r\n" +
                                  " - added start with windows method \r\n" +
