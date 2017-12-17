@@ -168,7 +168,7 @@
             // statusTimer
             // 
             this.statusTimer.Enabled = true;
-            this.statusTimer.Tick += new System.EventHandler(this.statusTimer_Tick);
+            this.statusTimer.Tick += new System.EventHandler(this.statusRefresh_Tick);
             // 
             // notifyIcon
             // 

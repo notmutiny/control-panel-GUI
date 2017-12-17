@@ -15,19 +15,19 @@ using Microsoft.Win32;
 namespace mutiny_control_panel {
     public partial class MainWindow : Form {
 
-        private string version = "0.5.6"; 
+        private string version = "0.5.7";  
         private string changes = "Changelog: \r\n\r\n" +
+                                 " - colorized tray icon for hosting \r\n" +
                                  " - added start with windows method \r\n" +
-                                 " - defaults script auto behavior on \r\n" +
+                                 " - default script auto behavior on \r\n" +
                                  " - probably random bug fixes \r\n"+
-        /*  todo  */             "\r\n ヾ(＾∇＾)";
-        /*  
-         *  - clean form1 code, modulate functions to provide better checks
+                                 "\r\n ヾ(＾∇＾)";
+        /* todo
+         *  - clean form1, modulate functions to provide better checks
          *  
          *  - add fluff to debug form
          *  - add setting clean log every x changes
          *  - make form3 topmost toggle
-         *  
          */
 
         private Debug consoleForm; 
@@ -59,33 +59,23 @@ namespace mutiny_control_panel {
 
         public void AutoHostScript() {
             var saves = Properties.Settings.Default;
-    
-            if (!saves.autoStartBot || saves.scriptPath == "") return;
 
-            if (checkProcess() == "online") {
-                killJSBot();
-                hostJSBot();
-            } else hostJSBot();
+            if (!saves.autoStartBot || saves.scriptPath == "") return;
+            if (checkProcess() == "online") killJSBot();
+            hostJSBot();
         }
 
         public void SetValues() {
             var saves = Properties.Settings.Default;
 
-            consoleForm.Text = saves.scriptPath;
+            scriptGroupBox.Text = String.Format("{0} configuration", saves.botNickname);
 
             if (saves.minimizeToTray) {
                 notifyIcon.Visible = true;
                 notifyIcon.ContextMenuStrip = trayContextMenu;
             } else notifyIcon.Visible = false;
 
-            scriptGroupBox.Text = String.Format("{0} configuration", saves.botNickname);
-        }
-
-        public void SetTrayIcon() {
-            if (!notifyIcon.Visible) return;
-
-            if (checkProcess() == "online" && notifyIcon.Icon != Properties.Resources.green) notifyIcon.Icon = Properties.Resources.green;
-            if (checkProcess() == "offline" && notifyIcon.Icon != Properties.Resources.red) notifyIcon.Icon = Properties.Resources.red;
+            consoleForm.Text = saves.scriptPath;
         }
 
         // Visual Studio methods //
@@ -105,15 +95,30 @@ namespace mutiny_control_panel {
                 MessageBox.Show("Script directory not saved. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine("{0}", e);
             } catch(Win32Exception e) {
-                MessageBox.Show("Script editor is invalid. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Script editor is not valid. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine("{0}", e);
             }
         }
 
-        private void mainWindow_Resize(object sender, EventArgs e) {
-            if (Properties.Settings.Default.minimizeToTray && this.WindowState == FormWindowState.Minimized) {
-                this.ShowInTaskbar = false;
-            }
+        private void debugCheckBox_CheckedChanged(object sender, EventArgs e) {
+            if (debugCheckBox.Checked) consoleForm.Show();
+            else consoleForm.Hide();
+        }
+
+        private void statusRefresh_Tick(object sender, EventArgs e) {
+            string nickname = Properties.Settings.Default.botNickname;
+            string status = checkProcess();
+            SetTrayIcon();
+
+            onlineStatusLabel.Text = String.Format("{0} is currently {1}!", nickname, status);
+        }
+
+        // system tray icon
+        public void SetTrayIcon() {
+            if (!notifyIcon.Visible) return;
+
+            if (checkProcess() == "online" && notifyIcon.Icon != Properties.Resources.green) notifyIcon.Icon = Properties.Resources.green;
+            if (checkProcess() == "offline" && notifyIcon.Icon != Properties.Resources.red) notifyIcon.Icon = Properties.Resources.red;
         }
 
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e) {
@@ -123,6 +128,24 @@ namespace mutiny_control_panel {
             }
         }
 
+        private void mainWindow_Resize(object sender, EventArgs e) {
+            if (Properties.Settings.Default.minimizeToTray && this.WindowState == FormWindowState.Minimized) {
+                this.ShowInTaskbar = false;
+            }
+        }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e) {
+            this.Close();
+        }
+
+        private void showScriptOutputToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (!consoleForm.Visible) {
+                consoleForm.Show();
+                debugCheckBox.Checked = true;
+            }
+        }
+
+        // form1 menu strip
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e) {
             PreferencesForm pref = new PreferencesForm(Instance);
             pref.ShowDialog();
@@ -139,32 +162,7 @@ namespace mutiny_control_panel {
             Process.Start("https://github.com/notmutiny/control-panel-GUI");
         }
 
-        private void debugCheckBox_CheckedChanged(object sender, EventArgs e) {
-            if (debugCheckBox.Checked) consoleForm.Show();
-            else consoleForm.Hide();
-        }
-
-        private void statusTimer_Tick(object sender, EventArgs e) {
-            string nickname = Properties.Settings.Default.botNickname;
-            string status = checkProcess();
-            SetTrayIcon();
-
-            onlineStatusLabel.Text = String.Format("{0} is currently {1}!", nickname, status);
-        }
-
-        // tray icon context menu //
-        private void quitToolStripMenuItem_Click(object sender, EventArgs e) {
-            this.Close();
-        }
-
-        private void showScriptOutputToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (!consoleForm.Visible) {
-                consoleForm.Show();
-                debugCheckBox.Checked = true;
-            }
-        }
-
-        // form closing handlers //
+        // form close events
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e) {
             if (checkProcess() == "online" && Properties.Settings.Default.autoStopBot) killJSBot();
         }
@@ -175,10 +173,10 @@ namespace mutiny_control_panel {
             e.Cancel = true;
         }
 
-        // custom methods //
+        // Custom methods //
         private string checkProcess() {
             Process[] node = Process.GetProcessesByName("node");
-            
+
             foreach (Process proc in node) {
                 if (proc.Id == Properties.Settings.Default.processID) return "online";
             }

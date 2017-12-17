@@ -21,7 +21,7 @@ namespace mutiny_control_panel {
 
             toolTip.SetToolTip(scriptStartupCheckbox, "Hosts the script automatically when program is ran");
             toolTip.SetToolTip(scriptShutdownCheckBox, "Kills the script automatically when program is closed");
-            toolTip.SetToolTip(startWithWindowsCheckBox, "Edits registry, your AntiVirus may freeze program when saving changes");
+            toolTip.SetToolTip(startWithWindowsCheckBox, "Edits registry, your Antivirus may freeze program when saving changes");
             toolTip.SetToolTip(minimizeToTrayCheckbox, "Hides the program so it can quietly collect logs");
         }
 
@@ -62,9 +62,7 @@ namespace mutiny_control_panel {
 
             //program settings
             if (startWithWindowsCheckBox.Checked != saves.startWithWindows) {
-                //saves.startWithWindows = startWithWindowsCheckBox.Checked;
-                HandleWindowsStartup(startWithWindowsCheckBox.Checked);
-                if (saves.avSplash) saves.avSplash = false; //only shows avsplash once
+                handleWindowsStartup(startWithWindowsCheckBox.Checked);
             } 
 
             if (minimizeToTrayCheckbox.Checked != saves.minimizeToTray) saves.minimizeToTray = minimizeToTrayCheckbox.Checked;
@@ -80,13 +78,12 @@ namespace mutiny_control_panel {
             this.Close();
         }
 
-        private void HandleWindowsStartup(bool enabled) {
+        private void handleWindowsStartup(bool enabled) {
             RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-
 
             string path = String.Format("\"{0}\"", Application.ExecutablePath);
 
-            if (enabled) registryKey.SetValue(instance.ProgramName, path);
+            if(enabled) registryKey.SetValue(instance.ProgramName, path);
             else registryKey.DeleteValue(instance.ProgramName, false);
         }
 
@@ -138,12 +135,12 @@ namespace mutiny_control_panel {
 
         // start with windows antivirus warning splash
         private void startWithWindowsCheckBox_CheckedChanged(object sender, EventArgs e) { 
-            if (startWithWindowsCheckBox.Checked) {// && Properties.Settings.Default.avSplash) {
+            if (startWithWindowsCheckBox.Checked) {
                 MessageBox.Show("Some Antiviruses will freeze the program when saving this option. \r\n\r\n" +
                     "If this happens you can prevent it with one of the following: \r\n" +
-                    "    - disable your Antivirus during your next save \r\n" +
                     "    - add the program to your Antivirus whitelist \r\n" +
-                    "\r\nThis occurs because a registry key is built and removed with this option.", "Antivirus warning!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    "    - disable your Antivirus during the next save \r\n" +
+                    "\r\nThis occurs because a registry key is created with this setting.", "Antivirus warning!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }
