@@ -15,11 +15,11 @@ using Microsoft.Win32;
 namespace mutiny_control_panel {
     public partial class MainWindow : Form {
 
-        private string version = "0.5.5";
+        private string version = "0.5.6";
         private string changes = "Changelog: \r\n\r\n" +
-                                 "- defaults script auto behavior on \r\n" +
-                                 "- added current instance checking \r\n" +
-                                 "- bug fixes and improved splashes \r\n"+
+                                 " - added start with windows method \r\n" +
+                                 " - defaults script auto behavior on \r\n" +
+                                 " - probably random bug fixes \r\n"+
         /*  todo  */             "\r\n ヾ(＾∇＾)";
         /*  
          *  - clean form1 code, modulate functions to provide better checks

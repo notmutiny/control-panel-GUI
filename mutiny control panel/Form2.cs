@@ -19,9 +19,9 @@ namespace mutiny_control_panel {
             this.instance = param;
             RestoreSettings();
 
-            toolTip.SetToolTip(startWithWindowsCheckBox, "Experimental, modifies registry. Use with caution.");
             toolTip.SetToolTip(scriptStartupCheckbox, "Hosts the script automatically when program is ran");
             toolTip.SetToolTip(scriptShutdownCheckBox, "Kills the script automatically when program is closed");
+            toolTip.SetToolTip(startWithWindowsCheckBox, "Experimental, modifies registry. Use with caution.");
             toolTip.SetToolTip(minimizeToTrayCheckbox, "Hides the program so it can quietly collect logs");
         }
 
