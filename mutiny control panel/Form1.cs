@@ -15,7 +15,7 @@ using Microsoft.Win32;
 namespace mutiny_control_panel {
     public partial class MainWindow : Form {
 
-        private string version = "0.5.8a";
+        private string version = "0.5.8";
         private string changes = "Changelog: \r\n\r\n" + 
                                  " - major code changes for saving \r\n" +
                                  " - colorized tray icon for hosting \r\n" +
@@ -53,16 +53,16 @@ namespace mutiny_control_panel {
             SetValues();
         }
 
-        public void SpawnConsole() {
-            consoleForm = new Debug();
-            consoleForm.Text = Saves.scriptPath;
-            consoleForm.FormClosing += new FormClosingEventHandler(console_FormClosing);
-        }
-
         public void AutoHostScript() {
             if (!Saves.autoStartBot || Saves.scriptPath == "") return;
             if (checkProcess() == "online") killJSBot();
             hostJSBot();
+        }
+
+        public void SpawnConsole() {
+            consoleForm = new Debug();
+            consoleForm.Text = Saves.scriptPath;
+            consoleForm.FormClosing += new FormClosingEventHandler(console_FormClosing);
         }
 
         public void SetValues() {
@@ -72,7 +72,7 @@ namespace mutiny_control_panel {
             } else notifyIcon.Visible = false;
 
             consoleForm.Text = Saves.scriptPath;
-            if (checkProcess() == "online") SetTrayIcon();
+            if (checkProcess() == "online") ChangeProcessStatus();
             scriptGroupBox.Text = String.Format("{0} configuration", Saves.botNickname);
         }
 
@@ -99,6 +99,8 @@ namespace mutiny_control_panel {
         private void debugCheckBox_CheckedChanged(object sender, EventArgs e) {
             if (debugCheckBox.Checked) consoleForm.Show();
             else consoleForm.Hide();
+
+            if (showWindowToolStripMenuItem.Checked != debugCheckBox.Checked) showWindowToolStripMenuItem.Checked = debugCheckBox.Checked;
         }
 
         private void statusRefresh_Tick(object sender, EventArgs e) {
@@ -106,44 +108,60 @@ namespace mutiny_control_panel {
             string status = checkProcess();
 
             if (status != StatusCache) {
-                ChangeProcessStatus(status);
+                ChangeProcessStatus();
                 StatusCache = status;
             }
 
             onlineStatusLabel.Text = String.Format("{0} is currently {1}!", name, status);
         }
 
-        public void ChangeProcessStatus(string status) {
-            if (!notifyIcon.Visible) return;
-
-            if (status == "online") {
-                if (notifyIcon.Icon != Properties.Resources.green) notifyIcon.Icon = Properties.Resources.green;
-            } else {
-                if (notifyIcon.Icon != Properties.Resources.red) notifyIcon.Icon = Properties.Resources.red;
-            }
-        }
-
         // system tray icon
-        public void SetTrayIcon() {
-            if (!notifyIcon.Visible) return;
-
-            if (checkProcess() == "online" && notifyIcon.Icon != Properties.Resources.green) notifyIcon.Icon = Properties.Resources.green;
-            if (checkProcess() == "offline" && notifyIcon.Icon != Properties.Resources.red) notifyIcon.Icon = Properties.Resources.red;
-        }
-
-        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e) {
-            if (Saves.minimizeToTray) {
+        public void ShowMainWindow(bool visible) {
+            if (visible) {
                 this.WindowState = FormWindowState.Normal;
+                showToolStripSeparator1.Visible = false;
                 showToolStripMenuItem.Visible = false;
                 this.ShowInTaskbar = true;
-            }
-        }
-
-        private void mainWindow_Resize(object sender, EventArgs e) {
-            if (Saves.minimizeToTray && this.WindowState == FormWindowState.Minimized) {
+            } else if (WindowState == FormWindowState.Minimized) {
+                showToolStripSeparator1.Visible = true;
                 showToolStripMenuItem.Visible = true;
                 this.ShowInTaskbar = false;
             }
+        }
+
+        public void ChangeProcessStatus() {
+            if (!notifyIcon.Visible) return;
+
+            if (checkProcess() == "online") {
+                if (notifyIcon.Icon != Properties.Resources.green) notifyIcon.Icon = Properties.Resources.green;
+                if (!scriptOnlineToolStripMenuItem.Checked) scriptOnlineToolStripMenuItem.Checked = true;
+            } else {
+                if (notifyIcon.Icon != Properties.Resources.red) notifyIcon.Icon = Properties.Resources.red;
+                if (scriptOnlineToolStripMenuItem.Checked) scriptOnlineToolStripMenuItem.Checked = false;
+            }
+
+            scriptOfflineToolStripMenuItem.Checked = !scriptOnlineToolStripMenuItem.Checked;
+        }
+
+        private void scriptOnlineToolStripMenuItem_Click(object sender, EventArgs e) {
+            killJSBot();
+            hostJSBot();
+        }
+
+        private void scriptOfflineToolStripMenuItem_Click(object sender, EventArgs e) {
+            killJSBot();
+        }
+
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e) {
+            ShowMainWindow(true);
+        }
+
+        private void showToolStripMenuItem_Click(object sender, EventArgs e) {
+            ShowMainWindow(true);
+        }
+
+        private void mainWindow_Resize(object sender, EventArgs e) {
+            if (Saves.minimizeToTray) ShowMainWindow(false);
         }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -168,6 +186,16 @@ namespace mutiny_control_panel {
 
         private void clearOutputLogToolStripMenuItem_Click(object sender, EventArgs e) {
             ClearConsole();
+        }
+
+        private void topmostWindowToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (topmostWindowToolStripMenuItem.Checked) {
+                consoleForm.TopLevel = false;
+                topmostWindowToolStripMenuItem.Checked = false;
+            } else {
+                consoleForm.TopLevel = true;
+                topmostWindowToolStripMenuItem.Checked = true;
+            }
         }
 
         // form1 menu strip

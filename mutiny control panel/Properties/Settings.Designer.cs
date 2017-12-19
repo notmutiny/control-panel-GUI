@@ -142,5 +142,17 @@ namespace mutiny_control_panel.Properties {
                 this["startWithWindows"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool consoleTopmost {
+            get {
+                return ((bool)(this["consoleTopmost"]));
+            }
+            set {
+                this["consoleTopmost"] = value;
+            }
+        }
     }
 }
