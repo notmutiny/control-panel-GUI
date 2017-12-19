@@ -304,6 +304,7 @@
             this.topmostWindowToolStripMenuItem.Name = "topmostWindowToolStripMenuItem";
             this.topmostWindowToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.topmostWindowToolStripMenuItem.Text = "Keep window on top";
+            this.topmostWindowToolStripMenuItem.Visible = false;
             this.topmostWindowToolStripMenuItem.Click += new System.EventHandler(this.topmostWindowToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
