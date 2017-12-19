@@ -1,5 +1,12 @@
 ﻿namespace mutiny_control_panel {
+   // public class Data {
+    //    Properties.Settings Save = Properties.Settings.Default;
+   // }
+
     partial class MainWindow {
+
+        public Properties.Settings Saves = Properties.Settings.Default;
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -44,10 +51,17 @@
             this.goToGitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.trayContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.showScriptOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.scriptOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearOutputLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.topmostWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.scriptOnlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scriptOfflineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.keepOutputOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tableLayoutPanel1.SuspendLayout();
             this.scriptGroupBox.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -236,39 +250,86 @@
             // trayContextMenu
             // 
             this.trayContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showScriptOutputToolStripMenuItem,
-            this.keepOutputOnTopToolStripMenuItem,
+            this.showToolStripMenuItem,
             this.toolStripSeparator1,
+            this.scriptOutputToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.scriptOnlineToolStripMenuItem,
+            this.scriptOfflineToolStripMenuItem,
+            this.toolStripSeparator3,
             this.quitToolStripMenuItem});
             this.trayContextMenu.Name = "trayContextMenu";
-            this.trayContextMenu.Size = new System.Drawing.Size(178, 98);
+            this.trayContextMenu.Size = new System.Drawing.Size(153, 154);
             // 
-            // showScriptOutputToolStripMenuItem
+            // scriptOutputToolStripMenuItem
             // 
-            this.showScriptOutputToolStripMenuItem.Name = "showScriptOutputToolStripMenuItem";
-            this.showScriptOutputToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.showScriptOutputToolStripMenuItem.Text = "Show script output";
-            this.showScriptOutputToolStripMenuItem.Click += new System.EventHandler(this.showScriptOutputToolStripMenuItem_Click);
+            this.scriptOutputToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showWindowToolStripMenuItem,
+            this.clearOutputLogToolStripMenuItem,
+            this.topmostWindowToolStripMenuItem});
+            this.scriptOutputToolStripMenuItem.Name = "scriptOutputToolStripMenuItem";
+            this.scriptOutputToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.scriptOutputToolStripMenuItem.Text = "Script output";
             // 
-            // toolStripSeparator1
+            // showWindowToolStripMenuItem
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(174, 6);
+            this.showWindowToolStripMenuItem.Name = "showWindowToolStripMenuItem";
+            this.showWindowToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.showWindowToolStripMenuItem.Text = "Show window";
+            this.showWindowToolStripMenuItem.Click += new System.EventHandler(this.showWindowToolStripMenuItem_Click);
+            // 
+            // clearOutputLogToolStripMenuItem
+            // 
+            this.clearOutputLogToolStripMenuItem.Name = "clearOutputLogToolStripMenuItem";
+            this.clearOutputLogToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.clearOutputLogToolStripMenuItem.Text = "Clear output log";
+            this.clearOutputLogToolStripMenuItem.Click += new System.EventHandler(this.clearOutputLogToolStripMenuItem_Click);
+            // 
+            // topmostWindowToolStripMenuItem
+            // 
+            this.topmostWindowToolStripMenuItem.Name = "topmostWindowToolStripMenuItem";
+            this.topmostWindowToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.topmostWindowToolStripMenuItem.Text = "Keep window on top";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            // 
+            // scriptOnlineToolStripMenuItem
+            // 
+            this.scriptOnlineToolStripMenuItem.Name = "scriptOnlineToolStripMenuItem";
+            this.scriptOnlineToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.scriptOnlineToolStripMenuItem.Text = "Script online";
+            // 
+            // scriptOfflineToolStripMenuItem
+            // 
+            this.scriptOfflineToolStripMenuItem.Name = "scriptOfflineToolStripMenuItem";
+            this.scriptOfflineToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.scriptOfflineToolStripMenuItem.Text = "Script offline";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
-            // keepOutputOnTopToolStripMenuItem
+            // showToolStripMenuItem
             // 
-            this.keepOutputOnTopToolStripMenuItem.Checked = true;
-            this.keepOutputOnTopToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.keepOutputOnTopToolStripMenuItem.Name = "keepOutputOnTopToolStripMenuItem";
-            this.keepOutputOnTopToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.keepOutputOnTopToolStripMenuItem.Text = "Keep output on top";
+            this.showToolStripMenuItem.Name = "showToolStripMenuItem";
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showToolStripMenuItem.Text = "Show";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // MainWindow
             // 
@@ -319,9 +380,16 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ContextMenuStrip trayContextMenu;
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showScriptOutputToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem scriptOnlineToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem scriptOfflineToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem scriptOutputToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showWindowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem topmostWindowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearOutputLogToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem showToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem keepOutputOnTopToolStripMenuItem;
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿namespace mutiny_control_panel {
     partial class PreferencesForm {
+
         /// <summary>
         /// Required designer variable.
         /// </summary>

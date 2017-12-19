@@ -15,8 +15,9 @@ using Microsoft.Win32;
 namespace mutiny_control_panel {
     public partial class MainWindow : Form {
 
-        private string version = "0.5.7.1";  
-        private string changes = "Changelog: \r\n\r\n" +
+        private string version = "0.5.8a";
+        private string changes = "Changelog: \r\n\r\n" + 
+                                 " - major code changes for saving \r\n" +
                                  " - colorized tray icon for hosting \r\n" +
                                  " - added start with windows method \r\n" +
                                  " - default script auto behavior on \r\n" +
@@ -33,16 +34,17 @@ namespace mutiny_control_panel {
         private Debug consoleForm; 
         private Thread nodeThread;
 
-        public MainWindow Instance;
+        public MainWindow Session;
+        public string StatusCache;
         public string ProgramName;
-        public bool BotStatsCache;
 
         delegate void StringArgReturningVoidDelegate(string text); // i don't know what this is
 
         public MainWindow(string constname) {
             InitializeComponent();
-            Instance = this;
+            Session = this;
 
+            StatusCache = "offline";
             ProgramName = constname;
             this.Text = ProgramName;
 
@@ -53,29 +55,25 @@ namespace mutiny_control_panel {
 
         public void SpawnConsole() {
             consoleForm = new Debug();
-            consoleForm.Text = Properties.Settings.Default.scriptPath;
+            consoleForm.Text = Saves.scriptPath;
             consoleForm.FormClosing += new FormClosingEventHandler(console_FormClosing);
         }
 
         public void AutoHostScript() {
-            var saves = Properties.Settings.Default;
-
-            if (!saves.autoStartBot || saves.scriptPath == "") return;
+            if (!Saves.autoStartBot || Saves.scriptPath == "") return;
             if (checkProcess() == "online") killJSBot();
             hostJSBot();
         }
 
         public void SetValues() {
-            var saves = Properties.Settings.Default;
-
-            scriptGroupBox.Text = String.Format("{0} configuration", saves.botNickname);
-
-            if (saves.minimizeToTray) {
+            if (Saves.minimizeToTray) {
                 notifyIcon.Visible = true;
                 notifyIcon.ContextMenuStrip = trayContextMenu;
             } else notifyIcon.Visible = false;
 
-            consoleForm.Text = saves.scriptPath;
+            consoleForm.Text = Saves.scriptPath;
+            if (checkProcess() == "online") SetTrayIcon();
+            scriptGroupBox.Text = String.Format("{0} configuration", Saves.botNickname);
         }
 
         // Visual Studio methods //
@@ -86,11 +84,9 @@ namespace mutiny_control_panel {
         }
 
         private void editButton_Click(object sender, EventArgs ev) {
-            var saves = Properties.Settings.Default;
-
            try {
-                if (saves.useDefaultEditor) Process.Start(saves.scriptPath);
-                else Process.Start(saves.editorPath, saves.scriptPath);
+                if (Saves.useDefaultEditor) Process.Start(Saves.scriptPath);
+                else Process.Start(Saves.editorPath, Saves.scriptPath);
             } catch(InvalidOperationException e) {
                 MessageBox.Show("Script directory not saved. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine("{0}", e);
@@ -106,11 +102,25 @@ namespace mutiny_control_panel {
         }
 
         private void statusRefresh_Tick(object sender, EventArgs e) {
-            string nickname = Properties.Settings.Default.botNickname;
+            string name = Saves.botNickname;
             string status = checkProcess();
-            SetTrayIcon();
 
-            onlineStatusLabel.Text = String.Format("{0} is currently {1}!", nickname, status);
+            if (status != StatusCache) {
+                ChangeProcessStatus(status);
+                StatusCache = status;
+            }
+
+            onlineStatusLabel.Text = String.Format("{0} is currently {1}!", name, status);
+        }
+
+        public void ChangeProcessStatus(string status) {
+            if (!notifyIcon.Visible) return;
+
+            if (status == "online") {
+                if (notifyIcon.Icon != Properties.Resources.green) notifyIcon.Icon = Properties.Resources.green;
+            } else {
+                if (notifyIcon.Icon != Properties.Resources.red) notifyIcon.Icon = Properties.Resources.red;
+            }
         }
 
         // system tray icon
@@ -122,14 +132,16 @@ namespace mutiny_control_panel {
         }
 
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e) {
-            if (Properties.Settings.Default.minimizeToTray) {
+            if (Saves.minimizeToTray) {
                 this.WindowState = FormWindowState.Normal;
+                showToolStripMenuItem.Visible = false;
                 this.ShowInTaskbar = true;
             }
         }
 
         private void mainWindow_Resize(object sender, EventArgs e) {
-            if (Properties.Settings.Default.minimizeToTray && this.WindowState == FormWindowState.Minimized) {
+            if (Saves.minimizeToTray && this.WindowState == FormWindowState.Minimized) {
+                showToolStripMenuItem.Visible = true;
                 this.ShowInTaskbar = false;
             }
         }
@@ -138,16 +150,29 @@ namespace mutiny_control_panel {
             this.Close();
         }
 
-        private void showScriptOutputToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (!consoleForm.Visible) {
+        private void showWindowToolStripMenuItem_Click(object sender, EventArgs e) {
+            HandleConsoleForm(showWindowToolStripMenuItem.Checked);
+        }
+
+        private void HandleConsoleForm(bool visible) {
+            if (visible) {
+                consoleForm.Hide();
+                debugCheckBox.Checked = false;
+                showWindowToolStripMenuItem.Checked = false;
+            } else {
                 consoleForm.Show();
                 debugCheckBox.Checked = true;
+                showWindowToolStripMenuItem.Checked = true;
             }
+        }
+
+        private void clearOutputLogToolStripMenuItem_Click(object sender, EventArgs e) {
+            ClearConsole();
         }
 
         // form1 menu strip
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e) {
-            PreferencesForm pref = new PreferencesForm(Instance);
+            PreferencesForm pref = new PreferencesForm(Session, Saves);
             pref.ShowDialog();
         }
 
@@ -162,9 +187,14 @@ namespace mutiny_control_panel {
             Process.Start("https://github.com/notmutiny/control-panel-GUI");
         }
 
+        // form3 methods
+        public void ClearConsole() {
+            consoleForm.textBox2.Text = "";
+        }
+
         // form close events
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e) {
-            if (checkProcess() == "online" && Properties.Settings.Default.autoStopBot) killJSBot();
+            if (checkProcess() == "online" && Saves.autoStopBot) killJSBot();
         }
 
         private void console_FormClosing(object sender, FormClosingEventArgs e) {
@@ -178,19 +208,19 @@ namespace mutiny_control_panel {
             Process[] node = Process.GetProcessesByName("node");
 
             foreach (Process proc in node) {
-                if (proc.Id == Properties.Settings.Default.processID) return "online";
+                if (proc.Id == Saves.processID) return "online";
             }
 
             return "offline";
         }
 
         private void hostJSBot() {
-            if (Properties.Settings.Default.scriptPath == "") {
+            if (Saves.scriptPath == "") {
                 MessageBox.Show("Script directory not saved. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (Properties.Settings.Default.nodePath == "") {
+            if (Saves.nodePath == "") {
                 MessageBox.Show("Node directory not saved. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -206,7 +236,7 @@ namespace mutiny_control_panel {
             if (node.Length <= 0) return;
             
             foreach (Process proc in node) {
-                if (Properties.Settings.Default.processID == proc.Id) {
+                if (Saves.processID == proc.Id) {
                     proc.Kill();
                     break;
                 }
@@ -231,7 +261,7 @@ namespace mutiny_control_panel {
 
         public void ThreadProc() { //thread process
             try {
-                ProcessStartInfo startInfo = new ProcessStartInfo(Properties.Settings.Default.nodePath);
+                ProcessStartInfo startInfo = new ProcessStartInfo(Saves.nodePath);
                 startInfo.CreateNoWindow = true;
                 startInfo.RedirectStandardOutput = true;
                 startInfo.RedirectStandardInput = true;
@@ -245,11 +275,11 @@ namespace mutiny_control_panel {
                 proc.ErrorDataReceived += (sender, args) => this.Display(args.Data);
                 proc.Start();
 
-                Properties.Settings.Default.processID = proc.Id;
+                Saves.processID = proc.Id;
                 Console.WriteLine("Process ID saved as: {0}", proc.Id);
-                Properties.Settings.Default.Save();
+                Saves.Save();
 
-                char[] array = Properties.Settings.Default.scriptPath.ToCharArray();
+                char[] array = Saves.scriptPath.ToCharArray();
                 string patch = ""; //adds double backslashes to fix script directory
 
                 foreach (char letter in array) {

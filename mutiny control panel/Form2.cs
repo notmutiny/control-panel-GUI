@@ -9,14 +9,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
+using mutiny_control_panel.Properties;
+
 namespace mutiny_control_panel {
     public partial class PreferencesForm : Form {
 
         private MainWindow instance;
 
-        public PreferencesForm(MainWindow param) {
+        public Settings Saves;
+
+        public PreferencesForm(MainWindow param, Settings saves) {
             InitializeComponent(); 
             this.instance = param;
+            this.Saves = saves;
             RestoreSettings();
 
             toolTip.SetToolTip(scriptStartupCheckbox, "Hosts the script automatically when program is ran");
@@ -26,50 +31,48 @@ namespace mutiny_control_panel {
         }
 
         public void RestoreSettings() { // restore persistent settings
-            var saves = Properties.Settings.Default;
 
             //script settings
-            scriptStartupCheckbox.Checked = saves.autoStartBot;
-            scriptShutdownCheckBox.Checked = saves.autoStopBot;
+            scriptStartupCheckbox.Checked = Saves.autoStartBot;
+            scriptShutdownCheckBox.Checked = Saves.autoStopBot;
 
-            customScriptEditorTextBox.Text = saves.editorPath;
-            customScriptEditorTextBox.Text = saves.editorPath;
-            customScriptEditorButton.Checked = !saves.useDefaultEditor;
-            defaultScriptEditorButton.Checked = saves.useDefaultEditor;
+            customScriptEditorTextBox.Text = Saves.editorPath;
+            customScriptEditorTextBox.Text = Saves.editorPath;
+            customScriptEditorButton.Checked = !Saves.useDefaultEditor;
+            defaultScriptEditorButton.Checked = Saves.useDefaultEditor;
 
-            scriptDirTextBox.Text = saves.scriptPath;
-            nodeDirTextBox.Text = saves.nodePath;
+            scriptDirTextBox.Text = Saves.scriptPath;
+            nodeDirTextBox.Text = Saves.nodePath;
 
             //program settings
-            startWithWindowsCheckBox.Checked = saves.startWithWindows;
-            minimizeToTrayCheckbox.Checked = saves.minimizeToTray;
+            startWithWindowsCheckBox.Checked = Saves.startWithWindows;
+            minimizeToTrayCheckbox.Checked = Saves.minimizeToTray;
 
-            botnameTextBox.Text = saves.botNickname;
+            botnameTextBox.Text = Saves.botNickname;
         }
 
         private void saveButton_Click(object sender, EventArgs e) { // save persistent settings
-            var saves = Properties.Settings.Default;
 
             //script settings
-            if (scriptStartupCheckbox.Checked != saves.autoStartBot) saves.autoStartBot = scriptStartupCheckbox.Checked;
-            if (scriptShutdownCheckBox.Checked != saves.autoStopBot) saves.autoStopBot = scriptShutdownCheckBox.Checked;
+            if (scriptStartupCheckbox.Checked != Saves.autoStartBot) Saves.autoStartBot = scriptStartupCheckbox.Checked;
+            if (scriptShutdownCheckBox.Checked != Saves.autoStopBot) Saves.autoStopBot = scriptShutdownCheckBox.Checked;
 
-            if (defaultScriptEditorButton.Checked != saves.useDefaultEditor) saves.useDefaultEditor = defaultScriptEditorButton.Checked;
-            if (customScriptEditorTextBox.Text != "" && customScriptEditorTextBox.Text != saves.editorPath) saves.editorPath = customScriptEditorTextBox.Text;
+            if (defaultScriptEditorButton.Checked != Saves.useDefaultEditor) Saves.useDefaultEditor = defaultScriptEditorButton.Checked;
+            if (customScriptEditorTextBox.Text != "" && customScriptEditorTextBox.Text != Saves.editorPath) Saves.editorPath = customScriptEditorTextBox.Text;
 
-            if (scriptDirTextBox.Text != "" && scriptDirTextBox.Text != saves.scriptPath) saves.scriptPath = scriptDirTextBox.Text;
-            if (nodeDirTextBox.Text != "" && nodeDirTextBox.Text != saves.nodePath) saves.nodePath = nodeDirTextBox.Text;
+            if (scriptDirTextBox.Text != "" && scriptDirTextBox.Text != Saves.scriptPath) Saves.scriptPath = scriptDirTextBox.Text;
+            if (nodeDirTextBox.Text != "" && nodeDirTextBox.Text != Saves.nodePath) Saves.nodePath = nodeDirTextBox.Text;
 
             //program settings
-            if (startWithWindowsCheckBox.Checked != saves.startWithWindows) {
+            if (startWithWindowsCheckBox.Checked != Saves.startWithWindows) {
                 handleWindowsStartup(startWithWindowsCheckBox.Checked);
-                saves.startWithWindows = startWithWindowsCheckBox.Checked;
+                Saves.startWithWindows = startWithWindowsCheckBox.Checked;
             } 
 
-            if (minimizeToTrayCheckbox.Checked != saves.minimizeToTray) saves.minimizeToTray = minimizeToTrayCheckbox.Checked;
-            if (botnameTextBox.Text != "" && botnameTextBox.Text != saves.botNickname) saves.botNickname = botnameTextBox.Text;
+            if (minimizeToTrayCheckbox.Checked != Saves.minimizeToTray) Saves.minimizeToTray = minimizeToTrayCheckbox.Checked;
+            if (botnameTextBox.Text != "" && botnameTextBox.Text != Saves.botNickname) Saves.botNickname = botnameTextBox.Text;
 
-            saves.Save();
+            Saves.Save();
             instance.SetValues();
 
             this.Close();
