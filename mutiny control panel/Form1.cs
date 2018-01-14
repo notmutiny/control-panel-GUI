@@ -99,7 +99,14 @@ namespace mutiny_control_panel {
 
         private void openDirButton_Click(object sender, EventArgs e) {
             string path = GenerateScriptDirectory();
-            if (path != "") Process.Start(path);
+
+            if (path != "") {
+                try {
+                    Process.Start(path);
+                } catch (Win32Exception err) {
+                    Console.WriteLine("{0}: Error opening file path", err);
+                }
+            }
         }
 
         private void debugCheckBox_CheckedChanged(object sender, EventArgs e) {
