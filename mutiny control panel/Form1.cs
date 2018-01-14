@@ -331,5 +331,19 @@ namespace mutiny_control_panel {
                 MessageBox.Show("Node directory is invalid. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void openDirButton_Click(object sender, EventArgs e) {
+            string path = Saves.scriptPath;
+
+            if (path == "") return;
+                    
+            for (int i = path.Length - 2; i > 0; i--) {
+                if (path[i] == '\\' || path[i] == '/') {
+                    path = path.Substring(0, i);
+                    Process.Start(path);
+                    break;
+                }
+            }
+        }
     }
 }

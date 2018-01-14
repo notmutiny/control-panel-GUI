@@ -62,6 +62,7 @@
             this.scriptOfflineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openDirButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.scriptGroupBox.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -132,11 +133,13 @@
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel2.Controls.Add(this.onlineStatusLabel, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.pushButton, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.editButton, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.openDirButton, 1, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(146, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -150,6 +153,7 @@
             // onlineStatusLabel
             // 
             this.onlineStatusLabel.AutoSize = true;
+            this.tableLayoutPanel2.SetColumnSpan(this.onlineStatusLabel, 2);
             this.onlineStatusLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.onlineStatusLabel.Location = new System.Drawing.Point(3, 0);
             this.onlineStatusLabel.Name = "onlineStatusLabel";
@@ -159,6 +163,7 @@
             // 
             // pushButton
             // 
+            this.tableLayoutPanel2.SetColumnSpan(this.pushButton, 2);
             this.pushButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pushButton.Location = new System.Drawing.Point(3, 16);
             this.pushButton.Name = "pushButton";
@@ -170,10 +175,10 @@
             // 
             // editButton
             // 
-            this.editButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.editButton.Dock = System.Windows.Forms.DockStyle.Left;
             this.editButton.Location = new System.Drawing.Point(3, 45);
             this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(147, 24);
+            this.editButton.Size = new System.Drawing.Size(112, 24);
             this.editButton.TabIndex = 2;
             this.editButton.Text = "Edit script";
             this.editButton.UseVisualStyleBackColor = true;
@@ -259,12 +264,12 @@
             this.toolStripSeparator3,
             this.quitToolStripMenuItem});
             this.trayContextMenu.Name = "trayContextMenu";
-            this.trayContextMenu.Size = new System.Drawing.Size(153, 154);
+            this.trayContextMenu.Size = new System.Drawing.Size(144, 132);
             // 
             // showToolStripMenuItem
             // 
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.showToolStripMenuItem.Text = "Show";
             this.showToolStripMenuItem.Visible = false;
             this.showToolStripMenuItem.Click += new System.EventHandler(this.showToolStripMenuItem_Click);
@@ -272,7 +277,7 @@
             // showToolStripSeparator1
             // 
             this.showToolStripSeparator1.Name = "showToolStripSeparator1";
-            this.showToolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.showToolStripSeparator1.Size = new System.Drawing.Size(140, 6);
             this.showToolStripSeparator1.Visible = false;
             // 
             // scriptOutputToolStripMenuItem
@@ -282,7 +287,7 @@
             this.clearOutputLogToolStripMenuItem,
             this.topmostWindowToolStripMenuItem});
             this.scriptOutputToolStripMenuItem.Name = "scriptOutputToolStripMenuItem";
-            this.scriptOutputToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.scriptOutputToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.scriptOutputToolStripMenuItem.Text = "Script output";
             // 
             // showWindowToolStripMenuItem
@@ -310,33 +315,43 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(140, 6);
             // 
             // scriptOnlineToolStripMenuItem
             // 
             this.scriptOnlineToolStripMenuItem.Name = "scriptOnlineToolStripMenuItem";
-            this.scriptOnlineToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.scriptOnlineToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.scriptOnlineToolStripMenuItem.Text = "Script online";
             this.scriptOnlineToolStripMenuItem.Click += new System.EventHandler(this.scriptOnlineToolStripMenuItem_Click);
             // 
             // scriptOfflineToolStripMenuItem
             // 
             this.scriptOfflineToolStripMenuItem.Name = "scriptOfflineToolStripMenuItem";
-            this.scriptOfflineToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.scriptOfflineToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.scriptOfflineToolStripMenuItem.Text = "Script offline";
             this.scriptOfflineToolStripMenuItem.Click += new System.EventHandler(this.scriptOfflineToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(140, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+            // 
+            // openDirButton
+            // 
+            this.openDirButton.Location = new System.Drawing.Point(121, 45);
+            this.openDirButton.Name = "openDirButton";
+            this.openDirButton.Size = new System.Drawing.Size(29, 23);
+            this.openDirButton.TabIndex = 3;
+            this.openDirButton.Text = "...";
+            this.openDirButton.UseVisualStyleBackColor = true;
+            this.openDirButton.Click += new System.EventHandler(this.openDirButton_Click);
             // 
             // MainWindow
             // 
@@ -397,6 +412,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem showToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator showToolStripSeparator1;
+        private System.Windows.Forms.Button openDirButton;
     }
 }
 
