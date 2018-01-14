@@ -63,6 +63,7 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openDirButton = new System.Windows.Forms.Button();
+            this.openScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.scriptGroupBox.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -198,6 +199,8 @@
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openScriptToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -349,9 +352,16 @@
             this.openDirButton.Name = "openDirButton";
             this.openDirButton.Size = new System.Drawing.Size(29, 23);
             this.openDirButton.TabIndex = 3;
-            this.openDirButton.Text = "...";
+            this.openDirButton.Text = "🔍";
             this.openDirButton.UseVisualStyleBackColor = true;
             this.openDirButton.Click += new System.EventHandler(this.openDirButton_Click);
+            // 
+            // openScriptToolStripMenuItem
+            // 
+            this.openScriptToolStripMenuItem.Name = "openScriptToolStripMenuItem";
+            this.openScriptToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openScriptToolStripMenuItem.Text = "Open script";
+            this.openScriptToolStripMenuItem.Click += new System.EventHandler(this.openScriptToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -413,6 +423,7 @@
         private System.Windows.Forms.ToolStripMenuItem showToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator showToolStripSeparator1;
         private System.Windows.Forms.Button openDirButton;
+        private System.Windows.Forms.ToolStripMenuItem openScriptToolStripMenuItem;
     }
 }
 

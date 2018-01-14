@@ -15,13 +15,14 @@ using Microsoft.Win32;
 namespace mutiny_control_panel {
     public partial class MainWindow : Form {
 
-        private string version = "0.5.8";
-        private string changes = "Changelog: \r\n\r\n" + 
+        private string version = "0.5.9.2";
+        private string changes = "Changelog: \r\n\r\n" +
+                                 " - added open directory button \r\n" +
                                  " - major code changes for saving \r\n" +
                                  " - colorized tray icon for hosting \r\n" +
                                  " - added start with windows method \r\n" +
                                  " - default script auto behavior on \r\n" +
-                                 " - probably random bug fixes \r\n"+
+                                 " - probably random bug fixes \r\n" +
                                  "\r\n ヾ(＾∇＾)";
         /* todo
          *  - clean form1, modulate functions to provide better checks
@@ -31,7 +32,7 @@ namespace mutiny_control_panel {
          *  - make form3 topmost toggle
          */
 
-        private Debug consoleForm; 
+        private Debug consoleForm;
         private Thread nodeThread;
 
         public MainWindow Session;
@@ -49,7 +50,7 @@ namespace mutiny_control_panel {
             this.Text = ProgramName;
 
             AutoHostScript();
-            SpawnConsole();            
+            SpawnConsole();
             SetValues();
         }
 
@@ -84,16 +85,21 @@ namespace mutiny_control_panel {
         }
 
         private void editButton_Click(object sender, EventArgs ev) {
-           try {
+            try {
                 if (Saves.useDefaultEditor) Process.Start(Saves.scriptPath);
                 else Process.Start(Saves.editorPath, Saves.scriptPath);
-            } catch(InvalidOperationException e) {
+            } catch (InvalidOperationException e) {
                 MessageBox.Show("Script directory not saved. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine("{0}", e);
-            } catch(Win32Exception e) {
+            } catch (Win32Exception e) {
                 MessageBox.Show("Script editor is not valid. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine("{0}", e);
             }
+        }
+
+        private void openDirButton_Click(object sender, EventArgs e) {
+            string path = GenerateScriptDirectory();
+            if (path != "") Process.Start(path);
         }
 
         private void debugCheckBox_CheckedChanged(object sender, EventArgs e) {
@@ -199,6 +205,14 @@ namespace mutiny_control_panel {
         }
 
         // form1 menu strip
+        private void openScriptToolStripMenuItem_Click(object sender, EventArgs e) {
+            string path = SetScriptPath();
+            if (path == "") return;
+
+            Saves.scriptPath = path;
+            SetValues();
+        }
+
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e) {
             PreferencesForm pref = new PreferencesForm(Session, Saves);
             pref.ShowDialog();
@@ -206,7 +220,7 @@ namespace mutiny_control_panel {
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
             AboutBox1 about = new AboutBox1();
-            about.labelVersion.Text = "Version " +version;
+            about.labelVersion.Text = "Version " + version;
             about.textBoxDescription.Text = changes;
             about.ShowDialog();
         }
@@ -232,6 +246,35 @@ namespace mutiny_control_panel {
         }
 
         // Custom methods //
+        public string SetScriptPath() {
+            OpenFileDialog script = new OpenFileDialog();
+            var path = GenerateScriptDirectory();
+
+            if (path != "") script.InitialDirectory = path;
+            else script.InitialDirectory = "c:\\";
+            script.Filter = "Javascript files (*.js)|*.js";
+
+            if (script.ShowDialog() == DialogResult.OK) {
+                Saves.scriptPath = script.FileName;
+                SetValues();
+                return script.FileName;
+            } else return "";
+        }
+
+        public string GenerateScriptDirectory() {
+            string path = Saves.scriptPath;
+
+            if (path != "") {
+                for (int i = path.Length - 2; i > 0; i--) {
+                    if (path[i] == '\\' || path[i] == '/') {
+                        return path.Substring(0, i);
+                    }
+                }
+            }
+
+            return "";
+        }
+
         private string checkProcess() {
             Process[] node = Process.GetProcessesByName("node");
 
@@ -329,20 +372,6 @@ namespace mutiny_control_panel {
             } catch (Win32Exception e) {
                 Console.WriteLine("{0}", e);
                 MessageBox.Show("Node directory is invalid. Settings > Preferences > Script settings", "Script error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void openDirButton_Click(object sender, EventArgs e) {
-            string path = Saves.scriptPath;
-
-            if (path == "") return;
-                    
-            for (int i = path.Length - 2; i > 0; i--) {
-                if (path[i] == '\\' || path[i] == '/') {
-                    path = path.Substring(0, i);
-                    Process.Start(path);
-                    break;
-                }
             }
         }
     }

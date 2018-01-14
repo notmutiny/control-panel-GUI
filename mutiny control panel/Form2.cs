@@ -103,10 +103,8 @@ namespace mutiny_control_panel {
         }
 
         private void findScriptButton_Click(object sender, EventArgs e) {
-            OpenFileDialog script = new OpenFileDialog();
-            script.InitialDirectory = "c:\\";
-            script.Filter = "Javascript files (*.js)|*.js";
-            if (script.ShowDialog() == DialogResult.OK) scriptDirTextBox.Text = script.FileName;
+            string path = instance.SetScriptPath();
+            if (path != "") scriptDirTextBox.Text = path;
         }
 
         private void findNodeButton_Click(object sender, EventArgs e) {
