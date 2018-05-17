@@ -73,7 +73,7 @@ namespace mutiny_control_panel {
             if (botnameTextBox.Text != "" && botnameTextBox.Text != Saves.botNickname) Saves.botNickname = botnameTextBox.Text;
 
             Saves.Save();
-            instance.SetValues();
+            instance.RestorePrefs();
 
             this.Close();
         }

@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="mutiny control panel.exe" size="230344">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="mutiny control panel.exe" size="229832">
       <assemblyIdentity name="mutiny control panel" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>+OMv4QY5/BcklOZOLYsqoIFVW8Nxj2ca3hvUbhCcFn4=</dsig:DigestValue>
+        <dsig:DigestValue>wCq3KqIY+Eydk2ZSoAQkcQ2vRSlQ7Q86j9tVPJsd2VU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
